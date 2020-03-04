@@ -1,0 +1,5 @@
+class stockController{
+    constructor(){
+        
+    }
+}
