@@ -12,7 +12,7 @@ function FetchWeatherInformation(cityID) {
             drawWeather(data);
         })
         .catch(function () {
-            console.log('An error has occured.')
+            console.log('An error has occurred.')
         });
 }
 
