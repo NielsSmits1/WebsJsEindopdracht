@@ -50,7 +50,7 @@ function addListeners() {
         item.addEventListener('dragend', dragEnd);
     });
 
-    fill.forEach(function (item){
+    fill.forEach(function (item) {
         // Fill listeners
         item.addEventListener('dragover', dragOver);
         item.addEventListener('dragenter', dragEnter);
@@ -87,8 +87,44 @@ function dragLeave() {
 
 function dragDrop() {
     this.className = 'empty';
-    if(this.hasChildNodes()){
+    if (this.hasChildNodes()) {
         return;
     }
     this.append(currentDraggable);
+}
+
+const key = 'ca862c1ce25923db366fa1502282cb69';
+const WijchenCityID = '2744513';
+const AmsterdamCityID = '2759794';
+
+function weatherBallon(cityID) {
+    fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + key)
+        .then(function (resp) {
+            return resp.json()
+        }) // Convert data to json
+        .then(function (data) {
+            console.log(data);
+            drawWeather(data);
+        })
+        .catch(function () {
+            console.log('error')
+        });
+}
+
+function drawWeather(d) {
+    let actualTemp = Math.round(parseFloat(d.main.temp) - 273.15);
+    let feelslike = Math.round(parseFloat(d.main.feels_like) - 273.15);
+    let humidity = d.main.humidity;
+    let description = d.weather[0].description;
+
+    document.getElementById('location').innerHTML = d.name;
+    document.getElementById('temp').innerHTML = 'Temp: ' + actualTemp + '&deg;';
+    document.getElementById('feels_like').innerHTML = 'Gevoels temp: ' + feelslike + '&deg;';
+    document.getElementById('description').innerHTML = 'Beschrijving: ' + description;
+    document.getElementById('humidity').innerHTML = 'Vochtigheidsgraad: ' + humidity;
+
+}
+
+window.onload = function () {
+    weatherBallon(WijchenCityID);
 }
