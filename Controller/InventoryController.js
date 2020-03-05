@@ -13,7 +13,7 @@ window.onload = function () {
 
 function createStartDivs() {
     let toAdd = document.createDocumentFragment();
-
+    let dropdown = document.getElementById("clothing-dropdown");
     for (let i = 0; i < 5; i++) {
         let newDiv = document.createElement('div');
         let newDiv2 = document.createElement('div');
@@ -24,19 +24,48 @@ function createStartDivs() {
         toAdd.appendChild(newDiv);
         fill.push(newDiv);
     }
-    startdiv.appendChild(toAdd);
+    dropdown.appendChild(toAdd);
 }
 
 //Creates divs
 function createTargetDivs() {
-    let toAdd = document.createDocumentFragment();
-    for (let i = 0; i < 5; i++) {
+    
+    let clothing = document.getElementById('clothing-region')
+    for(let j = 0; j<15;j++){
+        let toAdd = document.createDocumentFragment();
+    for (let i = 0; i < 15; i++) {
         let newDiv = document.createElement('div');
         newDiv.className = 'empty';
         toAdd.appendChild(newDiv);
         empties.push(newDiv);
     }
-    body.appendChild(toAdd);
+clothing.appendChild(toAdd)}
+
+let tierlantin = document.getElementById('tierlantin-region')
+
+for(let j = 0; j<15;j++){
+    toAdd = document.createDocumentFragment();
+for (let i = 0; i < 15; i++) {
+    let newDiv = document.createElement('div');
+    newDiv.className = 'empty';
+    toAdd.appendChild(newDiv);
+    empties.push(newDiv);
+}
+tierlantin.appendChild(toAdd)}
+
+let decoration = document.getElementById('decoration-region')
+
+for(let j = 0; j<15;j++){
+    toAdd = document.createDocumentFragment();
+for (let i = 0; i < 15; i++) {
+    let newDiv = document.createElement('div');
+    newDiv.className = 'empty';
+    toAdd.appendChild(newDiv);
+    empties.push(newDiv);
+}
+decoration.appendChild(toAdd)}
+
+
 }
 
 // Loop through empty boxes and add listeners

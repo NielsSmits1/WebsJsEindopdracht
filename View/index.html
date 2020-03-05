@@ -5,7 +5,10 @@
     <title>Dn Oetel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="../Controller/InventoryController.js" defer></script>
+    <script src="viewcontroller.js" defer></script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,15 +23,25 @@
                 <p class="display-4 my-auto">Dn Oetel</p>
             </div>
 
-            <button class="btn button btn-outline-primary">Button</button>
-            <button class="btn button btn-outline-primary">Button</button>
-            <button class="btn button btn-outline-primary">Button</button>
+            <button id="clothing-btn" class="btn button btn-outline-primary select">Clothing</button>
+            <button id="tierlantin-btn" class="btn button btn-outline-primary select">Tierlantin</button>
+            <button id="decoration-btn" class="btn button btn-outline-primary select">Decoration</button>
+
+            <div class="dropdown">
+                <button class="dropbtn">Dropdown</button>
+                <div class="dropdown-content" id="clothing-dropdown">
+                </div>
+              </div>
         </div>
     </div>
 
     <!--right row-->
-    <div class="col-7 background-lightcoral">
+    <div class="col-7 background-lightcoral" id="target">
        right
+        <!-- <div class="startdivs"></div> -->
+        <div id="clothing-region" class="region"></div>
+        <div id="tierlantin-region" class="region"></div>
+        <div id="decoration-region" class="region"></div>
         <div class="startdivs"></div>
 
     </div>
