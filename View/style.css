@@ -4,28 +4,28 @@
     border: 0;
 }
 
-.button{
+.button {
     width: 200px;
     margin: 2%;
 }
 
-button:focus.select{
+button:focus.select {
     background-color: mediumturquoise;
 }
 
-.logo{
+.logo {
     padding: 2%;
 }
 
-.page-content{
+.page-content {
     padding: 1% 0%;
 }
 
-.background-lightblue{
-    background-color:lightblue;
+.background-lightblue {
+    background-color: lightblue;
 }
 
-.background-lightcoral{
+.background-lightcoral {
     background-color: lightcoral;
 }
 
@@ -61,11 +61,11 @@ body {
     border-style: dashed;
 }
 
-.startdivs{
+.startdivs {
     width: 100%;
 }
 
-.region{
+.region {
     max-width: 750px;
 }
 
@@ -76,39 +76,42 @@ body {
     font-size: 16px;
     border: none;
     cursor: pointer;
-  }
-  
-  .dropdown {
+}
+
+.dropdown {
     position: relative;
     display: inline-block;
-    width:20%;
-  }
-  
-  .dropdown-content {
+    width: 20%;
+}
+
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     /* min-width: 160px; */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
-  
-  .dropdown-content div {
+}
+
+.dropdown-content div {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  .dropdown-content div:hover {background-color: #f1f1f1}
-  
-  .dropdown:hover .dropdown-content {
+}
+
+.dropdown-content div:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
     display: block;
-  }
-  
-  .dropdown:hover .dropbtn {
+}
+
+.dropdown:hover .dropbtn {
     background-color: #3e8e41;
-  }
-.weatherCast{
-padding: 1vh 1vw;
+}
+
+.weatherCast {
+    padding: 1vh 1vw;
 }

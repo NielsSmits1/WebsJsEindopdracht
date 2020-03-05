@@ -29,41 +29,44 @@ function createStartDivs() {
 
 //Creates divs
 function createTargetDivs() {
-    
+
     let clothing = document.getElementById('clothing-region')
-    for(let j = 0; j<15;j++){
+    for (let j = 0; j < 15; j++) {
         let toAdd = document.createDocumentFragment();
-    for (let i = 0; i < 15; i++) {
-        let newDiv = document.createElement('div');
-        newDiv.className = 'empty';
-        toAdd.appendChild(newDiv);
-        empties.push(newDiv);
+        for (let i = 0; i < 15; i++) {
+            let newDiv = document.createElement('div');
+            newDiv.className = 'empty';
+            toAdd.appendChild(newDiv);
+            empties.push(newDiv);
+        }
+        clothing.appendChild(toAdd)
     }
-clothing.appendChild(toAdd)}
 
-let tierlantin = document.getElementById('tierlantin-region')
+    let tierlantin = document.getElementById('tierlantin-region')
 
-for(let j = 0; j<15;j++){
-    toAdd = document.createDocumentFragment();
-for (let i = 0; i < 15; i++) {
-    let newDiv = document.createElement('div');
-    newDiv.className = 'empty';
-    toAdd.appendChild(newDiv);
-    empties.push(newDiv);
-}
-tierlantin.appendChild(toAdd)}
+    for (let j = 0; j < 15; j++) {
+        toAdd = document.createDocumentFragment();
+        for (let i = 0; i < 15; i++) {
+            let newDiv = document.createElement('div');
+            newDiv.className = 'empty';
+            toAdd.appendChild(newDiv);
+            empties.push(newDiv);
+        }
+        tierlantin.appendChild(toAdd)
+    }
 
-let decoration = document.getElementById('decoration-region')
+    let decoration = document.getElementById('decoration-region')
 
-for(let j = 0; j<15;j++){
-    toAdd = document.createDocumentFragment();
-for (let i = 0; i < 15; i++) {
-    let newDiv = document.createElement('div');
-    newDiv.className = 'empty';
-    toAdd.appendChild(newDiv);
-    empties.push(newDiv);
-}
-decoration.appendChild(toAdd)}
+    for (let j = 0; j < 15; j++) {
+        toAdd = document.createDocumentFragment();
+        for (let i = 0; i < 15; i++) {
+            let newDiv = document.createElement('div');
+            newDiv.className = 'empty';
+            toAdd.appendChild(newDiv);
+            empties.push(newDiv);
+        }
+        decoration.appendChild(toAdd)
+    }
 
 
 }
