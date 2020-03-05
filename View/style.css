@@ -109,3 +109,6 @@ body {
   .dropdown:hover .dropbtn {
     background-color: #3e8e41;
   }
+.weatherCast{
+padding: 1vh 1vw;
+}

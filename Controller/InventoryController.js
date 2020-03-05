@@ -79,7 +79,7 @@ function addListeners() {
         item.addEventListener('dragend', dragEnd);
     });
 
-    fill.forEach(function (item){
+    fill.forEach(function (item) {
         // Fill listeners
         item.addEventListener('dragover', dragOver);
         item.addEventListener('dragenter', dragEnter);
@@ -116,7 +116,7 @@ function dragLeave() {
 
 function dragDrop() {
     this.className = 'empty';
-    if(this.hasChildNodes()){
+    if (this.hasChildNodes()) {
         return;
     }
     this.append(currentDraggable);
