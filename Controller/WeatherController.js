@@ -35,14 +35,14 @@ window.onload = function () {
 
 function switchPlaces() {
     if(currentCity == WijchenCityID){
-        currentCity = AmsterdamCityID
+        currentCity = AmsterdamCityID;
         FetchWeatherInformation(currentCity);
     } else {
-        currentCity = WijchenCityID
+        currentCity = WijchenCityID;
         FetchWeatherInformation(currentCity);
     }
 }
 
-document.getElementById('btn-weather-switch').addEventListener('click', switchPlaces)
+document.getElementById('btn-weather-switch').addEventListener('click', switchPlaces);
 
 
