@@ -34,7 +34,7 @@ window.onload = function () {
 };
 
 function switchPlaces() {
-    if(currentCity == WijchenCityID){
+    if (currentCity == WijchenCityID) {
         currentCity = AmsterdamCityID;
         FetchWeatherInformation(currentCity);
     } else {
