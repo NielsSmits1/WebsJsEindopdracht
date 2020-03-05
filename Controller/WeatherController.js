@@ -3,7 +3,7 @@ const WijchenCityID = '2744513';
 const AmsterdamCityID = '2759794';
 let currentCity = '2744513';
 
-function FetchWeatherInformation(cityID) {
+export function FetchWeatherInformation(cityID) {
     fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + key)
         .then(function (resp) {
             return resp.json()
@@ -26,12 +26,13 @@ function drawWeather(weatherData) {
     document.getElementById('temp').innerHTML = 'Temp: ' + actualTemp + '&deg;';
     document.getElementById('feels_like').innerHTML = 'Gevoels temp: ' + feelsLikeTemp + '&deg;';
     document.getElementById('description').innerHTML = 'Beschrijving: ' + description;
-    document.getElementById('humidity').innerHTML = 'Vochtigheidsgraad: ' + humidity;
+    document.getElementById('humidity').innerHTML = 'Vochtigheidsgraad: ' + humidity + '%';
 }
 
-window.onload = function () {
-    FetchWeatherInformation(currentCity);
-};
+// window.onload = function () {
+//     alert('weather');
+//     FetchWeatherInformation(currentCity);
+// };
 
 function switchPlaces() {
     if (currentCity == WijchenCityID) {

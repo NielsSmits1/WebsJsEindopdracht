@@ -5,11 +5,12 @@ let empties = Array.from(document.querySelectorAll('.empty'));
 let currentDraggable;
 
 // On load make divs
-window.onload = function () {
+
+export function init() {
     createStartDivs();
     createTargetDivs();
     addListeners();
-};
+}
 
 function createStartDivs() {
     let toAdd = document.createDocumentFragment();
