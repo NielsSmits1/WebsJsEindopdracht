@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Dn Oetel</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Dn Oetel</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!--SCRIPS-->
-    <script type="module" src="../Controller/WeatherController.js" defer></script>
-    <script type="module" src="../Controller/InventoryController.js" defer></script>
-    <script src="viewcontroller.js" defer></script>
-    <script type="module" src="../Controller/MainController.js" defer></script>
-    
+<!--SCRIPS-->
+<script type="module" src="../Controller/WeatherController.js" defer></script>
+<script type="module" src="../Controller/InventoryController.js" defer></script>
+<script src="viewcontroller.js" defer></script>
+<script type="module" src="../Controller/MainController.js" defer></script>
 
-    <!--CSS-->
-    <link rel="stylesheet" href="style.css">
+
+<!--CSS-->
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body class="page-content">
@@ -50,8 +50,11 @@
             <p>
                 Kies hier een stad!
             </p>
-            <button id="btn-weather-switch" type="button">Wissel tussen HQ</button>
 
+                <div class="row d-flex justify-content-center">
+                    <button class="btn btn-info btnMargin" id="btn-weather-switch-previous" type="button">Previous HQ</button>
+                    <button class="btn btn-info btnMargin" id="btn-weather-switch-next" type="button">Next HQ</button>
+                </div>
             <hr>
 
         </div>
