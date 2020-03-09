@@ -46,7 +46,7 @@ function createTargetDivs() {
     let tierlantin = document.getElementById('tierlantin-region')
 
     for (let j = 0; j < 15; j++) {
-        toAdd = document.createDocumentFragment();
+        let toAdd = document.createDocumentFragment();
         for (let i = 0; i < 15; i++) {
             let newDiv = document.createElement('div');
             newDiv.className = 'empty';
@@ -59,7 +59,7 @@ function createTargetDivs() {
     let decoration = document.getElementById('decoration-region')
 
     for (let j = 0; j < 15; j++) {
-        toAdd = document.createDocumentFragment();
+        let toAdd = document.createDocumentFragment();
         for (let i = 0; i < 15; i++) {
             let newDiv = document.createElement('div');
             newDiv.className = 'empty';
