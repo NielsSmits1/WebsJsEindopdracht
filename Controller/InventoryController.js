@@ -4,6 +4,7 @@ const startdiv = document.querySelector('.startdivs');
 let empties = Array.from(document.querySelectorAll('.empty'));
 let currentDraggable;
 
+
 // On load make divs
 
 export function init() {
@@ -30,28 +31,49 @@ function createStartDivs() {
 
 //Creates divs
 function createTargetDivs() {
-
-    let clothing = document.getElementById('clothing-region')
-    for (let j = 0; j < 15; j++) {
-        let toAdd = document.createDocumentFragment();
-        for (let i = 0; i < 15; i++) {
-            let newDiv = document.createElement('div');
-            newDiv.className = 'empty';
-            toAdd.appendChild(newDiv);
-            empties.push(newDiv);
+    let counter = 0;
+    fetch('../Model/Map.json')
+        .then(response => response.json())
+        .then(function(response){
+            let clothings = response.map.products.clothing;
+            let tierlantins = response.map.products.tierlantin;
+            let decorations = response.map.products.decoration;
+            let clothing = document.getElementById('clothing-region')
+            for (let j = 0; j < 15; j++) {
+                let toAdd = document.createDocumentFragment();
+                    for (let i = 0; i < 15; i++) {
+                        clothings.forEach(function(item){
+                            if(item.id == counter){
+                                let cloth = new Clothing(item.item.name, item.item.description, item.item.import, item.item.export, item.item.min_stock, item.item.cur_stock, item.item.color, item.item.size);
+                                console.log(cloth);
+                            }
+                         })
+                        let newDiv = document.createElement('div');
+                        newDiv.className = 'empty';
+                        newDiv.id = counter;
+                        toAdd.appendChild(newDiv);
+                        empties.push(newDiv);
+                        counter = counter + 1;
         }
-        clothing.appendChild(toAdd)
-    }
+            clothing.appendChild(toAdd);
 
-    let tierlantin = document.getElementById('tierlantin-region')
+            let tierlantin = document.getElementById('tierlantin-region')
 
     for (let j = 0; j < 15; j++) {
         let toAdd = document.createDocumentFragment();
         for (let i = 0; i < 15; i++) {
+            tierlantins.forEach(function(item){
+                if(item.id == counter){
+                    let tier = new Tierlantin(item.item.name, item.item.description, item.item.import, item.item.export, item.item.min_stock, item.item.cur_stock, item.item.weight);
+                    console.log(tier);
+                }
+             })
             let newDiv = document.createElement('div');
             newDiv.className = 'empty';
+            newDiv.id = counter;
             toAdd.appendChild(newDiv);
             empties.push(newDiv);
+            counter++;
         }
         tierlantin.appendChild(toAdd)
     }
@@ -61,13 +83,32 @@ function createTargetDivs() {
     for (let j = 0; j < 15; j++) {
         let toAdd = document.createDocumentFragment();
         for (let i = 0; i < 15; i++) {
+            decorations.forEach(function(item){
+                if(item.id == counter){
+                    let deco = new Decoration(item.item.name, item.item.description, item.item.import, item.item.export, item.item.min_stock, item.item.cur_stock, item.item.length, item.item.color, item.item.amountinpackage);
+                    console.log(deco);
+                }
+             })
             let newDiv = document.createElement('div');
             newDiv.className = 'empty';
+            newDiv.id = counter;
             toAdd.appendChild(newDiv);
             empties.push(newDiv);
+            counter++;
         }
         decoration.appendChild(toAdd)
     }
+
+    }
+        });
+        
+        
+    
+    
+
+    
+
+    
 
 
 }
@@ -124,4 +165,32 @@ function dragDrop() {
         return;
     }
     this.append(currentDraggable);
+}
+
+function Product(name, description, Import, Export, min_stock,cur_stock){
+    this.Name = name;
+    this.Description = description;
+    this.Import = Import;
+    this.Export = Export;
+    this.Export_btw= Export*1.21;
+    this.Min_stock = min_stock;
+    this.Cur_stock = cur_stock;
+}
+
+function Clothing(name, description, Import, Export, min_stock,cur_stock, color, size){
+    Product.call(this, name, description, Import, Export, min_stock,cur_stock);
+    this.Color = color;
+    this.Size = size;
+}
+
+function Tierlantin(name, description, Import, Export, min_stock,cur_stock, weight){
+    Product.call(this, name, description, Import, Export, min_stock,cur_stock);
+    this.Weight = weight;
+}
+
+function Decoration(name, description, Import, Export, min_stock,cur_stock, length, color, amountinpackage){
+    Product.call(this, name, description, Import, Export, min_stock,cur_stock);
+    this.Length = length;
+    this.Color = color;
+    this.AmountInPackage = amountinpackage;
 }
