@@ -24,7 +24,7 @@ function drawWeather(weatherData) {
     document.getElementById('location').innerHTML = weatherData.name;
     document.getElementById('temp').innerHTML = 'Temp: ' + actualTemp + '&deg;';
     document.getElementById('feels_like').innerHTML = 'Gevoels temp: ' + feelsLikeTemp + '&deg;';
-    document.getElementById('description').innerHTML = 'Beschrijving: ' + description;
+    document.getElementById('weatherDescription').innerHTML = 'Beschrijving: ' + description;
     document.getElementById('humidity').innerHTML = 'Vochtigheidsgraad: ' + humidity + '%';
 }
 

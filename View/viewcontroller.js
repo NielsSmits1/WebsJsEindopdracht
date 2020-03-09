@@ -1,14 +1,20 @@
 /*Buttons*/
-let clothingbtn = document.getElementById("clothing-btn");
-let tierlantinbtn = document.getElementById("tierlantin-btn");
-let decorationbtn = document.getElementById("decoration-btn");
-let createitembtn = document.getElementById("create-item-btn");
+const clothingbtn = document.getElementById("clothing-btn");
+const tierlantinbtn = document.getElementById("tierlantin-btn");
+const decorationbtn = document.getElementById("decoration-btn");
+const createitembtn = document.getElementById("create-item-btn");
+const clothingformbtn = document.getElementById("btn-clothing-form");
+const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
+const decorationformbtn = document.getElementById("btn-decoration-form");
+
+/*Form Field*/
+
 
 /*Regions*/
-let clothingregion = document.getElementById("clothing-region");
-let tierlantinregion = document.getElementById("tierlantin-region");
-let decorationregion = document.getElementById("decoration-region");
-let createitemregion = document.getElementById("create-item-region");
+const clothingregion = document.getElementById("clothing-region");
+const tierlantinregion = document.getElementById("tierlantin-region");
+const decorationregion = document.getElementById("decoration-region");
+const createitemregion = document.getElementById("create-item-region");
 
 /*Event Listeners*/
 clothingbtn.addEventListener('click', function () {
@@ -39,5 +45,18 @@ createitembtn.addEventListener('click', function () {
     createitemregion.style.display = "block";
 });
 
+clothingformbtn.addEventListener('click', function () {
+
+});
+
+tierlatinformbtn.addEventListener('click', function () {
+
+});
+
+decorationformbtn.addEventListener('click', function () {
+
+});
+
 /*Actions*/
-clothingbtn.click();
+// clothingbtn.click();
+createitembtn.click();

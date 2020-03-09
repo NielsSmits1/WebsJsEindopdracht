@@ -44,7 +44,7 @@
                 <h4 id="location"></h4>
                 <p id="temp"></p>
                 <p id="feels_like"></p>
-                <p id="description"></p>
+                <p id="weatherDescription"></p>
                 <p id="humidity"></p>
             </div>
 
@@ -52,10 +52,10 @@
                 Kies hier een stad!
             </p>
 
-                <div class="row d-flex justify-content-center">
-                    <button class="btn btn-info btnMargin" id="btn-weather-switch-previous" type="button">Previous HQ</button>
-                    <button class="btn btn-info btnMargin" id="btn-weather-switch-next" type="button">Next HQ</button>
-                </div>
+            <div class="row d-flex justify-content-center">
+                <button class="btn btn-info smallMargin" id="btn-weather-switch-previous" type="button">Previous HQ</button>
+                <button class="btn btn-info smallMargin" id="btn-weather-switch-next" type="button">Next HQ</button>
+            </div>
             <hr>
 
         </div>
@@ -66,8 +66,55 @@
         <div id="clothing-region" class="region"></div>
         <div id="tierlantin-region" class="region"></div>
         <div id="decoration-region" class="region"></div>
+
         <div id="create-item-region" class="region">
-            
+            <form action="#" method="POST">
+                <div class="form-group smallMargin">
+
+                    <div class="row d-flex">
+                        <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
+                        <button class="btn btn-info smallMargin" id="btn-tierlatin-form" type="button">Tierlantijn</button>
+                        <button class="btn btn-info smallMargin" id="btn-decoration-form" type="button">Decoratie</button>
+                    </div>
+
+                    <!-- START General form fields-->
+                    <label for="item-name">Item naam:</label><br>
+                    <input type="text" id="item-name" name="item-name"><br>
+
+                    <label for="item-description">Beschrijving:</label><br>
+                    <input type="text" id="item-description" name="item-description"><br>
+
+                    <label for="item-purchase-price">Inkoopprijs:</label><br>
+                    <input type="text" id="item-purchase-price" name="item-purchase-price"><br>
+
+                    <label for="item-sell-price-exbtw">Verkoopprijs excl. btw:</label><br>
+                    <input type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw"><br>
+                    <!-- END General form fields-->
+
+                    <!--kleding, decoration-->
+                    <label for="item-color">Item kleur:</label><br>
+                    <input type="text" id="item-color" name="item-color"><br>
+
+                    <!--kleding-->
+                    <label for="item-size">Item maat:</label><br>
+                    <input type="text" id="item-size" name="item-size"><br>
+
+                    <!--tier-->
+                    <label for="item-weight">Item gewicht:</label><br>
+                    <input type="text" id="item-weight" name="item-weight"><br>
+
+                    <!--decoration-->
+                    <label for="item-size-CM">Item grootte in cm:</label><br>
+                    <input type="text" id="item-size-CM" name="item-size-CM"><br>
+
+                    <!--decoration-->
+                    <label for="item-amount-in-package">Aantal in verpakking:</label><br>
+                    <input type="text" id="item-amount-in-package" name="item-amount-in-package"><br>
+
+                    <br>
+                    <input class="btn btn-info" type="submit" value="Submit">
+                </div>
+            </form>
         </div>
     </div>
 </div>
