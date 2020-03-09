@@ -1,7 +1,6 @@
 const key = 'ca862c1ce25923db366fa1502282cb69';
-const WijchenCityID = '2744513';
-const AmsterdamCityID = '2759794';
-let currentCity = '2744513';
+const CityIDs = ["2744513", "2759794", "2950159", "2643743"];
+let currentCityIndex = 0;
 
 export function fetchWeatherInformation(cityID) {
     fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + key)
@@ -11,8 +10,8 @@ export function fetchWeatherInformation(cityID) {
         .then(function (data) {
             drawWeather(data);
         })
-        .catch(function () {
-            console.log('An error has occurred.')
+        .catch(error => {
+            console.log(error);
         });
 }
 
@@ -25,20 +24,29 @@ function drawWeather(weatherData) {
     document.getElementById('location').innerHTML = weatherData.name;
     document.getElementById('temp').innerHTML = 'Temp: ' + actualTemp + '&deg;';
     document.getElementById('feels_like').innerHTML = 'Gevoels temp: ' + feelsLikeTemp + '&deg;';
-    document.getElementById('description').innerHTML = 'Beschrijving: ' + description;
+    document.getElementById('weatherDescription').innerHTML = 'Beschrijving: ' + description;
     document.getElementById('humidity').innerHTML = 'Vochtigheidsgraad: ' + humidity + '%';
 }
 
-function switchPlaces() {
-    if (currentCity == WijchenCityID) {
-        currentCity = AmsterdamCityID;
-        fetchWeatherInformation(currentCity);
-    } else {
-        currentCity = WijchenCityID;
-        fetchWeatherInformation(currentCity);
+function nextPlace() {
+    if (currentCityIndex == CityIDs.length-1) {
+        currentCityIndex = 0;
+    } else{
+        currentCityIndex++;
     }
+    fetchWeatherInformation(CityIDs[currentCityIndex]);
 }
 
-document.getElementById('btn-weather-switch').addEventListener('click', switchPlaces);
+function previousPlace() {
+    if (currentCityIndex == 0) {
+        currentCityIndex = CityIDs.length-1;
+    } else{
+        currentCityIndex--;
+    }
+    fetchWeatherInformation(CityIDs[currentCityIndex]);
+}
+
+document.getElementById('btn-weather-switch-next').addEventListener('click', nextPlace);
+document.getElementById('btn-weather-switch-previous').addEventListener('click', previousPlace);
 
 
