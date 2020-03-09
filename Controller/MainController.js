@@ -6,4 +6,4 @@ let currentCity = '2744513';
 window.onload = function () {
     fetchWeatherInformation(currentCity);
     init();
-}
+};
