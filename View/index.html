@@ -69,7 +69,7 @@
 
         <div id="create-item-region" class="region">
             <form action="#" method="POST">
-                <div class="form-group smallMargin">
+                <div class="form-group smallMargin d-flex flex-column">
 
                     <div class="row d-flex">
                         <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
@@ -78,41 +78,32 @@
                     </div>
 
                     <!-- START General form fields-->
-                    <label for="item-name">Item naam:</label><br>
-                    <input type="text" id="item-name" name="item-name"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-name" name="item-name" value="Item naam">
 
-                    <label for="item-description">Beschrijving:</label><br>
-                    <input type="text" id="item-description" name="item-description"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-description" name="item-description" value="Item beschrijving">
 
-                    <label for="item-purchase-price">Inkoopprijs:</label><br>
-                    <input type="text" id="item-purchase-price" name="item-purchase-price"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price" value="Item inkoopprijs">
 
-                    <label for="item-sell-price-exbtw">Verkoopprijs excl. btw:</label><br>
-                    <input type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw" value="Item verkoopprijs excl. btw">
                     <!-- END General form fields-->
 
                     <!--kleding, decoration-->
-                    <label for="item-color">Item kleur:</label><br>
-                    <input type="text" id="item-color" name="item-color"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-color" name="item-color" value="Item kleur">
 
                     <!--kleding-->
-                    <label for="item-size">Item maat:</label><br>
-                    <input type="text" id="item-size" name="item-size"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-size" name="item-size" value="Item maat">
 
                     <!--tier-->
-                    <label for="item-weight">Item gewicht:</label><br>
-                    <input type="text" id="item-weight" name="item-weight"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight" value="Item gewicht">
 
                     <!--decoration-->
-                    <label for="item-size-CM">Item grootte in cm:</label><br>
-                    <input type="text" id="item-size-CM" name="item-size-CM"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM" value="Item grootte in cm">
 
                     <!--decoration-->
-                    <label for="item-amount-in-package">Aantal in verpakking:</label><br>
-                    <input type="text" id="item-amount-in-package" name="item-amount-in-package"><br>
+                    <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package" value="Aantal in verpakking">
 
-                    <br>
-                    <input class="btn btn-info" type="submit" value="Submit">
+
+                    <input class="btn btn-info" type="submit" value="Aanmaken die handel!">
                 </div>
             </form>
         </div>

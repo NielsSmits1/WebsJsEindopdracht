@@ -8,6 +8,11 @@ const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
 const decorationformbtn = document.getElementById("btn-decoration-form");
 
 /*Form Field*/
+const itemcolorfield = document.getElementById("item-color");
+const itemsizefield = document.getElementById("item-size");
+const itemweightfield = document.getElementById("item-weight");
+const itemSizeinCMfield = document.getElementById("item-size-CM");
+const itemAmountInPackagefield = document.getElementById("item-amount-in-package");
 
 
 /*Regions*/
@@ -46,17 +51,30 @@ createitembtn.addEventListener('click', function () {
 });
 
 clothingformbtn.addEventListener('click', function () {
-
+    itemcolorfield.style.display = "block";
+    itemsizefield.style.display = "block";
+    itemweightfield.style.display = "none";
+    itemSizeinCMfield.style.display = "none";
+    itemAmountInPackagefield.style.display = "none";
 });
 
 tierlatinformbtn.addEventListener('click', function () {
-
+    itemcolorfield.style.display = "none";
+    itemsizefield.style.display = "none";
+    itemweightfield.style.display = "block";
+    itemSizeinCMfield.style.display = "none";
+    itemAmountInPackagefield.style.display = "none";
 });
 
 decorationformbtn.addEventListener('click', function () {
-
+    itemcolorfield.style.display = "block";
+    itemsizefield.style.display = "none";
+    itemweightfield.style.display = "none";
+    itemSizeinCMfield.style.display = "block";
+    itemAmountInPackagefield.style.display = "block";
 });
 
 /*Actions*/
 // clothingbtn.click();
 createitembtn.click();
+//clothingformbtn.click();

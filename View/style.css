@@ -119,3 +119,7 @@ body {
 .smallMargin{
     margin: 2%;
 }
+
+.smallVerticalMargin{
+    margin: 2% 0;
+}
