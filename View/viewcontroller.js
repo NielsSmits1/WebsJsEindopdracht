@@ -13,7 +13,10 @@ const itemsizefield = document.getElementById("item-size");
 const itemweightfield = document.getElementById("item-weight");
 const itemSizeinCMfield = document.getElementById("item-size-CM");
 const itemAmountInPackagefield = document.getElementById("item-amount-in-package");
-
+const itemName = document.getElementById('item-name');
+const itemDescription = document.getElementById('item-description');
+const itemPurchasePrice = document.getElementById('item-purchase-price');
+const itemSellPriceExbtw = document.getElementById('item-sell-price-exbtw');
 
 /*Regions*/
 const clothingregion = document.getElementById("clothing-region");
@@ -43,11 +46,25 @@ decorationbtn.addEventListener('click', function () {
     createitemregion.style.display = "none";
 });
 
+function setStandardFormInputValues() {
+    itemName.value = 'Item naam';
+    itemDescription.value = 'Item beschrijving';
+    itemPurchasePrice.value = 'Item inkoopprijs';
+    itemSellPriceExbtw.value = 'Item verkoopprijs excl. btw';
+    itemcolorfield.value = 'Item kleur';
+    itemsizefield.value = 'Item maat';
+    itemweightfield.value = 'Item gewicht';
+    itemSizeinCMfield.value = 'Item grootte in cm'
+    itemAmountInPackagefield.value = 'Item hoeveelheid per pakketje'
+}
+
 createitembtn.addEventListener('click', function () {
     clothingregion.style.display = "none";
     tierlantinregion.style.display = "none";
     decorationregion.style.display = "none";
     createitemregion.style.display = "block";
+
+    clothingformbtn.click();
 });
 
 clothingformbtn.addEventListener('click', function () {
@@ -56,6 +73,7 @@ clothingformbtn.addEventListener('click', function () {
     itemweightfield.style.display = "none";
     itemSizeinCMfield.style.display = "none";
     itemAmountInPackagefield.style.display = "none";
+    setStandardFormInputValues();
 });
 
 tierlatinformbtn.addEventListener('click', function () {
@@ -64,6 +82,7 @@ tierlatinformbtn.addEventListener('click', function () {
     itemweightfield.style.display = "block";
     itemSizeinCMfield.style.display = "none";
     itemAmountInPackagefield.style.display = "none";
+    setStandardFormInputValues();
 });
 
 decorationformbtn.addEventListener('click', function () {
@@ -72,9 +91,8 @@ decorationformbtn.addEventListener('click', function () {
     itemweightfield.style.display = "none";
     itemSizeinCMfield.style.display = "block";
     itemAmountInPackagefield.style.display = "block";
+    setStandardFormInputValues();
 });
 
 /*Actions*/
-// clothingbtn.click();
 createitembtn.click();
-//clothingformbtn.click();

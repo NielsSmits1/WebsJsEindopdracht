@@ -9,6 +9,7 @@
 <script type="module" src="../Controller/WeatherController.js" defer></script>
 <script type="module" src="../Controller/InventoryController.js" defer></script>
 <script src="viewcontroller.js" defer></script>
+<script src="../Controller/ItemController.js" defer></script>
 <script type="module" src="../Controller/MainController.js" defer></script>
 
 
@@ -48,9 +49,7 @@
                 <p id="humidity"></p>
             </div>
 
-            <p>
-                Kies hier een stad!
-            </p>
+            <p>Kies hier een stad! </p>
 
             <div class="row d-flex justify-content-center">
                 <button class="btn btn-info smallMargin" id="btn-weather-switch-previous" type="button">Previous HQ</button>
@@ -68,7 +67,7 @@
         <div id="decoration-region" class="region"></div>
 
         <div id="create-item-region" class="region">
-            <form action="#" method="POST">
+            <form action="#" method="POST" onsubmit="createItem();return false">
                 <div class="form-group smallMargin d-flex flex-column">
 
                     <div class="row d-flex">
@@ -78,29 +77,29 @@
                     </div>
 
                     <!-- START General form fields-->
-                    <input class="smallVerticalMargin" type="text" id="item-name" name="item-name" value="Item naam">
+                    <input class="smallVerticalMargin" type="text" id="item-name" name="item-name">
 
-                    <input class="smallVerticalMargin" type="text" id="item-description" name="item-description" value="Item beschrijving">
+                    <input class="smallVerticalMargin" type="text" id="item-description" name="item-description">
 
-                    <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price" value="Item inkoopprijs">
+                    <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price">
 
-                    <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw" value="Item verkoopprijs excl. btw">
+                    <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw">
                     <!-- END General form fields-->
 
-                    <!--kleding, decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-color" name="item-color" value="Item kleur">
+                    <!--clothing, decoration-->
+                    <input class="smallVerticalMargin" type="text" id="item-color" name="item-color">
 
-                    <!--kleding-->
-                    <input class="smallVerticalMargin" type="text" id="item-size" name="item-size" value="Item maat">
+                    <!--clothing-->
+                    <input class="smallVerticalMargin" type="text" id="item-size" name="item-size">
 
                     <!--tier-->
-                    <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight" value="Item gewicht">
+                    <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight">
 
                     <!--decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM" value="Item grootte in cm">
+                    <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM">
 
                     <!--decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package" value="Aantal in verpakking">
+                    <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package">
 
 
                     <input class="btn btn-info" type="submit" value="Aanmaken die handel!">
