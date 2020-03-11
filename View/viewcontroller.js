@@ -54,8 +54,8 @@ function setStandardFormInputValues() {
     itemcolorfield.value = 'Item kleur';
     itemsizefield.value = 'Item maat';
     itemweightfield.value = 'Item gewicht';
-    itemSizeinCMfield.value = 'Item grootte in cm'
-    itemAmountInPackagefield.value = 'Item hoeveelheid per pakketje'
+    itemSizeinCMfield.value = 'Item grootte in cm';
+    itemAmountInPackagefield.value = 'Item hoeveelheid per pakketje';
 }
 
 createitembtn.addEventListener('click', function () {

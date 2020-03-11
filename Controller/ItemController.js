@@ -40,7 +40,6 @@ function createItem() {
     }
     if(sizeCM.value == ''){
         alert('Please enter a valid size in cm')
-
     }
     if(amountInPackage.value == ''){
         alert('Please enter a valid amount in package')
