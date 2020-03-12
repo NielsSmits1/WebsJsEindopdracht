@@ -11,51 +11,74 @@ const amountInPackage = document.getElementById('item-amount-in-package');
 const btnClothingForm = document.getElementById('btn-clothing-form');
 const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
 const btnDecorationForm = document.getElementById('btn-decoration-form');
+const informationbar = document.getElementById('information-bar');
 
 let currentItemType = 'clothing';
+let invalidUserInput = false;
 
 
 function createItem() {
 
-    if(name.value == ''){
-        alert('Please enter a valid name')
+
+    if (name.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de naam invullen!"));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(description.value == ''){
-        alert('Please enter a valid description')
+    if (description.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de beschrijving invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(purchasePrice.value == ''){
-        alert('Please enter a valid price')
+    if (purchasePrice.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de inkoopprijs invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(sellPriceExbtw.value == ''){
-        alert('Please enter a valid price')
+    if (sellPriceExbtw.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de verkoopprijs invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(color.value == ''){
-        alert('Please enter a valid color')
+    if (color.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de kleur invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(size.value == ''){
-        alert('Please enter a valid size')
+    if (size.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de grootte invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(weight.value == ''){
-        alert('Please enter a valid weight')
+    if (weight.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even het gewicht invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(sizeCM.value == ''){
-        alert('Please enter a valid size in cm')
+    if (sizeCM.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de grootte in cm invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
-    if(amountInPackage.value == ''){
-        alert('Please enter a valid amount in package')
+    if (amountInPackage.value == '') {
+        let para = document.createElement("div");
+        para.appendChild(document.createTextNode("Graag nog even de hoeveelheid per pakketje invullen!."));
+        informationbar.append(para);
+        invalidUserInput = true;
     }
 
-/*    console.log(description.value);
-    console.log(purchasePrice.value);
-    console.log(sellPriceExbtw.value);
-    console.log(color.value);
-    console.log(size.value);
-    console.log(weight.value);
-    console.log(sizeCM.value);
-    console.log(amountInPackage.value);
-    console.log(currentItemType);*/
-    console.log('------');
-
+    if (invalidUserInput) {
+        return;
+    }
+    // TODO daadwerkelijk het item toevoegen
 }
 
 btnClothingForm.addEventListener('click', function () {
