@@ -32,6 +32,7 @@ const decorationformbtn = document.getElementById("btn-decoration-form");
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 
+
 function createItem() {
     if (name.value == '') {
         itemNameErrorMessage.style.display = "block";
@@ -67,7 +68,6 @@ function createItem() {
     }
     if (amountInPackage.value == '') {
         itemAmountErrorMessage.style.display = "block";
-
         invalidUserInput = true;
     }
     if (invalidUserInput) {
@@ -86,6 +86,7 @@ function HideAllErrorMessages() {
     itemWeightErrorMessage.style.display = "none";
     itemSizeCMErrorMessage.style.display = "none";
     itemAmountErrorMessage.style.display = "none";
+    invalidUserInput = false;
 }
 
 clothingformbtn.addEventListener('click', function () {
