@@ -6,12 +6,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <!--SCRIPS-->
-<script type="module" src="../Controller/WeatherController.js" defer></script>
-<script type="module" src="../Controller/InventoryController.js" defer></script>
-<script src="viewcontroller.js" defer></script>
-<script src="../Controller/ItemController.js" defer></script>
-<script type="module" src="../Controller/MainController.js" defer></script>
-
+<script src="../dist/bundle.js" defer></script>
 
 <!--CSS-->
 <link rel="stylesheet" href="style.css">
@@ -68,44 +63,43 @@
         <div id="decoration-region" class="region"></div>
 
         <div id="create-item-region" class="region">
-            <form action="#" method="POST" onsubmit="createItem();return false">
-                <div class="form-group smallMargin d-flex flex-column">
+            <div class="form-group smallMargin d-flex flex-column">
 
-                    <div class="row d-flex">
-                        <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
-                        <button class="btn btn-info smallMargin" id="btn-tierlatin-form" type="button">Tierlantijn</button>
-                        <button class="btn btn-info smallMargin" id="btn-decoration-form" type="button">Decoratie</button>
-                    </div>
-
-                    <!-- START General form fields-->
-                    <input class="smallVerticalMargin" type="text" id="item-name" name="item-name">
-
-                    <input class="smallVerticalMargin" type="text" id="item-description" name="item-description">
-
-                    <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price">
-
-                    <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw">
-                    <!-- END General form fields-->
-
-                    <!--clothing, decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-color" name="item-color">
-
-                    <!--clothing-->
-                    <input class="smallVerticalMargin" type="text" id="item-size" name="item-size">
-
-                    <!--tier-->
-                    <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight">
-
-                    <!--decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM">
-
-                    <!--decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package">
-
-
-                    <input class="btn btn-info" type="submit" value="Aanmaken die handel!">
+                <div class="row d-flex">
+                    <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
+                    <button class="btn btn-info smallMargin" id="btn-tierlatin-form" type="button">Tierlantijn</button>
+                    <button class="btn btn-info smallMargin" id="btn-decoration-form" type="button">Decoratie</button>
                 </div>
-            </form>
+
+                <!-- START General form fields-->
+                <input class="smallVerticalMargin" type="text" id="item-name" name="item-name">
+
+                <input class="smallVerticalMargin" type="text" id="item-description" name="item-description">
+
+                <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price">
+
+                <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw">
+                <!-- END General form fields-->
+
+                <!--clothing, decoration-->
+                <input class="smallVerticalMargin" type="text" id="item-color" name="item-color">
+
+                <!--clothing-->
+                <input class="smallVerticalMargin" type="text" id="item-size" name="item-size">
+
+                <!--tier-->
+                <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight">
+
+                <!--decoration-->
+                <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM">
+
+                <!--decoration-->
+                <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package">
+
+
+                <button class="btn btn-info" id="submit-information-btn"> Aanmaken die handel!</button>
+
+            </div>
         </div>
     </div>
 </div>

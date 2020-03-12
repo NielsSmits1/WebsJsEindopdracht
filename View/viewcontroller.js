@@ -25,74 +25,75 @@ const decorationregion = document.getElementById("decoration-region");
 const createitemregion = document.getElementById("create-item-region");
 
 /*Event Listeners*/
-clothingbtn.addEventListener('click', function () {
-    clothingregion.style.display = "block";
-    tierlantinregion.style.display = "none";
-    decorationregion.style.display = "none";
-    createitemregion.style.display = "none";
-});
+export function initialize() {
+    clothingbtn.addEventListener('click', function () {
+        clothingregion.style.display = "block";
+        tierlantinregion.style.display = "none";
+        decorationregion.style.display = "none";
+        createitemregion.style.display = "none";
+    });
 
-tierlantinbtn.addEventListener('click', function () {
-    clothingregion.style.display = "none";
-    tierlantinregion.style.display = "block";
-    decorationregion.style.display = "none";
-    createitemregion.style.display = "none";
-});
+    tierlantinbtn.addEventListener('click', function () {
+        clothingregion.style.display = "none";
+        tierlantinregion.style.display = "block";
+        decorationregion.style.display = "none";
+        createitemregion.style.display = "none";
+    });
 
-decorationbtn.addEventListener('click', function () {
-    clothingregion.style.display = "none";
-    tierlantinregion.style.display = "none";
-    decorationregion.style.display = "block";
-    createitemregion.style.display = "none";
-});
+    decorationbtn.addEventListener('click', function () {
+        clothingregion.style.display = "none";
+        tierlantinregion.style.display = "none";
+        decorationregion.style.display = "block";
+        createitemregion.style.display = "none";
+    });
 
-function setStandardFormInputValues() {
-    itemName.value = 'Item naam';
-    itemDescription.value = 'Item beschrijving';
-    itemPurchasePrice.value = 'Item inkoopprijs';
-    itemSellPriceExbtw.value = 'Item verkoopprijs excl. btw';
-    itemcolorfield.value = 'Item kleur';
-    itemsizefield.value = 'Item maat';
-    itemweightfield.value = 'Item gewicht';
-    itemSizeinCMfield.value = 'Item grootte in cm';
-    itemAmountInPackagefield.value = 'Item hoeveelheid per pakketje';
+    function setStandardFormInputValues() {
+        itemName.value = 'Item naam';
+        itemDescription.value = 'Item beschrijving';
+        itemPurchasePrice.value = 'Item inkoopprijs';
+        itemSellPriceExbtw.value = 'Item verkoopprijs excl. btw';
+        itemcolorfield.value = 'Item kleur';
+        itemsizefield.value = 'Item maat';
+        itemweightfield.value = 'Item gewicht';
+        itemSizeinCMfield.value = 'Item grootte in cm';
+        itemAmountInPackagefield.value = 'Item hoeveelheid per pakketje';
+    }
+
+    createitembtn.addEventListener('click', function () {
+        clothingregion.style.display = "none";
+        tierlantinregion.style.display = "none";
+        decorationregion.style.display = "none";
+        createitemregion.style.display = "block";
+
+        clothingformbtn.click();
+    });
+
+    clothingformbtn.addEventListener('click', function () {
+        itemcolorfield.style.display = "block";
+        itemsizefield.style.display = "block";
+        itemweightfield.style.display = "none";
+        itemSizeinCMfield.style.display = "none";
+        itemAmountInPackagefield.style.display = "none";
+        setStandardFormInputValues();
+    });
+
+    tierlatinformbtn.addEventListener('click', function () {
+        itemcolorfield.style.display = "none";
+        itemsizefield.style.display = "none";
+        itemweightfield.style.display = "block";
+        itemSizeinCMfield.style.display = "none";
+        itemAmountInPackagefield.style.display = "none";
+        setStandardFormInputValues();
+    });
+
+    decorationformbtn.addEventListener('click', function () {
+        itemcolorfield.style.display = "block";
+        itemsizefield.style.display = "none";
+        itemweightfield.style.display = "none";
+        itemSizeinCMfield.style.display = "block";
+        itemAmountInPackagefield.style.display = "block";
+        setStandardFormInputValues();
+    });
+    createitembtn.click();
 }
 
-createitembtn.addEventListener('click', function () {
-    clothingregion.style.display = "none";
-    tierlantinregion.style.display = "none";
-    decorationregion.style.display = "none";
-    createitemregion.style.display = "block";
-
-    clothingformbtn.click();
-});
-
-clothingformbtn.addEventListener('click', function () {
-    itemcolorfield.style.display = "block";
-    itemsizefield.style.display = "block";
-    itemweightfield.style.display = "none";
-    itemSizeinCMfield.style.display = "none";
-    itemAmountInPackagefield.style.display = "none";
-    setStandardFormInputValues();
-});
-
-tierlatinformbtn.addEventListener('click', function () {
-    itemcolorfield.style.display = "none";
-    itemsizefield.style.display = "none";
-    itemweightfield.style.display = "block";
-    itemSizeinCMfield.style.display = "none";
-    itemAmountInPackagefield.style.display = "none";
-    setStandardFormInputValues();
-});
-
-decorationformbtn.addEventListener('click', function () {
-    itemcolorfield.style.display = "block";
-    itemsizefield.style.display = "none";
-    itemweightfield.style.display = "none";
-    itemSizeinCMfield.style.display = "block";
-    itemAmountInPackagefield.style.display = "block";
-    setStandardFormInputValues();
-});
-
-/*Actions*/
-createitembtn.click();

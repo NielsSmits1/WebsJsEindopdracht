@@ -12,14 +12,13 @@ const btnClothingForm = document.getElementById('btn-clothing-form');
 const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
 const btnDecorationForm = document.getElementById('btn-decoration-form');
 const informationbar = document.getElementById('information-bar');
+const submitInformationBtn = document.getElementById('submit-information-btn');
 
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 
-
-function createItem() {
-
-
+export function createItem() {
+    alert('item created');
     if (name.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de naam invullen!"));
@@ -74,21 +73,29 @@ function createItem() {
         informationbar.append(para);
         invalidUserInput = true;
     }
-
     if (invalidUserInput) {
         return;
     }
     // TODO daadwerkelijk het item toevoegen
 }
 
-btnClothingForm.addEventListener('click', function () {
-    currentItemType = 'clothing';
-});
+export function initItemController() {
+    alert("Item controller init");
+    btnClothingForm.addEventListener('click', function (e) {
 
-btnTierlatinForm.addEventListener('click', function () {
-    currentItemType = 'tierlatin';
-});
+        currentItemType = 'clothing';
+    });
 
-btnDecorationForm.addEventListener('click', function () {
-    currentItemType = 'decoration';
-});
+    btnTierlatinForm.addEventListener('click', function () {
+        currentItemType = 'tierlatin';
+    });
+
+    btnDecorationForm.addEventListener('click', function () {
+        currentItemType = 'decoration';
+    });
+
+    submitInformationBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        createItem();
+    });
+}
