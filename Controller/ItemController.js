@@ -17,8 +17,7 @@ const submitInformationBtn = document.getElementById('submit-information-btn');
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 
-export function createItem() {
-    alert('item created');
+function createItem() {
     if (name.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de naam invullen!"));
@@ -80,9 +79,7 @@ export function createItem() {
 }
 
 export function initItemController() {
-    alert("Item controller init");
     btnClothingForm.addEventListener('click', function (e) {
-
         currentItemType = 'clothing';
     });
 
