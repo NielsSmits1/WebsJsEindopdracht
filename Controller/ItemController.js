@@ -14,62 +14,60 @@ const btnDecorationForm = document.getElementById('btn-decoration-form');
 const informationbar = document.getElementById('information-bar');
 const submitInformationBtn = document.getElementById('submit-information-btn');
 
+/*Error messages*/
+const itemNameErrorMessage = document.getElementById('item-name-error-message');
+const itemDescriptionErrorMessage = document.getElementById('item-description-error-message');
+const itemPurchasePriseErrorMessage = document.getElementById('item-purchase-price-error-message');
+const itemSellPriceErrorMessage = document.getElementById('item-sell-price-error-message');
+const itemColorErrorMessage = document.getElementById('item-color-error-message');
+const itemSizeErrorMessage = document.getElementById('item-size-error-message');
+const itemWeightErrorMessage = document.getElementById('item-weight-error-message');
+const itemSizeCMErrorMessage = document.getElementById('item-sizeCM-error-message');
+const itemAmountErrorMessage = document.getElementById('item-amount-error-message');
+
+const clothingformbtn = document.getElementById("btn-clothing-form");
+const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
+const decorationformbtn = document.getElementById("btn-decoration-form");
+
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 
 function createItem() {
     if (name.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de naam invullen!"));
-        informationbar.append(para);
+        itemNameErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (description.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de beschrijving invullen!."));
-        informationbar.append(para);
+        itemDescriptionErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (purchasePrice.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de inkoopprijs invullen!."));
-        informationbar.append(para);
+        itemPurchasePriseErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (sellPriceExbtw.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de verkoopprijs invullen!."));
-        informationbar.append(para);
+        itemSellPriceErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (color.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de kleur invullen!."));
-        informationbar.append(para);
+        itemColorErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (size.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de grootte invullen!."));
-        informationbar.append(para);
+        itemSizeErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (weight.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even het gewicht invullen!."));
-        informationbar.append(para);
+        itemWeightErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (sizeCM.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de grootte in cm invullen!."));
-        informationbar.append(para);
+        itemSizeCMErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (amountInPackage.value == '') {
-        let para = document.createElement("div");
-        para.appendChild(document.createTextNode("Graag nog even de hoeveelheid per pakketje invullen!."));
-        informationbar.append(para);
+        itemAmountErrorMessage.style.display = "block";
+
         invalidUserInput = true;
     }
     if (invalidUserInput) {
@@ -78,7 +76,32 @@ function createItem() {
     // TODO daadwerkelijk het item toevoegen
 }
 
+function HideAllErrorMessages() {
+    itemNameErrorMessage.style.display = "none";
+    itemDescriptionErrorMessage.style.display = "none";
+    itemPurchasePriseErrorMessage.style.display = "none";
+    itemSellPriceErrorMessage.style.display = "none";
+    itemColorErrorMessage.style.display = "none";
+    itemSizeErrorMessage.style.display = "none";
+    itemWeightErrorMessage.style.display = "none";
+    itemSizeCMErrorMessage.style.display = "none";
+    itemAmountErrorMessage.style.display = "none";
+}
+
+clothingformbtn.addEventListener('click', function () {
+    HideAllErrorMessages();
+});
+
+tierlatinformbtn.addEventListener('click', function () {
+    HideAllErrorMessages();
+});
+
+decorationformbtn.addEventListener('click', function () {
+    HideAllErrorMessages();
+});
+
 export function initItemController() {
+    HideAllErrorMessages();
     btnClothingForm.addEventListener('click', function (e) {
         currentItemType = 'clothing';
     });
@@ -93,6 +116,7 @@ export function initItemController() {
 
     submitInformationBtn.addEventListener('click', function (e) {
         e.preventDefault();
+        HideAllErrorMessages();
         createItem();
     });
 }
