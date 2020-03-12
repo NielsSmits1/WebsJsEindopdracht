@@ -14,7 +14,7 @@ const btnDecorationForm = document.getElementById('btn-decoration-form');
 const informationbar = document.getElementById('information-bar');
 
 let currentItemType = 'clothing';
-let invalidFormFields = false;
+let invalidUserInput = false;
 
 
 function createItem() {
@@ -24,62 +24,61 @@ function createItem() {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de naam invullen!"));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (description.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de beschrijving invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (purchasePrice.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de inkoopprijs invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (sellPriceExbtw.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de verkoopprijs invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (color.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de kleur invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (size.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de grootte invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (weight.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even het gewicht invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (sizeCM.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de grootte in cm invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
     if (amountInPackage.value == '') {
         let para = document.createElement("div");
         para.appendChild(document.createTextNode("Graag nog even de hoeveelheid per pakketje invullen!."));
         informationbar.append(para);
-        invalidFormFields = true;
+        invalidUserInput = true;
     }
 
-    if (invalidFormFields) {
+    if (invalidUserInput) {
         return;
     }
-
-
+    // TODO daadwerkelijk het item toevoegen
 }
 
 btnClothingForm.addEventListener('click', function () {
