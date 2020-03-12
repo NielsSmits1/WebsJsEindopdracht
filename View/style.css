@@ -34,13 +34,23 @@ body {
 }
 
 .fill {
-    background-image: url('https://source.unsplash.com/random/30x30');
+
     /* position: relative; */
     height: 25px;
     width: 25px;
     top: 5px;
     /* left: 5px; */
     cursor: pointer;
+    background-image: url(https://source.unsplash.com/random/30x30);
+}
+
+.block{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    margin: 10px;
+    border: solid 3px black;
+    background: black;
 }
 
 .hold {

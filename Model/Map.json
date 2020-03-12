@@ -74,7 +74,7 @@
                     }}
             ]
         },
-        "blocked_tiles" :[
+        "blockedTiles" :[
             {"id" : 6},
             {"id" : 7},
             {"id" : 8},
