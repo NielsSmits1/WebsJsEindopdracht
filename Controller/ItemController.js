@@ -32,7 +32,41 @@ const decorationformbtn = document.getElementById("btn-decoration-form");
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 
+export default class ItemController {
+    constructor() {
+        HideAllErrorMessages();
+        btnClothingForm.addEventListener('click', function (e) {
+            currentItemType = 'clothing';
+        });
 
+        btnTierlatinForm.addEventListener('click', function () {
+            currentItemType = 'tierlatin';
+        });
+
+        btnDecorationForm.addEventListener('click', function () {
+            currentItemType = 'decoration';
+        });
+
+        submitInformationBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            HideAllErrorMessages();
+            createItem();
+        });
+
+        clothingformbtn.addEventListener('click', function () {
+            HideAllErrorMessages();
+        });
+    
+        tierlatinformbtn.addEventListener('click', function () {
+            HideAllErrorMessages();
+        });
+    
+        decorationformbtn.addEventListener('click', function () {
+            HideAllErrorMessages();
+        });
+    }
+    
+}
 function createItem() {
     if (name.value == '') {
         itemNameErrorMessage.style.display = "block";
@@ -87,37 +121,4 @@ function HideAllErrorMessages() {
     itemSizeCMErrorMessage.style.display = "none";
     itemAmountErrorMessage.style.display = "none";
     invalidUserInput = false;
-}
-
-clothingformbtn.addEventListener('click', function () {
-    HideAllErrorMessages();
-});
-
-tierlatinformbtn.addEventListener('click', function () {
-    HideAllErrorMessages();
-});
-
-decorationformbtn.addEventListener('click', function () {
-    HideAllErrorMessages();
-});
-
-export function initItemController() {
-    HideAllErrorMessages();
-    btnClothingForm.addEventListener('click', function (e) {
-        currentItemType = 'clothing';
-    });
-
-    btnTierlatinForm.addEventListener('click', function () {
-        currentItemType = 'tierlatin';
-    });
-
-    btnDecorationForm.addEventListener('click', function () {
-        currentItemType = 'decoration';
-    });
-
-    submitInformationBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        HideAllErrorMessages();
-        createItem();
-    });
 }
