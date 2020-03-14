@@ -1,3 +1,15 @@
+/*Regions*/
+const clothingregion = document.getElementById("clothing-region");
+const tierlantinregion = document.getElementById("tierlantin-region");
+const decorationregion = document.getElementById("decoration-region");
+const createitemregion = document.getElementById("create-item-region");
+
+/*Buttons*/
+const createitembtn = document.getElementById("create-item-btn");
+const clothingformbtn = document.getElementById("btn-clothing-form");
+const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
+const decorationformbtn = document.getElementById("btn-decoration-form");
+
 /*Variables*/
 const name = document.getElementById('item-name');
 const description = document.getElementById('item-description');
@@ -25,32 +37,108 @@ const itemWeightErrorMessage = document.getElementById('item-weight-error-messag
 const itemSizeCMErrorMessage = document.getElementById('item-sizeCM-error-message');
 const itemAmountErrorMessage = document.getElementById('item-amount-error-message');
 
-const clothingformbtn = document.getElementById("btn-clothing-form");
-const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
-const decorationformbtn = document.getElementById("btn-decoration-form");
 
 let currentItemType = 'clothing';
 let invalidUserInput = false;
+let currentWizardStep = 1;
 
 export default class ItemController {
     constructor() {
+        createitembtn.addEventListener('click', function () {
+            submitInformationBtn.innerHTML = 'Naar stap 2';
+            clothingregion.style.display = "none";
+            tierlantinregion.style.display = "none";
+            decorationregion.style.display = "none";
+            createitemregion.style.display = "block";
+            showStepOneFormFields();
+            disableStepTwoFormfields();
+            clothingformbtn.click();
+        });
+
+        clothingformbtn.addEventListener('click', function () {
+            name.style.display = "block";
+            purchasePrice.style.display = "block";
+            sellPriceExbtw.style.display = "block";
+            color.style.display = "block";
+            size.style.display = "block";
+            weight.style.display = "none";
+            sizeCM.style.display = "none";
+            amountInPackage.style.display = "none";
+            disableStepTwoFormfields();
+            setStandardFormInputValues();
+        });
+
+        tierlatinformbtn.addEventListener('click', function () {
+            name.style.display = "block";
+            purchasePrice.style.display = "block";
+            sellPriceExbtw.style.display = "block";
+            color.style.display = "none";
+            sizeCM.style.display = "none";
+            weight.style.display = "block";
+            sizeCM.style.display = "none";
+            amountInPackage.style.display = "none";
+            disableStepTwoFormfields();
+            setStandardFormInputValues();
+        });
+
+        decorationformbtn.addEventListener('click', function () {
+            name.style.display = "block";
+            purchasePrice.style.display = "block";
+            sellPriceExbtw.style.display = "block";
+            color.style.display = "block";
+            size.style.display = "none";
+            weight.style.display = "none";
+            sizeCM.style.display = "block";
+            amountInPackage.style.display = "block";
+            disableStepTwoFormfields();
+            setStandardFormInputValues();
+        });
+        createitembtn.click();
+
         HideAllErrorMessages();
+
         btnClothingForm.addEventListener('click', function (e) {
             currentItemType = 'clothing';
+            submitInformationBtn.innerHTML = 'Naar stap 2';
+            currentWizardStep = 1;
         });
 
         btnTierlatinForm.addEventListener('click', function () {
             currentItemType = 'tierlatin';
+            submitInformationBtn.innerHTML = 'Naar stap 2';
+            currentWizardStep = 1;
         });
 
         btnDecorationForm.addEventListener('click', function () {
             currentItemType = 'decoration';
+            submitInformationBtn.innerHTML = 'Naar stap 2';
+            currentWizardStep = 1;
         });
 
         submitInformationBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            HideAllErrorMessages();
-            createItem();
+            //stap 1
+            if(currentWizardStep == 1){
+                ValidateUserForm();
+                if(invalidUserInput){
+                    return;
+                }
+                HideAllErrorMessages();
+                showStepTwoFormfields();
+                disableStepOneFormFields();
+                submitInformationBtn.innerHTML = 'Aanmaken die handel!';
+                currentWizardStep++;
+            } 
+            //stap 2
+            else if(currentWizardStep == 2){
+                ValidateUserForm();
+                if(invalidUserInput){
+                    return;
+                }
+                HideAllErrorMessages();
+                currentWizardStep = 1;                
+                createitembtn.click();
+            }
         });
 
         clothingformbtn.addEventListener('click', function () {
@@ -67,7 +155,8 @@ export default class ItemController {
     }
     
 }
-function createItem() {
+function ValidateUserForm() {
+    invalidUserInput = false;
     if (name.value == '') {
         itemNameErrorMessage.style.display = "block";
         invalidUserInput = true;
@@ -104,10 +193,7 @@ function createItem() {
         itemAmountErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
-    if (invalidUserInput) {
-        return;
-    }
-    // TODO daadwerkelijk het item toevoegen
+    
 }
 
 function HideAllErrorMessages() {
@@ -121,4 +207,46 @@ function HideAllErrorMessages() {
     itemSizeCMErrorMessage.style.display = "none";
     itemAmountErrorMessage.style.display = "none";
     invalidUserInput = false;
+}
+
+function setStandardFormInputValues() {
+    name.value = 'Item naam';
+    description.value = 'Item beschrijving';
+    purchasePrice.value = 'Item inkoopprijs';
+    sellPriceExbtw.value = 'Item verkoopprijs excl. btw';
+    color.value = 'Item kleur';
+    size.value = 'Item maat';
+    weight.value = 'Item gewicht';
+    sizeCM.value = 'Item grootte in cm';
+    amountInPackage.value = 'Item hoeveelheid per pakketje';
+}
+
+function disableStepTwoFormfields(){
+    description.style.display = "none";
+}
+
+function showStepTwoFormfields(){
+    description.style.display = "block";
+}
+
+function disableStepOneFormFields(){
+    name.style.display = "none";
+    purchasePrice.style.display = "none";
+    sellPriceExbtw.style.display = "none";
+    color.style.display = "none";
+    size.style.display = "none";    
+    weight.style.display = "none";
+    amountInPackage.style.display = "none";
+    sizeCM.style.display = "none";
+}
+
+function showStepOneFormFields(){
+    name.style.display = "block";
+    purchasePrice.style.display = "block";
+    sellPriceExbtw.style.display = "block";
+    color.style.display = "block";
+    size.style.display = "block";    
+    weight.style.display = "block";
+    amountInPackage.style.display = "block";
+    sizeCM.style.display = "block";
 }
