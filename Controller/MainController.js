@@ -1,7 +1,8 @@
-import {fetchWeatherInformation} from './WeatherController.js';
-import {init} from './InventoryController.js';
+import InventoryController from './InventoryController.js';
 
-window.onload = function () {
-    fetchWeatherInformation(2744513);
-    init();
-};
+// window.onload = function () {
+//     fetchWeatherInformation(2744513);
+//     init();
+// };
+
+let inventoryController = new InventoryController();

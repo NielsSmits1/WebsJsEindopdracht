@@ -66,6 +66,18 @@ body {
     background: white;
 }
 
+.used{
+    
+}
+
+.screen{
+    width: 400px;
+    height: 100px;
+    display: none;
+    background-color: white;
+    border: black 2px solid;
+}
+
 .hovered {
     background: #f4f4f4;
     border-style: dashed;

@@ -6,10 +6,10 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <!--SCRIPS-->
-<script type="module" src="../Controller/WeatherController.js" defer></script>
-<script type="module" src="../Controller/InventoryController.js" defer></script>
+<!-- <script type="module" src="../Controller/WeatherController.js" defer></script>
+<script type="module" src="../Controller/InventoryController.js" defer></script> -->
 <script src="viewcontroller.js" defer></script>
-<script src="../Controller/ItemController.js" defer></script>
+<!-- <script src="../Controller/ItemController.js" defer></script> -->
 <script type="module" src="../Controller/MainController.js" defer></script>
 
 
@@ -39,6 +39,19 @@
                 </div>
             </div>
 
+            <div class="dropdown">
+                <button class="dropbtn">Dropdown</button>
+                <div class="dropdown-content" id="tierlantin-dropdown">
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn">Dropdown</button>
+                <div class="dropdown-content" id="decoration-dropdown">
+                </div>
+            </div>
+
+
             <hr>
 
             <div class="weatherCast">
@@ -56,6 +69,12 @@
                 <button class="btn btn-info smallMargin" id="btn-weather-switch-next" type="button">Next HQ</button>
             </div>
             <hr>
+
+            <div class="screen">
+                <label>Typ hieronder de url van de gewenste afbeelding!</label>
+                <input name='url'>
+                <button>Submit</button>
+            </div>
 
         </div>
     </div>
