@@ -29,6 +29,7 @@ export default class InventoryController {
                 description: "Rode jurk van zijden draad",
                 import: 5.00,
                 export: 7.50,
+                export_btw: 7.50 * 1.25,
                 min_stock: 2,
                 cur_stock: 3,
                 color: "red",
@@ -59,7 +60,9 @@ export default class InventoryController {
                 newDiv2.className = 'fill';
                 newDiv2.draggable = true;
                 newDiv.id = product.placed_at;
-                newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                if (product.imgpath != null) {
+                    newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                }
                 newDiv.appendChild(newDiv2);
                 toAddClothing.appendChild(newDiv);
             }
@@ -71,7 +74,9 @@ export default class InventoryController {
                 newDiv2.className = 'fill';
                 newDiv2.draggable = true;
                 newDiv2.id = product.id;
-                newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                if (product.imgpath != null) {
+                    newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                }
                 newDiv.appendChild(newDiv2);
                 toAddTierlantin.appendChild(newDiv);
             }
@@ -83,7 +88,9 @@ export default class InventoryController {
                 newDiv2.className = 'fill';
                 newDiv2.draggable = true;
                 newDiv2.id = product.id;
-                newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                if (product.imgpath != null) {
+                    newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                }
                 newDiv.appendChild(newDiv2);
                 toAddDecoration.appendChild(newDiv);
             }
@@ -171,90 +178,92 @@ export default class InventoryController {
             let div2 = document.createElement('div');
             div2.className = 'fill';
             div2.draggable = true;
-            div2.style.backgroundImage = "url(" + product.imgpath + ")";
+            if (product.imgpath != null) {
+                div2.style.backgroundImage = "url(" + product.imgpath + ")";
+            }
             square.appendChild(div2);
         })
     };
 
 
-addListeners() {
-    let self = this;
-    let fills = Array.from(document.querySelectorAll('.fill'));
-    fills.forEach(function(item){
-        item.addEventListener('click', () =>{
-            console.log(item.parentElement);
-            let screen = document.getElementsByClassName('screen');
-            screen[0].id = item.parentElement.id;
-            screen[0].style.display =  'block';
-        })
-    });
-    let empties = Array.from(document.querySelectorAll('.empty'));
-    empties.forEach(function (item) {
-        item.addEventListener('dragover', (e) => {
-            e.preventDefault();
+    addListeners() {
+        let self = this;
+        let fills = Array.from(document.querySelectorAll('.fill'));
+        fills.forEach(function (item) {
+            item.addEventListener('click', () => {
+                console.log(item.parentElement);
+                let screen = document.getElementsByClassName('screen');
+                screen[0].id = item.parentElement.id;
+                screen[0].style.display = 'block';
+            })
         });
-        item.addEventListener('dragenter', (e) => {
-            e.preventDefault();
-        });
-        item.addEventListener('dragleave', () => {
-        });
-        item.addEventListener('drop', () => {
-            if (item.hasChildNodes()) {
-                return;
-            }
-            item.append(self.currentDraggable);
-        });
-        item.addEventListener('dragstart', () => {
-            item.className += ' hold';
-            self.currentDraggable = item.firstChild;
-            self.oldDraggable = item;
-        });
-        item.addEventListener('dragend', () => {
-            //REMOVE PREVIOUS
-            let list;
-            let type;
-            if(self.oldDraggable.classList.contains('used')){
-                list = JSON.parse(localStorage.getItem('used'));
-                type = 'used';
-            }else{
-                list = JSON.parse(localStorage.getItem('unused'));
-                type = 'unused';
-            }
-            //ITEM TO BE EDITED
-            let candidate;
-
-            for (let i = 0; i < list.products.length; i++) {
-                if(list.products[i].placed_at == self.oldDraggable.id){
-                    candidate = list.products[i];
-                    list.products.splice(i,1);
-                    //return;
+        let empties = Array.from(document.querySelectorAll('.empty'));
+        empties.forEach(function (item) {
+            item.addEventListener('dragover', (e) => {
+                e.preventDefault();
+            });
+            item.addEventListener('dragenter', (e) => {
+                e.preventDefault();
+            });
+            item.addEventListener('dragleave', () => {
+            });
+            item.addEventListener('drop', () => {
+                if (item.hasChildNodes()) {
+                    return;
                 }
-                
-            }
+                item.append(self.currentDraggable);
+            });
+            item.addEventListener('dragstart', () => {
+                item.className += ' hold';
+                self.currentDraggable = item.firstChild;
+                self.oldDraggable = item;
+            });
+            item.addEventListener('dragend', () => {
+                //REMOVE PREVIOUS
+                let list;
+                let type;
+                if (self.oldDraggable.classList.contains('used')) {
+                    list = JSON.parse(localStorage.getItem('used'));
+                    type = 'used';
+                } else {
+                    list = JSON.parse(localStorage.getItem('unused'));
+                    type = 'unused';
+                }
+                //ITEM TO BE EDITED
+                let candidate;
 
-            localStorage.setItem(type, JSON.stringify(list));
-            //ADD TO LIST
-            let second_list;
-            let second_type;
-            if(self.currentDraggable.parentElement.classList.contains('used')){
-                second_list = JSON.parse(localStorage.getItem('used'));
-                second_type = 'used';
-            }else{
-                second_list = JSON.parse(localStorage.getItem('unused'));
-                second_type = 'unused';
-            }
-            candidate.placed_at = self.currentDraggable.parentElement.id;
-            second_list.products[second_list.products.length] = candidate;
-            localStorage.setItem(second_type, JSON.stringify(second_list));
-            
-    })
+                for (let i = 0; i < list.products.length; i++) {
+                    if (list.products[i].placed_at == self.oldDraggable.id) {
+                        candidate = list.products[i];
+                        list.products.splice(i, 1);
+                        //return;
+                    }
 
-})
+                }
+
+                localStorage.setItem(type, JSON.stringify(list));
+                //ADD TO LIST
+                let second_list;
+                let second_type;
+                if (self.currentDraggable.parentElement.classList.contains('used')) {
+                    second_list = JSON.parse(localStorage.getItem('used'));
+                    second_type = 'used';
+                } else {
+                    second_list = JSON.parse(localStorage.getItem('unused'));
+                    second_type = 'unused';
+                }
+                candidate.placed_at = self.currentDraggable.parentElement.id;
+                second_list.products[second_list.products.length] = candidate;
+                localStorage.setItem(second_type, JSON.stringify(second_list));
+
+            })
+
+        })
 
 
 
 
-}
+    }
 }
 
 

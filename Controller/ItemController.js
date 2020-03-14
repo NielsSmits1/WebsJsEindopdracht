@@ -103,7 +103,7 @@ export default class ItemController {
         });
 
         btnTierlatinForm.addEventListener('click', function () {
-            currentItemType = 'tierlatin';
+            currentItemType = 'tierlantin';
             submitInformationBtn.innerHTML = 'Naar stap 2';
             currentWizardStep = 1;
         });
@@ -136,7 +136,78 @@ export default class ItemController {
                 }
                 HideAllErrorMessages();
                 currentWizardStep = 1;
-                //HIER INSERTEN
+                let store = JSON.parse(localStorage.getItem('unused'));
+                let last;
+                if(store.products.length == 0){
+                    last = 0;
+                    last.placed_at = 0
+                }else{
+                    last = store.products[store.products.length - 1];
+                }
+                
+                
+                let newItem;
+                if(currentItemType == 'clothing'){
+                    newItem = {
+                        id: store.products.length,
+                        placed_at: parseInt(last.placed_at)+1,
+                        name: name.value,
+                        type: currentItemType,
+                        description: description.value,
+                        import: parseInt(purchasePrice.value),
+                        export: parseInt(sellPriceExbtw.value),
+                        export_btw: parseInt(sellPriceExbtw.value) * 1.25,
+                        min_stock: 0,
+                        cur_stock: 0,
+                        color: color.value,
+                        size: size.value,
+                    }
+                }
+
+                if(currentItemType == 'tierlantin'){
+                    newItem = {
+                        id: store.products.length,
+                        placed_at: parseInt(last.placed_at)+1,
+                        name: name.value,
+                        type: currentItemType,
+                        description: description.value,
+                        import: parseInt(purchasePrice.value),
+                        export: parseInt(sellPriceExbtw.value),
+                        export_btw: parseInt(sellPriceExbtw.value) * 1.25,
+                        min_stock: 0,
+                        cur_stock: 0,
+                        weight: parseInt(weight.value)
+                    }
+                }
+
+                if(currentItemType == 'decoration'){
+                    newItem = {
+                        id: store.products.length,
+                        placed_at: parseInt(last.placed_at)+1,
+                        name: name.value,
+                        type: currentItemType,
+                        description: description.value,
+                        import: parseInt(purchasePrice.value),
+                        export: parseInt(sellPriceExbtw.value),
+                        export_btw: parseInt(sellPriceExbtw.value) * 1.25,
+                        min_stock: 0,
+                        cur_stock: 0,
+                        length: parseInt(sizeCM.value),
+                        color: color.value,
+                        amountinpackage: parseInt(amountInPackage.value)
+                    }
+                }
+                store.products[store.products.length] = newItem;
+                localStorage.setItem('unused', JSON.stringify(store));
+
+                let dropdown = document.getElementById(currentItemType + '-dropdown');
+                let newDiv = document.createElement('div');
+                newDiv.className = 'empty unused';
+                newDiv.id = currentItemType.placed_at;
+                let filledDiv = document.createElement('div');
+                filledDiv.className =  'fill';
+                newDiv.appendChild(filledDiv);
+                dropdown.appendChild(newDiv);
                 createitembtn.click();
             }
         });
