@@ -136,6 +136,7 @@ export default class ItemController {
                 }
                 HideAllErrorMessages();
                 currentWizardStep = 1;
+                //HIER INSERTEN
                 createitembtn.click();
             }
         });

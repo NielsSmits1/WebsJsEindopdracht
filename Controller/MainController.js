@@ -3,7 +3,8 @@ import InventoryController from './InventoryController.js';
 import ViewController from '../View/ViewController.js';
 import ItemController from './ItemController.js';
 
+let inventoryController = new InventoryController();
 let weatherController = new WeatherController();
 let viewController = new ViewController();
 let itemController = new ItemController();
-let inventoryController = new InventoryController();
+

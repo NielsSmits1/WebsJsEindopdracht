@@ -9,7 +9,6 @@ export default class InventoryController {
         this.createClothingDiv();
         this.createTierlantinDiv();
         this.createDecorationDiv();
-        
         this.loadPlacedProducts();
         this.addListeners();
         this.createBlockedDivs();
@@ -149,7 +148,6 @@ export default class InventoryController {
     }
 
     createBlockedDivs() {
-        
         fetch('../Model/Map.json')
             .then(response => response.json())
             .then(function (response) {
