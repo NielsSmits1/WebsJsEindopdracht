@@ -23,7 +23,6 @@ const amountInPackage = document.getElementById('item-amount-in-package');
 const btnClothingForm = document.getElementById('btn-clothing-form');
 const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
 const btnDecorationForm = document.getElementById('btn-decoration-form');
-const informationbar = document.getElementById('information-bar');
 const submitInformationBtn = document.getElementById('submit-information-btn');
 
 /*Error messages*/

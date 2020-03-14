@@ -1,6 +1,7 @@
 const key = 'ca862c1ce25923db366fa1502282cb69';
 const CityIDs = ["2744513", "2759794", "2950159", "2643743"];
 let currentCityIndex = 0;
+const informationbar = document.getElementById('information-bar');
 
 export default class WeatherController {
     constructor() {
@@ -34,7 +35,7 @@ export default class WeatherController {
                 this.drawWeather(data);
             })
             .catch(error => {
-                console.log(error);
+                informationbar.innerHTML('Het ziet er naar uit dat de API op vakantie is. Probeer het later nog een keer!');
             });
     }
 
