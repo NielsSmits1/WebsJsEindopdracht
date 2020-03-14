@@ -6,12 +6,10 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <!--SCRIPS-->
-<!-- <script type="module" src="../Controller/WeatherController.js" defer></script>
-<script type="module" src="../Controller/InventoryController.js" defer></script> -->
 <script src="viewcontroller.js" defer></script>
-<!-- <script src="../Controller/ItemController.js" defer></script> -->
 <script type="module" src="../Controller/MainController.js" defer></script>
 
+<script src="../dist/bundle.js" defer></script>
 
 <!--CSS-->
 <link rel="stylesheet" href="style.css">
@@ -62,8 +60,6 @@
                 <p id="humidity"></p>
             </div>
 
-            <p>Kies hier een stad! </p>
-
             <div class="row d-flex justify-content-center">
                 <button class="btn btn-info smallMargin" id="btn-weather-switch-previous" type="button">Previous HQ</button>
                 <button class="btn btn-info smallMargin" id="btn-weather-switch-next" type="button">Next HQ</button>
@@ -81,50 +77,56 @@
 
     <!--right row-->
     <div class="col-7 background-lightcoral" id="target">
-        <p id="information-bar" class="region "></p>
+        <p id="information-bar" class="region"></p>
         <div id="clothing-region" class="region"></div>
         <div id="tierlantin-region" class="region"></div>
         <div id="decoration-region" class="region"></div>
 
         <div id="create-item-region" class="region">
-            <form action="#" method="POST" onsubmit="createItem();return false">
-                <div class="form-group smallMargin d-flex flex-column">
+            <div class="form-group smallMargin d-flex flex-column">
 
-                    <div class="row d-flex">
-                        <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
-                        <button class="btn btn-info smallMargin" id="btn-tierlatin-form" type="button">Tierlantijn</button>
-                        <button class="btn btn-info smallMargin" id="btn-decoration-form" type="button">Decoratie</button>
-                    </div>
-
-                    <!-- START General form fields-->
-                    <input class="smallVerticalMargin" type="text" id="item-name" name="item-name">
-
-                    <input class="smallVerticalMargin" type="text" id="item-description" name="item-description">
-
-                    <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price">
-
-                    <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw">
-                    <!-- END General form fields-->
-
-                    <!--clothing, decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-color" name="item-color">
-
-                    <!--clothing-->
-                    <input class="smallVerticalMargin" type="text" id="item-size" name="item-size">
-
-                    <!--tier-->
-                    <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight">
-
-                    <!--decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM">
-
-                    <!--decoration-->
-                    <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package">
-
-
-                    <input class="btn btn-info" type="submit" value="Aanmaken die handel!">
+                <div class="row d-flex">
+                    <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
+                    <button class="btn btn-info smallMargin" id="btn-tierlatin-form" type="button">Tierlantijn</button>
+                    <button class="btn btn-info smallMargin" id="btn-decoration-form" type="button">Decoratie</button>
                 </div>
-            </form>
+
+                <!-- START General form fields-->
+                <input class="smallVerticalMargin" type="text" id="item-name" name="item-name">
+                <p id="item-name-error-message">Graag nog even de naam invullen!</p>
+
+                <input class="smallVerticalMargin" type="text" id="item-description" name="item-description">
+                <p id="item-description-error-message">Graag nog even de beschrijving invullen!</p>
+
+                <input class="smallVerticalMargin" type="text" id="item-purchase-price" name="item-purchase-price">
+                <p id="item-purchase-price-error-message">Graag nog even de inkoopprijs invullen!</p>
+
+                <input class="smallVerticalMargin" type="text" id="item-sell-price-exbtw" name="item-sell-price-exbtw">
+                <p id="item-sell-price-error-message">Graag nog even de verkoopprijs excl. btw invullen!</p>
+                <!-- END General form fields-->
+
+                <!--clothing, decoration-->
+                <input class="smallVerticalMargin" type="text" id="item-color" name="item-color">
+                <p id="item-color-error-message">Graag nog even de kleur invullen!</p>
+
+                <!--clothing-->
+                <input class="smallVerticalMargin" type="text" id="item-size" name="item-size">
+                <p id="item-size-error-message">Graag nog even de grootte invullen!</p>
+
+                <!--tier-->
+                <input class="smallVerticalMargin" type="text" id="item-weight" name="item-weight">
+                <p id="item-weight-error-message">Graag nog even het gewicht invullen!</p>
+
+                <!--decoration-->
+                <input class="smallVerticalMargin" type="text" id="item-size-CM" name="item-size-CM">
+                <p id="item-sizeCM-error-message">Graag nog even de de grootte in cm invullen!</p>
+
+                <!--decoration-->
+                <input class="smallVerticalMargin" type="text" id="item-amount-in-package" name="item-amount-in-package">
+                <p id="item-amount-error-message">Graag nog even de hoeveelheid per pakketje invullen!</p>
+
+                <button class="btn btn-info" id="submit-information-btn"></button>
+            </div>
         </div>
     </div>
 </div>
