@@ -118,9 +118,9 @@ export default class ItemController {
         submitInformationBtn.addEventListener('click', function (e) {
             e.preventDefault();
             //stap 1
-            if(currentWizardStep == 1){
+            if (currentWizardStep == 1) {
                 ValidateUserForm();
-                if(invalidUserInput){
+                if (invalidUserInput) {
                     return;
                 }
                 HideAllErrorMessages();
@@ -128,15 +128,15 @@ export default class ItemController {
                 disableStepOneFormFields();
                 submitInformationBtn.innerHTML = 'Aanmaken die handel!';
                 currentWizardStep++;
-            } 
+            }
             //stap 2
-            else if(currentWizardStep == 2){
+            else if (currentWizardStep == 2) {
                 ValidateUserForm();
-                if(invalidUserInput){
+                if (invalidUserInput) {
                     return;
                 }
                 HideAllErrorMessages();
-                currentWizardStep = 1;                
+                currentWizardStep = 1;
                 createitembtn.click();
             }
         });
@@ -144,17 +144,18 @@ export default class ItemController {
         clothingformbtn.addEventListener('click', function () {
             HideAllErrorMessages();
         });
-    
+
         tierlatinformbtn.addEventListener('click', function () {
             HideAllErrorMessages();
         });
-    
+
         decorationformbtn.addEventListener('click', function () {
             HideAllErrorMessages();
         });
     }
-    
+
 }
+
 function ValidateUserForm() {
     invalidUserInput = false;
     if (name.value == '') {
@@ -193,7 +194,7 @@ function ValidateUserForm() {
         itemAmountErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
-    
+
 }
 
 function HideAllErrorMessages() {
@@ -221,31 +222,31 @@ function setStandardFormInputValues() {
     amountInPackage.value = 'Item hoeveelheid per pakketje';
 }
 
-function disableStepTwoFormfields(){
+function disableStepTwoFormfields() {
     description.style.display = "none";
 }
 
-function showStepTwoFormfields(){
+function showStepTwoFormfields() {
     description.style.display = "block";
 }
 
-function disableStepOneFormFields(){
+function disableStepOneFormFields() {
     name.style.display = "none";
     purchasePrice.style.display = "none";
     sellPriceExbtw.style.display = "none";
     color.style.display = "none";
-    size.style.display = "none";    
+    size.style.display = "none";
     weight.style.display = "none";
     amountInPackage.style.display = "none";
     sizeCM.style.display = "none";
 }
 
-function showStepOneFormFields(){
+function showStepOneFormFields() {
     name.style.display = "block";
     purchasePrice.style.display = "block";
     sellPriceExbtw.style.display = "block";
     color.style.display = "block";
-    size.style.display = "block";    
+    size.style.display = "block";
     weight.style.display = "block";
     amountInPackage.style.display = "block";
     sizeCM.style.display = "block";
