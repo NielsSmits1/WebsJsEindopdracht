@@ -1,4 +1,7 @@
+const urlLink = document.getElementById('new-url');
 export default class InventoryController {
+
+
 
     constructor() {
         this.currentDraggable;
@@ -13,6 +16,21 @@ export default class InventoryController {
         this.addListeners();
         this.createBlockedDivs();
     }
+
+   loadImage(imgpath){
+    let image = new Image();
+    try{
+        image.src = imgpath;
+    }catch(e){
+        image.src = null;
+    }
+    
+    if (image.width == 0) {
+       return 'none';
+    } else {
+       return "url('" + imgpath + "')";
+    }
+   }
 
     initializeLocalStorage() {
         if (localStorage.getItem('used') == null) {
@@ -61,7 +79,7 @@ export default class InventoryController {
                 newDiv2.draggable = true;
                 newDiv.id = product.placed_at;
                 if (product.imgpath != null) {
-                    newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                    newDiv2.style.backgroundImage = this.loadImage(product.imgpath);
                 }
                 newDiv.appendChild(newDiv2);
                 toAddClothing.appendChild(newDiv);
@@ -75,7 +93,7 @@ export default class InventoryController {
                 newDiv2.draggable = true;
                 newDiv2.id = product.id;
                 if (product.imgpath != null) {
-                    newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                    newDiv2.style.backgroundImage = this.loadImage(product.imgpath);
                 }
                 newDiv.appendChild(newDiv2);
                 toAddTierlantin.appendChild(newDiv);
@@ -89,7 +107,7 @@ export default class InventoryController {
                 newDiv2.draggable = true;
                 newDiv2.id = product.id;
                 if (product.imgpath != null) {
-                    newDiv2.style.backgroundImage = "url('" + product.imgpath + "')";
+                    newDiv2.style.backgroundImage = this.loadImage(product.imgpath);
                 }
                 newDiv.appendChild(newDiv2);
                 toAddDecoration.appendChild(newDiv);
@@ -179,7 +197,7 @@ export default class InventoryController {
             div2.className = 'fill';
             div2.draggable = true;
             if (product.imgpath != null) {
-                div2.style.backgroundImage = "url(" + product.imgpath + ")";
+                div2.style.backgroundImage = this.loadImage(product.imgpath);
             }
             square.appendChild(div2);
         })
@@ -188,12 +206,40 @@ export default class InventoryController {
 
     addListeners() {
         let self = this;
+        let btn = document.getElementById('upload-image');
+        btn.addEventListener('click', () => {
+            // let request;
+            // if (window.XMLHttpRequest)
+            //     request = new XMLHttpRequest();
+            // else
+            //     request = new ActiveXObject("Microsoft.XMLHTTP");   
+            // request.open('GET', urlLink.value, false);
+            // request.send(); // there will be a 'pause' here until the response to come.
+            // // the object request will be actually modified
+            // if (request.status === 404) {
+            //     alert("The page you are trying to reach is not available.");
+            // }
+            let screen = document.getElementsByClassName('screen');
+            let type = screen[0].classList[1];
+            let list = JSON.parse(localStorage.getItem(type));
+            list.products.forEach((product) => {
+                if (product.placed_at == screen[0].id) {
+                    product.imgpath = urlLink.value;
+                }
+            })
+            localStorage.setItem(type, JSON.stringify(list));
+
+            let squares = document.querySelectorAll('.empty.' + type);
+            squares[screen[0].id].firstChild.style.backgroundImage = "url(" + urlLink.value + ")";
+
+        });
         let fills = Array.from(document.querySelectorAll('.fill'));
         fills.forEach(function (item) {
             item.addEventListener('click', () => {
                 console.log(item.parentElement);
                 let screen = document.getElementsByClassName('screen');
                 screen[0].id = item.parentElement.id;
+                screen[0].className += " " + item.parentElement.classList[1];
                 screen[0].style.display = 'block';
             })
         });
