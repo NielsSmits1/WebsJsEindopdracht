@@ -12,7 +12,7 @@ export default class WeatherController {
             } else {
                 currentCityIndex++;
             }
-           
+
             this.fetchWeatherInformation(CityIDs[currentCityIndex]);
         });
 

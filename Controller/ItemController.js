@@ -9,8 +9,8 @@ const createitembtn = document.getElementById("create-item-btn");
 const clothingformbtn = document.getElementById("btn-clothing-form");
 const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
 const decorationformbtn = document.getElementById("btn-decoration-form");
- 
-/*Form fields*/ 
+
+/*Form fields*/
 const name = document.getElementById('item-name');
 const description = document.getElementById('item-description');
 const purchasePrice = document.getElementById('item-purchase-price');
@@ -27,7 +27,7 @@ const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
 const btnDecorationForm = document.getElementById('btn-decoration-form');
 const submitInformationBtn = document.getElementById('submit-information-btn');
 
-/*Error messages*/ 
+/*Error messages*/
 const itemNameErrorMessage = document.getElementById('item-name-error-message');
 const itemDescriptionErrorMessage = document.getElementById('item-description-error-message');
 const itemPurchasePriseErrorMessage = document.getElementById('item-purchase-price-error-message');
@@ -147,19 +147,19 @@ export default class ItemController {
                 currentWizardStep = 1;
                 let store = JSON.parse(localStorage.getItem('unused'));
                 let last;
-                if(store.products.length == 0){
+                if (store.products.length == 0) {
                     last = 0;
                     last.placed_at = 0
-                }else{
+                } else {
                     last = store.products[store.products.length - 1];
                 }
-                
-                
+
+
                 let newItem;
-                if(currentItemType == 'clothing'){
+                if (currentItemType == 'clothing') {
                     newItem = {
                         id: store.products.length,
-                        placed_at: parseInt(last.placed_at)+1,
+                        placed_at: parseInt(last.placed_at) + 1,
                         name: name.value,
                         type: currentItemType,
                         description: description.value,
@@ -173,10 +173,10 @@ export default class ItemController {
                     }
                 }
 
-                if(currentItemType == 'tierlantin'){
+                if (currentItemType == 'tierlantin') {
                     newItem = {
                         id: store.products.length,
-                        placed_at: parseInt(last.placed_at)+1,
+                        placed_at: parseInt(last.placed_at) + 1,
                         name: name.value,
                         type: currentItemType,
                         description: description.value,
@@ -189,10 +189,10 @@ export default class ItemController {
                     }
                 }
 
-                if(currentItemType == 'decoration'){
+                if (currentItemType == 'decoration') {
                     newItem = {
                         id: store.products.length,
-                        placed_at: parseInt(last.placed_at)+1,
+                        placed_at: parseInt(last.placed_at) + 1,
                         name: name.value,
                         type: currentItemType,
                         description: description.value,
@@ -214,7 +214,7 @@ export default class ItemController {
                 newDiv.className = 'empty unused';
                 newDiv.id = currentItemType.placed_at;
                 let filledDiv = document.createElement('div');
-                filledDiv.className =  'fill';
+                filledDiv.className = 'fill';
                 newDiv.appendChild(filledDiv);
                 dropdown.appendChild(newDiv);
                 createitembtn.click();
@@ -251,7 +251,7 @@ function ValidateUserForm() {
         itemPurchasePriseErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
-    if (sellPriceExbtw.value == ''|| isNaN(sellPriceExbtw.value)) {
+    if (sellPriceExbtw.value == '' || isNaN(sellPriceExbtw.value)) {
         itemSellPriceErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
