@@ -9,12 +9,14 @@ const createitembtn = document.getElementById("create-item-btn");
 const clothingformbtn = document.getElementById("btn-clothing-form");
 const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
 const decorationformbtn = document.getElementById("btn-decoration-form");
-
-/*Variables*/
+ 
+/*Form fields*/ 
 const name = document.getElementById('item-name');
 const description = document.getElementById('item-description');
 const purchasePrice = document.getElementById('item-purchase-price');
 const sellPriceExbtw = document.getElementById('item-sell-price-exbtw');
+const minStock = document.getElementById('item-min-stock');
+const curStock = document.getElementById('item-cur-stock');
 const color = document.getElementById('item-color');
 const size = document.getElementById('item-size');
 const weight = document.getElementById('item-weight');
@@ -25,11 +27,13 @@ const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
 const btnDecorationForm = document.getElementById('btn-decoration-form');
 const submitInformationBtn = document.getElementById('submit-information-btn');
 
-/*Error messages*/
+/*Error messages*/ 
 const itemNameErrorMessage = document.getElementById('item-name-error-message');
 const itemDescriptionErrorMessage = document.getElementById('item-description-error-message');
 const itemPurchasePriseErrorMessage = document.getElementById('item-purchase-price-error-message');
 const itemSellPriceErrorMessage = document.getElementById('item-sell-price-error-message');
+const itemCurStockErrorMessage = document.getElementById('item-cur-stock-message');
+const itemMinStockErrorMessage = document.getElementById('item-min-stock-message');
 const itemColorErrorMessage = document.getElementById('item-color-error-message');
 const itemSizeErrorMessage = document.getElementById('item-size-error-message');
 const itemWeightErrorMessage = document.getElementById('item-weight-error-message');
@@ -273,6 +277,8 @@ function HideAllErrorMessages() {
     itemDescriptionErrorMessage.style.display = "none";
     itemPurchasePriseErrorMessage.style.display = "none";
     itemSellPriceErrorMessage.style.display = "none";
+    itemCurStockErrorMessage.style.display = "none";
+    itemMinStockErrorMessage.style.display = "none";
     itemColorErrorMessage.style.display = "none";
     itemSizeErrorMessage.style.display = "none";
     itemWeightErrorMessage.style.display = "none";
@@ -286,6 +292,8 @@ function setStandardFormInputValues() {
     description.value = 'Item beschrijving';
     purchasePrice.value = 'Item inkoopprijs';
     sellPriceExbtw.value = 'Item verkoopprijs excl. btw';
+    curStock.value = 'Item huidige stock';
+    minStock.value = 'Item minimale stock';
     color.value = 'Item kleur';
     size.value = 'Item maat';
     weight.value = 'Item gewicht';
@@ -305,6 +313,8 @@ function disableStepOneFormFields() {
     name.style.display = "none";
     purchasePrice.style.display = "none";
     sellPriceExbtw.style.display = "none";
+    curStock.style.display = "none";
+    minStock.style.display = "none";
     color.style.display = "none";
     size.style.display = "none";
     weight.style.display = "none";
@@ -316,6 +326,8 @@ function showStepOneFormFields() {
     name.style.display = "block";
     purchasePrice.style.display = "block";
     sellPriceExbtw.style.display = "block";
+    curStock.style.display = "block";
+    minStock.style.display = "block";
     color.style.display = "block";
     size.style.display = "block";
     weight.style.display = "block";

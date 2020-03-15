@@ -27,7 +27,7 @@ export default class WeatherController {
     }
 
     fetchWeatherInformation(cityID) {
-        fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + key)
+        fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=' + key + "&lang=nl")
             .then((resp) => {
                 return resp.json()
             })
