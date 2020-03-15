@@ -32,14 +32,13 @@ const itemNameErrorMessage = document.getElementById('item-name-error-message');
 const itemDescriptionErrorMessage = document.getElementById('item-description-error-message');
 const itemPurchasePriseErrorMessage = document.getElementById('item-purchase-price-error-message');
 const itemSellPriceErrorMessage = document.getElementById('item-sell-price-error-message');
-const itemCurStockErrorMessage = document.getElementById('item-cur-stock-message');
-const itemMinStockErrorMessage = document.getElementById('item-min-stock-message');
+const itemCurStockErrorMessage = document.getElementById('item-cur-stock-error-message');
+const itemMinStockErrorMessage = document.getElementById('item-min-stock-error-message');
 const itemColorErrorMessage = document.getElementById('item-color-error-message');
 const itemSizeErrorMessage = document.getElementById('item-size-error-message');
 const itemWeightErrorMessage = document.getElementById('item-weight-error-message');
 const itemSizeCMErrorMessage = document.getElementById('item-sizeCM-error-message');
 const itemAmountErrorMessage = document.getElementById('item-amount-error-message');
-
 
 let currentItemType = 'clothing';
 let invalidUserInput = false;
@@ -62,6 +61,8 @@ export default class ItemController {
             name.style.display = "block";
             purchasePrice.style.display = "block";
             sellPriceExbtw.style.display = "block";
+            curStock.style.display = "block";
+            minStock.style.display = "block";
             color.style.display = "block";
             size.style.display = "block";
             weight.style.display = "none";
@@ -75,6 +76,8 @@ export default class ItemController {
             name.style.display = "block";
             purchasePrice.style.display = "block";
             sellPriceExbtw.style.display = "block";
+            curStock.style.display = "block";
+            minStock.style.display = "block";
             color.style.display = "none";
             sizeCM.style.display = "none";
             weight.style.display = "block";
@@ -88,6 +91,8 @@ export default class ItemController {
             name.style.display = "block";
             purchasePrice.style.display = "block";
             sellPriceExbtw.style.display = "block";
+            curStock.style.display = "block";
+            minStock.style.display = "block";
             color.style.display = "block";
             size.style.display = "none";
             weight.style.display = "none";
@@ -180,7 +185,7 @@ export default class ItemController {
                         export_btw: parseInt(sellPriceExbtw.value) * 1.25,
                         min_stock: 0,
                         cur_stock: 0,
-                        weight: parseInt(weight.value)
+                        weight: weight.value
                     }
                 }
 
@@ -196,9 +201,9 @@ export default class ItemController {
                         export_btw: parseInt(sellPriceExbtw.value) * 1.25,
                         min_stock: 0,
                         cur_stock: 0,
-                        length: parseInt(sizeCM.value),
+                        length: sizeCM.value,
                         color: color.value,
-                        amountinpackage: parseInt(amountInPackage.value)
+                        amountinpackage: amountInPackage.value
                     }
                 }
                 store.products[store.products.length] = newItem;
@@ -232,6 +237,7 @@ export default class ItemController {
 }
 
 function ValidateUserForm() {
+    HideAllErrorMessages();
     invalidUserInput = false;
     if (name.value == '') {
         itemNameErrorMessage.style.display = "block";
@@ -241,12 +247,20 @@ function ValidateUserForm() {
         itemDescriptionErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
-    if (purchasePrice.value == '') {
+    if (purchasePrice.value == '' || isNaN(purchasePrice.value)) {
         itemPurchasePriseErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
-    if (sellPriceExbtw.value == '') {
+    if (sellPriceExbtw.value == ''|| isNaN(sellPriceExbtw.value)) {
         itemSellPriceErrorMessage.style.display = "block";
+        invalidUserInput = true;
+    }
+    if (curStock.value == '' || isNaN(curStock.value)) {
+        itemCurStockErrorMessage.style.display = "block";
+        invalidUserInput = true;
+    }
+    if (minStock.value == '' || isNaN(minStock.value)) {
+        itemMinStockErrorMessage.style.display = "block";
         invalidUserInput = true;
     }
     if (color.value == '') {
@@ -288,6 +302,7 @@ function HideAllErrorMessages() {
 }
 
 function setStandardFormInputValues() {
+    let nameFormPlaceholder = 'Item naam';
     name.value = 'Item naam';
     description.value = 'Item beschrijving';
     purchasePrice.value = 'Item inkoopprijs';
