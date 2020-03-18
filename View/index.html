@@ -62,12 +62,8 @@
                 <button class="btn btn-info smallMargin" id="btn-weather-switch-next" type="button">Next HQ</button>
             </div>
             <hr>
-
-            <div class="screen">
-                <label>Typ hieronder de url van de gewenste afbeelding!</label>
-                <input name='url' type="text" id="new-url">
-                <button id="upload-image">Submit</button>
-            </div>
+            <canvas class="border" id="canvas"></canvas>
+            
 
         </div>
     </div>
@@ -130,6 +126,18 @@
 
                 <button class="btn btn-info" id="submit-information-btn"></button>
             </div>
+        </div>
+    </div>
+    <div class="col-2 row" id="crud-region">
+        <div class="screen">
+            <label>Typ hieronder de url van de gewenste afbeelding!</label>
+            <input name='url' class="border" type="text" id="new-url">
+            <button id="upload-image">Opslaan</button>
+            <br>
+            <hr>
+            <label>Typ hieronder de speciale eigenschap van dit product!</label>
+            <input name='specialty' class="border" type="text" id="specialty">
+            <button id="upload-specialty">Toevoegen</button>
         </div>
     </div>
 </div>

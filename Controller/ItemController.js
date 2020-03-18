@@ -3,7 +3,7 @@ const clothingregion = document.getElementById("clothing-region");
 const tierlantinregion = document.getElementById("tierlantin-region");
 const decorationregion = document.getElementById("decoration-region");
 const createitemregion = document.getElementById("create-item-region");
-
+const crudregion = document.getElementById("crud-region");
 /*Buttons*/
 const createitembtn = document.getElementById("create-item-btn");
 const clothingformbtn = document.getElementById("btn-clothing-form");
@@ -45,13 +45,17 @@ let invalidUserInput = false;
 let currentWizardStep = 1;
 
 export default class ItemController {
-    constructor() {
+    constructor(inventoryController) {
+        this.inventoryController = inventoryController;
         createitembtn.addEventListener('click', function () {
             submitInformationBtn.innerHTML = 'Naar stap 2';
             clothingregion.style.display = "none";
             tierlantinregion.style.display = "none";
             decorationregion.style.display = "none";
             createitemregion.style.display = "block";
+            let screen = document.getElementsByClassName("screen");
+                screen[0].style.display = "none";
+                crudregion.style.display = "none";
             showStepOneFormFields();
             disableStepTwoFormfields();
             clothingformbtn.click();
@@ -149,9 +153,8 @@ export default class ItemController {
                 let last;
                 if (store.products.length == 0) {
                     last = 0;
-                    last.placed_at = 0
                 } else {
-                    last = store.products[store.products.length - 1];
+                    last = parseInt(store.products[store.products.length - 1].placed_at) + 1;
                 }
 
 
@@ -159,7 +162,7 @@ export default class ItemController {
                 if (currentItemType == 'clothing') {
                     newItem = {
                         id: store.products.length,
-                        placed_at: parseInt(last.placed_at) + 1,
+                        placed_at: parseInt(last),
                         name: name.value,
                         type: currentItemType,
                         description: description.value,
@@ -176,7 +179,7 @@ export default class ItemController {
                 if (currentItemType == 'tierlantin') {
                     newItem = {
                         id: store.products.length,
-                        placed_at: parseInt(last.placed_at) + 1,
+                        placed_at: parseInt(last),
                         name: name.value,
                         type: currentItemType,
                         description: description.value,
@@ -192,7 +195,7 @@ export default class ItemController {
                 if (currentItemType == 'decoration') {
                     newItem = {
                         id: store.products.length,
-                        placed_at: parseInt(last.placed_at) + 1,
+                        placed_at: parseInt(last),
                         name: name.value,
                         type: currentItemType,
                         description: description.value,
@@ -208,15 +211,17 @@ export default class ItemController {
                 }
                 store.products[store.products.length] = newItem;
                 localStorage.setItem('unused', JSON.stringify(store));
-
-                let dropdown = document.getElementById(currentItemType + '-dropdown');
-                let newDiv = document.createElement('div');
-                newDiv.className = 'empty unused';
-                newDiv.id = currentItemType.placed_at;
-                let filledDiv = document.createElement('div');
-                filledDiv.className = 'fill';
-                newDiv.appendChild(filledDiv);
-                dropdown.appendChild(newDiv);
+                let newDiv = inventoryController.createStartDiv_1(newItem, true);
+                inventoryController.addEmptyListener(newDiv);
+                if(newItem.type == "clothing"){
+                    document.getElementById("clothing-dropdown").appendChild(newDiv);
+                }
+                if(newItem.type == "tierlantin"){
+                    document.getElementById("tierlantin-dropdown").appendChild(newDiv);
+                }
+                if(newItem.type == "decoration"){
+                    document.getElementById("decoration-dropdown").appendChild(newDiv);
+                }
                 createitembtn.click();
             }
         });
@@ -235,6 +240,7 @@ export default class ItemController {
     }
 
 }
+
 
 function ValidateUserForm() {
     HideAllErrorMessages();
