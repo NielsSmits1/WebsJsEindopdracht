@@ -1,13 +1,12 @@
 export function loadImage(imgpath){
     let image = new Image();
-    try {
-        image.src = imgpath;
-    } catch (e) {
-        image.src = null;
-    }
+    image.addEventListener('error', () =>{
+        imgpath = "none";
+    })
+    image.src = imgpath;
 
-    if (image.width == 0) {
-        return 'none';
+    if (imgpath == "none") {
+        return imgpath;
     } else {
         return "url('" + imgpath + "')";
     }

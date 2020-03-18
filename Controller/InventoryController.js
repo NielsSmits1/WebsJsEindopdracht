@@ -1,4 +1,5 @@
-const urlLink = document.getElementById('new-url');
+let urlLink = document.getElementById('new-url');
+let specialty = document.getElementById('specialty')
 import LocalStorageModel from '../Model/StorageConnector.js';
 import {loadImage} from '../Helpers/ImageLoader.js';
 export default class InventoryController {
@@ -353,7 +354,8 @@ export default class InventoryController {
                 if (square.id == screen[0].id) {
                     square.firstChild.style.backgroundImage = loadImage(urlLink.value);
                 }
-            })
+            });
+            urlLink.value = "";
 
         });
         let fills = Array.from(document.querySelectorAll('.fill'));
@@ -364,6 +366,18 @@ export default class InventoryController {
                 screen[0].id = item.parentElement.id;
                 screen[0].className = "screen" + " " + item.parentElement.classList[1];
                 screen[0].style.display = 'block';
+                let label = document.getElementById('current-specialty');
+                let list = self.storage.GetList(item.parentElement.classList[1]);
+                console.log(list);
+                list.products.forEach(function (listitem){
+                    if(listitem.placed_at == screen[0].id){
+                        if(listitem.specialty != null){
+                            label.innerText = "Huidige specialiteit: " + listitem.specialty;
+                        }else{
+                            label.innerText = "Huidige specialiteit: geen";
+                        }  
+                    }
+                });
             });
         });
 
@@ -371,7 +385,25 @@ export default class InventoryController {
         empties.forEach(function (item) {
             self.addEmptyListener(item);
         });
+
+        let specialtybtn = document.getElementById('upload-specialty');
+        specialtybtn.addEventListener('click', () =>{
+            let screen = document.getElementsByClassName('screen');
+            let type = screen[0].classList[1];
+            let list = this.storage.GetList(type);
+            list.products.forEach((product) => {
+                if (product.placed_at == screen[0].id) {
+                    product.specialty = specialty.value;
+                }
+            })
+            this.storage.SetList(type, list);
+            let label = document.getElementById('current-specialty');
+            label.innerText = 'Huidige specialiteit: ' + specialty.value;
+            specialty.value = "";
+        })
     }
+
+    
     
             
 
