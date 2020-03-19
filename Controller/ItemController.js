@@ -1,3 +1,4 @@
+import LocalStorageModel from "../Model/StorageConnector.js"
 /*Regions*/
 const clothingregion = document.getElementById("clothing-region");
 const tierlantinregion = document.getElementById("tierlantin-region");
@@ -26,6 +27,7 @@ const btnClothingForm = document.getElementById('btn-clothing-form');
 const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
 const btnDecorationForm = document.getElementById('btn-decoration-form');
 const submitInformationBtn = document.getElementById('submit-information-btn');
+const submitUpdateBtn = document.getElementById('submit-update-btn');
 
 /*Error messages*/
 const itemNameErrorMessage = document.getElementById('item-name-error-message');
@@ -40,6 +42,8 @@ const itemWeightErrorMessage = document.getElementById('item-weight-error-messag
 const itemSizeCMErrorMessage = document.getElementById('item-sizeCM-error-message');
 const itemAmountErrorMessage = document.getElementById('item-amount-error-message');
 
+let currentUpdateId;
+let currentUpdateType;
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 let currentWizardStep = 1;
@@ -47,6 +51,81 @@ let currentWizardStep = 1;
 export default class ItemController {
     constructor(inventoryController) {
         this.inventoryController = inventoryController;
+        this.storage = new LocalStorageModel();
+        self = this;
+
+        this.addListeners();
+        
+        createitembtn.click();
+
+        HideAllErrorMessages();
+    }
+
+    hideTypeOptions() {
+        clothingformbtn.style.display = "none";
+        tierlatinformbtn.style.display = "none";
+        decorationformbtn.style.display = "none";
+        submitInformationBtn.style.display = "none";
+        submitUpdateBtn.style.display = "block";
+        clothingregion.style.display = "none";
+        tierlantinregion.style.display = "none";
+        decorationregion.style.display = "none";
+        createitemregion.style.display = "block";
+        document.getElementById('crud-region').style.display = "none";
+    }
+
+    showTypeOptions() {
+        clothingformbtn.style.display = "block";
+        tierlatinformbtn.style.display = "block";
+        decorationformbtn.style.display = "block";
+        submitInformationBtn.style.display = "block";
+        submitUpdateBtn.style.display = "none";
+    }
+
+    updateProduct(product, listtype) {
+        currentUpdateId = product.id;
+        currentUpdateType = listtype;
+        //Fill Fields
+        name.value = product.name;
+        description.value = product.description;
+        purchasePrice.value = product.import;
+        sellPriceExbtw.value = product.export;
+        curStock.value = product.cur_stock;
+        minStock.value = product.min_stock;
+        //Show standard fields
+        name.style.display = "block";
+        description.style.display = "block";
+        purchasePrice.style.display = "block";
+        sellPriceExbtw.style.display = "block";
+        curStock.style.display = "block";
+        minStock.style.display = "block";
+        if (product.type == 'clothing') {
+            color.value = product.color;
+            size.value = product.color;
+            //Show Fields
+
+            color.style.display = "block";
+            size.style.display = "block";
+
+        }
+        if (product.type == 'tierlantin') {
+            weight.value = product.weight;
+            //Show field
+            weight.style.display = "block";
+        }
+        if (product.type == 'decoration') {
+            color.value = product.color;
+            sizeCM.value = product.length;
+            amountInPackage.value = product.amountinpackage;
+            //Show fields
+            color.style.display = "block";
+            sizeCM.style.display = "block";
+            amountInPackage.style.display = "block";
+        }
+
+
+    }
+    addListeners(){
         createitembtn.addEventListener('click', function () {
             submitInformationBtn.innerHTML = 'Naar stap 2';
             clothingregion.style.display = "none";
@@ -54,11 +133,12 @@ export default class ItemController {
             decorationregion.style.display = "none";
             createitemregion.style.display = "block";
             let screen = document.getElementsByClassName("screen");
-                screen[0].style.display = "none";
-                crudregion.style.display = "none";
+            screen[0].style.display = "none";
+            crudregion.style.display = "none";
             showStepOneFormFields();
             disableStepTwoFormfields();
             clothingformbtn.click();
+            self.showTypeOptions();
         });
 
         clothingformbtn.addEventListener('click', function () {
@@ -105,9 +185,6 @@ export default class ItemController {
             disableStepTwoFormfields();
             setStandardFormInputValues();
         });
-        createitembtn.click();
-
-        HideAllErrorMessages();
 
         btnClothingForm.addEventListener('click', function (e) {
             currentItemType = 'clothing';
@@ -225,18 +302,6 @@ export default class ItemController {
                 createitembtn.click();
             }
         });
-
-        clothingformbtn.addEventListener('click', function () {
-            HideAllErrorMessages();
-        });
-
-        tierlatinformbtn.addEventListener('click', function () {
-            HideAllErrorMessages();
-        });
-
-        decorationformbtn.addEventListener('click', function () {
-            HideAllErrorMessages();
-        });
     }
 
 }
@@ -290,6 +355,10 @@ function ValidateUserForm() {
         invalidUserInput = true;
     }
 
+    
+
+
+
 }
 
 function HideAllErrorMessages() {
@@ -308,7 +377,6 @@ function HideAllErrorMessages() {
 }
 
 function setStandardFormInputValues() {
-    let nameFormPlaceholder = 'Item naam';
     name.value = 'Item naam';
     description.value = 'Item beschrijving';
     purchasePrice.value = 'Item inkoopprijs';
@@ -321,6 +389,10 @@ function setStandardFormInputValues() {
     sizeCM.value = 'Item grootte in cm';
     amountInPackage.value = 'Item hoeveelheid per pakketje';
 }
+
+
+
+
 
 function disableStepTwoFormfields() {
     description.style.display = "none";

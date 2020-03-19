@@ -11,6 +11,10 @@ export default class InventoryController {
         this.oldDraggable;
         this.storage = new LocalStorageModel();
     }
+    
+    addItemController(itemController){
+        this.itemController = itemController;
+    }
 
     GetCurrent(){
         return this.currentDraggable;
@@ -357,6 +361,22 @@ export default class InventoryController {
             });
             urlLink.value = "";
 
+        });
+
+        let updatebtn = document.getElementById('update-product');
+        updatebtn.addEventListener('click', () =>{
+            screen =  document.getElementsByClassName('screen');
+            let type = screen[0].classList[1];
+            let list = this.storage.GetList(type);
+            let item;
+            list.products.forEach((product) => {
+                if (product.placed_at == screen[0].id) {
+                    item = product;
+                }
+            })
+            this.itemController.updateProduct(item, type);
+            this.itemController.hideTypeOptions();
+            
         });
         let fills = Array.from(document.querySelectorAll('.fill'));
         fills.forEach(function (item) {

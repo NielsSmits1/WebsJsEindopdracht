@@ -78,7 +78,7 @@
         <div id="create-item-region" class="region">
             <div class="form-group smallMargin d-flex flex-column">
 
-                <div class="row d-flex">
+                <div class="row d-flex" id='btn-type-container'>
                     <button class="btn btn-info smallMargin" id="btn-clothing-form" type="button">Clothing</button>
                     <button class="btn btn-info smallMargin" id="btn-tierlatin-form" type="button">Tierlantijn</button>
                     <button class="btn btn-info smallMargin" id="btn-decoration-form" type="button">Decoratie</button>
@@ -125,6 +125,7 @@
                 <p id="item-amount-error-message">Graag nog even de hoeveelheid per pakketje (cijfer) invullen!</p>
 
                 <button class="btn btn-info" id="submit-information-btn"></button>
+                <button class="btn btn-info" id="submit-update-btn"></button>
             </div>
         </div>
     </div>
@@ -139,6 +140,9 @@
             <label>Typ hieronder de speciale eigenschap van dit product!</label>
             <input name='specialty' class="border" type="text" id="specialty">
             <button id="upload-specialty">Toevoegen</button>
+            <br>
+            <hr>
+            <button id="update-product">Product aanpassen</button>
         </div>
     </div>
 </div>

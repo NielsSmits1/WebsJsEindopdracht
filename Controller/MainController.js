@@ -8,4 +8,5 @@ inventoryController.init();
 let weatherController = new WeatherController();
 let viewController = new ViewController();
 let itemController = new ItemController(inventoryController);
+inventoryController.addItemController(itemController);
 

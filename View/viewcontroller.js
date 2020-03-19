@@ -108,19 +108,13 @@ export default class ViewController {
             this.arc(x, y, 3, 0, Math.PI * 2, false);
             this.fill();
         };
-        // ctx.clearTo = function() {
-        //     ctx.fillStyle = 'white';
-        //     ctx.fillRect(0, 0, width, height);
-        // };
-        // ctx.clearTo();
 
         canvas.onmousemove = function(e) {
             if (!isDrawing) {
                 return;
              }
-             console.log(e.pageX, e.pageY);
-            var x = e.pageX - this.offsetLeft;
-            var y = e.pageY - this.offsetTop;
+            var x = e.pageX - canvas.getBoundingClientRect().left;
+            var y = e.pageY - canvas.getBoundingClientRect().top;
             ctx.fillCircle(x, y);
         };
         canvas.onmousedown = function(e) {
