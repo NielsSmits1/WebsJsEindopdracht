@@ -172,3 +172,7 @@ body {
     margin: 2% 0;
 }
 
+.hide{
+    display: none;
+}
+
