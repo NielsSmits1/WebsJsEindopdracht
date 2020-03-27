@@ -4,6 +4,7 @@ const createItemRegion = document.getElementById("create-item-region");
 
 let ItemTypes = ["Clothing", "Tierlatin", "Decoration"];
 let currentItemType;
+let totalAmountOfSteps;
 
 export default class ItemController {
     constructor(inventoryController) {
@@ -21,13 +22,18 @@ function initCreationForm() {
     document.getElementById("decoration-region").classList.add('hide');
     document.getElementById("tierlantin-region").classList.add('hide');
     document.getElementById("crud-region").classList.add('hide');
-    removeElementsByClass('step1');
-    removeElementsByClass('step2');
-    removeElementsByClass('step3');
+
+    for (let i = 1; i <= totalAmountOfSteps; i++) {
+        let targetStep = 'step' + i;
+        removeElementsByClass(targetStep);
+    }
+    totalAmountOfSteps = 1;
     createItemStepOne();
 }
 
 function createItemStepOne() {
+    totalAmountOfSteps += 1;
+
     //step announcer
     let step1announcement = document.createElement('h1');
     step1announcement.classList.add('step1', 'smallMargin');
@@ -73,8 +79,11 @@ function createItemStepOne() {
 }
 
 function createItemStepTwo() {
+    totalAmountOfSteps += 1;
+
     removeElementsByClass('step1');
 
+    //creates required layout
     let verticalAlignment = document.createElement('div');
     verticalAlignment.classList.add('row', 'flex-column', 'smallMargin', 'step2');
     createItemRegion.append(verticalAlignment);
@@ -165,13 +174,16 @@ function createItemStepTwo() {
     verticalAlignment.append(toStepThreeBtn);
 
     toStepThreeBtn.addEventListener('click', () => {
-//validate user input
+        //validate user input
         createItemStepThree();
     });
 
-    function createItemStepThree(){
+    function createItemStepThree() {
+        totalAmountOfSteps += 1;
+
         removeElementsByClass('step2');
 
+        //creates required layout
         let verticalAlignment = document.createElement('div');
         verticalAlignment.classList.add('row', 'flex-column', 'smallMargin', 'step3');
         createItemRegion.append(verticalAlignment);
@@ -197,7 +209,6 @@ function createItemStepTwo() {
                 break;
         }
     }
-
 }
 
 //helper function
