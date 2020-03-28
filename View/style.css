@@ -77,6 +77,11 @@ body {
 
 }
 
+.inputfieldwidth{
+    width: 100%;
+    font-size: 12px;
+}
+
 .screen {
     width: 100%;
     display: none;
