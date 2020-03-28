@@ -403,6 +403,9 @@ export default class InventoryController {
         let upload = document.getElementById('myFile');
         upload.addEventListener('change', function (e) {
             var reader = new FileReader();
+            if(e.target.files[0] == null){
+                return
+            }
             var name = e.target.files[0].name;
 
             reader.addEventListener("load", function () {

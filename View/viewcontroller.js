@@ -46,7 +46,7 @@ export default class ViewController {
             clothingregion.classList.add('hide');
             clothingdd.parentElement.classList.add('hide');
             crudregion.classList.remove('hide');
-            clothingdd.classList.add('hide');
+            clothingdd.parentElement.classList.add('hide');
             tierlantindd.parentElement.classList.remove('hide');
             decorationdd.parentElement.classList.add('hide');
             document.getElementById("create-item-region").classList.add('hide');
@@ -59,8 +59,8 @@ export default class ViewController {
         decorationbtn.addEventListener('click', function () {
             clothingregion.classList.add('hide');
             clothingdd.parentElement.classList.add('hide');
-            crudregion.classList.add('hide');
-            clothingdd.classList.add('hide');
+            crudregion.classList.remove('hide');
+            clothingdd.parentElement.classList.add('hide');
             tierlantindd.parentElement.classList.add('hide');
             decorationdd.parentElement.classList.remove('hide');
             document.getElementById("create-item-region").classList.add('hide');

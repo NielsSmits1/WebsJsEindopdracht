@@ -26,11 +26,13 @@ let weightValue;
 let decorationSize;
 let decorationColor;
 let amountInPackage;
+let storage;
+let inventoryController;
 
 export default class ItemController {
-    constructor(inventoryController) {
-        this.inventoryController = inventoryController;
-        this.storage = new LocalStorageModel();
+    constructor(invController) {
+        inventoryController = invController;
+        storage = new LocalStorageModel();
 
         document.getElementById("create-item-btn").addEventListener('click', initCreationForm)
 
@@ -248,6 +250,8 @@ function createItemStepThree() {
     step3announcement.innerHTML = 'Step 3: item specific information.';
     verticalAlignment.append(step3announcement);
 
+    //Grab unused list + the new item instance
+
     switch (currentItemType) {
         case 'Clothing':
             //color
@@ -293,7 +297,45 @@ function createItemStepThree() {
             createClothingBtn.addEventListener('click', () => {
                 validateUserInputStepThreeTypeClothing();
                 if (validUserInput) {
-                    //CREATE CLOTHING HERE
+                    let store = storage.GetList('unused');
+                    console.log(store);
+                    let last;
+                    if (store.products.length == 0) {
+                        last = 0;
+                    } else {
+                        last = parseInt(store.products[store.products.length - 1].placed_at) + 1;
+                    }
+                    let newItem;
+                    newItem = {
+                        id: store.products.length,
+                        placed_at: last,
+                        name: nameValue,
+                        type: 'clothing',
+                        description: descriptionValue,
+                        import: parseInt(purchasePriceValue),
+                        export: parseInt(sellPriceValue),
+                        export_btw: parseInt(sellPriceValue) * 1.21,
+                        min_stock: parseInt(minStockValue),
+                        cur_stock: parseInt(currStockValue),
+                        color: clothingColorValue,
+                        size: clothingSizeValue,
+                    }
+
+                    store.products[store.products.length] = newItem;
+                    storage.SetList('unused', store);
+
+                    let newDiv = inventoryController.createStartDiv_1(newItem, true);
+                    inventoryController.addEmptyListener(newDiv);
+                    if (newItem.type == "clothing") {
+                        document.getElementById("clothing-dropdown").appendChild(newDiv);
+                    }
+                    if (newItem.type == "tierlantin") {
+                        document.getElementById("tierlantin-dropdown").appendChild(newDiv);
+                    }
+                    if (newItem.type == "decoration") {
+                        document.getElementById("decoration-dropdown").appendChild(newDiv);
+                    }
+                    document.getElementById("create-item-btn").click();
                 }
             });
 
@@ -325,7 +367,43 @@ function createItemStepThree() {
             createTierlatinBtn.addEventListener('click', () => {
                 validateUserInputStepThreeTypeTierlatin();
                 if (validUserInput) {
-                    //CREATE TIERLATIN ITEM HERE
+                    let store = storage.GetList('unused');
+                    console.log(store);
+                    let last;
+                    if (store.products.length == 0) {
+                        last = 0;
+                    } else {
+                        last = parseInt(store.products[store.products.length - 1].placed_at) + 1;
+                    }
+                    let newItem;
+                    newItem = {
+                        id: store.products.length,
+                        placed_at: last,
+                        name: nameValue,
+                        type: 'tierlantin',
+                        description: descriptionValue,
+                        import: parseInt(purchasePriceValue),
+                        export: parseInt(sellPriceValue),
+                        export_btw: parseInt(sellPriceValue) * 1.21,
+                        min_stock: parseInt(minStockValue),
+                        cur_stock: parseInt(currStockValue),
+                        weight: parseInt(weightValue)
+                    }
+                    store.products[store.products.length] = newItem;
+                    storage.SetList('unused', store);
+
+                    let newDiv = inventoryController.createStartDiv_1(newItem, true);
+                    inventoryController.addEmptyListener(newDiv);
+                    if (newItem.type == "clothing") {
+                        document.getElementById("clothing-dropdown").appendChild(newDiv);
+                    }
+                    if (newItem.type == "tierlantin") {
+                        document.getElementById("tierlantin-dropdown").appendChild(newDiv);
+                    }
+                    if (newItem.type == "decoration") {
+                        document.getElementById("decoration-dropdown").appendChild(newDiv);
+                    }
+                    document.getElementById("create-item-btn").click();
                 }
             });
             break;
@@ -390,11 +468,50 @@ function createItemStepThree() {
             createDecorationBtn.addEventListener('click', () => {
                 validateUserInputStepThreeTypeDecoration();
                 if (validUserInput) {
-                    //CREATE DECORATION ITEM HERE
+                    let store = storage.GetList('unused');
+                    console.log(store);
+                    let last;
+                    if (store.products.length == 0) {
+                        last = 0;
+                    } else {
+                        last = parseInt(store.products[store.products.length - 1].placed_at) + 1;
+                    }
+                    let newItem;
+                    newItem = {
+                        id: store.products.length,
+                        placed_at: last,
+                        name: nameValue,
+                        type: 'decoration',
+                        description: descriptionValue,
+                        import: parseInt(purchasePriceValue),
+                        export: parseInt(sellPriceValue),
+                        export_btw: parseInt(sellPriceValue) * 1.21,
+                        min_stock: parseInt(minStockValue),
+                        cur_stock: parseInt(currStockValue),
+                        weight: decorationSize,
+                        color: decorationColor,
+                        amountinpackage: amountInPackage
+                    }
+                    store.products[store.products.length] = newItem;
+                    storage.SetList('unused', store);
+
+                    let newDiv = inventoryController.createStartDiv_1(newItem, true);
+                    inventoryController.addEmptyListener(newDiv);
+                    if (newItem.type == "clothing") {
+                        document.getElementById("clothing-dropdown").appendChild(newDiv);
+                    }
+                    if (newItem.type == "tierlantin") {
+                        document.getElementById("tierlantin-dropdown").appendChild(newDiv);
+                    }
+                    if (newItem.type == "decoration") {
+                        document.getElementById("decoration-dropdown").appendChild(newDiv);
+                    }
+                    document.getElementById("create-item-btn").click();
                 }
             });
             break;
     }
+
 }
 
 //user validation
@@ -499,7 +616,6 @@ function validateUserInputStepThreeTypeTierlatin() {
 
 function validateUserInputStepThreeTypeDecoration() {
     validUserInput = true;
-
     //gather values
     decorationSize = document.getElementById('item-decoration-size-field').value;
     decorationColor = document.getElementById('item-decoration-color-field').value;
