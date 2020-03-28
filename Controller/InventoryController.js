@@ -9,6 +9,7 @@ export default class InventoryController {
         this.currentDraggable;
         this.oldDraggable;
         this.storage = new LocalStorageModel();
+        this.init();
     }
 
     addItemController(itemController) {
@@ -67,7 +68,6 @@ export default class InventoryController {
                 if (list.products[i].placed_at == this.oldDraggable.id) {
                     candidate = list.products[i];
                     list.products.splice(i, 1);
-                    //return;
                 }
 
             }
@@ -289,7 +289,6 @@ export default class InventoryController {
         deleteDiv.className = "delete";
         let crudregion = document.getElementById("crud-region");
 
-
         deleteDiv.addEventListener('dragover', (e) => {
             e.preventDefault();
         });
@@ -365,9 +364,9 @@ export default class InventoryController {
                 list.products.forEach(function (listitem) {
                     if (listitem.placed_at == screen[0].id) {
                         if (listitem.specialty != null) {
-                            label.innerText = "Huidige specialiteit: " + listitem.specialty;
+                            label.innerText = "Current specialty: " + listitem.specialty;
                         } else {
-                            label.innerText = "Huidige specialiteit: geen";
+                            label.innerText = "Current specialty: none";
                         }
                         if (listitem.imgpath != null) {
                             let canvas = document.getElementsByTagName('canvas')[0];
@@ -431,7 +430,7 @@ export default class InventoryController {
             })
             this.storage.SetList(type, list);
             let label = document.getElementById('current-specialty');
-            label.innerText = 'Huidige specialiteit: ' + specialty.value;
+            label.innerText = 'Current specialty: ' + specialty.value;
             specialty.value = "";
         })
     }

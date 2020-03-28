@@ -67,6 +67,9 @@ function initCreationForm() {
     document.getElementById("decoration-region").classList.add('hide');
     document.getElementById("tierlantin-region").classList.add('hide');
     document.getElementById("crud-region").classList.add('hide');
+    document.getElementById('clothing-dropdown').parentElement.classList.add('hide');
+    document.getElementById('tierlantin-dropdown').parentElement.classList.add('hide');
+    document.getElementById('decoration-dropdown').parentElement.classList.add('hide');
     document.getElementById("create-item-region").classList.remove('hide');
     resetForm();
     for (let i = 1; i <= totalAmountOfSteps; i++) {
