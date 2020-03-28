@@ -17,12 +17,6 @@ button:focus.select {
     border: black 2px solid;
 }
 
-#canvas {
-    height: 150px;
-    width: 150px;
-}
-
-
 .logo {
     padding: 2%;
 }

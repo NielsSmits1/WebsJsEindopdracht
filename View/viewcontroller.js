@@ -101,33 +101,41 @@ export default class ViewController {
     }
 
     InitCanvas() {
-        let isDrawing = false;
-        let canvas = document.getElementById('canvas');
+        let canvas = document.createElement('canvas');
+        document.getElementById('canvasplacement').appendChild(canvas);
         let ctx = canvas.getContext('2d');
-        let width = canvas.width;
-        let height = canvas.height;
+        let pos = {x: 0, y: 0};
 
-        ctx.fillCircle = function (x, y) {
-            this.fillStyle = 'black';
-            this.beginPath();
-            this.moveTo(x, y);
-            this.arc(x, y, 3, 0, Math.PI * 2, false);
-            this.fill();
-        };
+        document.addEventListener('mousemove', draw);
+        document.addEventListener('mousedown', setPosition);
+        document.addEventListener('mouseenter', setPosition);
 
-        canvas.onmousemove = function (e) {
-            if (!isDrawing) {
-                return;
-            }
-            var x = e.pageX - canvas.getBoundingClientRect().left;
-            var y = e.pageY - canvas.getBoundingClientRect().top;
-            ctx.fillCircle(x, y);
-        };
-        canvas.onmousedown = function (e) {
-            isDrawing = true;
-        };
-        canvas.onmouseup = function (e) {
-            isDrawing = false;
-        };
+        function setPosition(e) {
+            pos = getMousePos(canvas, e);
+        }
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function draw(e) {
+            if (e.buttons !== 1) return;
+
+            ctx.beginPath(); // begin
+
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#c0392b';
+
+            ctx.moveTo(pos.x, pos.y); // from
+            setPosition(e);
+            ctx.lineTo(pos.x, pos.y); // to
+
+            ctx.stroke(); // draw it!
+        }
     }
 }
