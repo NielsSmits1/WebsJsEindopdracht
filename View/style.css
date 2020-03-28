@@ -48,7 +48,9 @@ body {
     background-color: red;
     background-size: cover;
 }
-
+.blackborder{
+    border: black solid;
+}
 .block {
     display: inline-block;
     height: 30px;

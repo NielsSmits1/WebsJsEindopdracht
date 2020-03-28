@@ -102,7 +102,7 @@ export default class ViewController {
 
     InitCanvas() {
         let canvas = document.createElement('canvas');
-        document.getElementById('canvasplacement').appendChild(canvas);
+        document.getElementById('canvasplacement').appendChild(canvas).classList.add('blackborder');
         let ctx = canvas.getContext('2d');
         let pos = {x: 0, y: 0};
 
@@ -115,7 +115,7 @@ export default class ViewController {
         }
 
         function getMousePos(canvas, evt) {
-            var rect = canvas.getBoundingClientRect();
+            let rect = canvas.getBoundingClientRect();
             return {
                 x: evt.clientX - rect.left,
                 y: evt.clientY - rect.top
@@ -125,8 +125,7 @@ export default class ViewController {
         function draw(e) {
             if (e.buttons !== 1) return;
 
-            ctx.beginPath(); // begin
-
+            ctx.beginPath();
             ctx.lineWidth = 5;
             ctx.lineCap = 'round';
             ctx.strokeStyle = '#c0392b';
@@ -135,7 +134,7 @@ export default class ViewController {
             setPosition(e);
             ctx.lineTo(pos.x, pos.y); // to
 
-            ctx.stroke(); // draw it!
+            ctx.stroke();
         }
     }
 }
