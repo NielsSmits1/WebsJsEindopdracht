@@ -38,8 +38,7 @@ export default class ViewController {
             document.getElementById("create-item-region").classList.add('hide');
             document.getElementById("decoration-region").classList.add('hide');
             document.getElementById("tierlantin-region").classList.add('hide');
-            let screen = document.getElementsByClassName("screen");
-            screen[0].style.display = "none";
+            hideScreen();
         });
 
         tierlantinbtn.addEventListener('click', function () {
@@ -52,8 +51,8 @@ export default class ViewController {
             document.getElementById("create-item-region").classList.add('hide');
             document.getElementById("decoration-region").classList.add('hide');
             document.getElementById("tierlantin-region").classList.remove('hide');
-            let screen = document.getElementsByClassName("screen");
-            screen[0].style.display = "none";
+            hideScreen();
+
         });
 
         decorationbtn.addEventListener('click', function () {
@@ -66,8 +65,7 @@ export default class ViewController {
             document.getElementById("create-item-region").classList.add('hide');
             document.getElementById("decoration-region").classList.remove('hide');
             document.getElementById("tierlantin-region").classList.add('hide');
-            let screen = document.getElementsByClassName("screen");
-            screen[0].style.display = "none";
+            hideScreen();
         });
 
         let dropdownbtns = Array.from(document.getElementsByClassName("dropbtn"));
@@ -80,8 +78,7 @@ export default class ViewController {
                 } else if (btn.parentElement.id == "decoration-parent") {
                     document.getElementById("decoration-dropdown").classList.toggle('show');
                 }
-                let screen = document.getElementsByClassName("screen");
-                screen[0].style.display = "none";
+                hideScreen();
 
             })
         });
@@ -102,9 +99,9 @@ export default class ViewController {
 
     InitCanvas() {
         let canvas = document.createElement('canvas');
-        document.getElementById('canvasplacement').appendChild(canvas).classList.add('blackborder');
+        document.getElementsByClassName('screen')[0].appendChild(canvas).classList.add('blackborder');
         let ctx = canvas.getContext('2d');
-        let pos = {x: 0, y: 0};
+        let pos = { x: 0, y: 0 };
 
         document.addEventListener('mousemove', draw);
         document.addEventListener('mousedown', setPosition);
@@ -137,4 +134,15 @@ export default class ViewController {
             ctx.stroke();
         }
     }
+}
+
+function hideScreen() {
+    let screen = document.getElementsByClassName("screen");
+    screen[0].style.display = "none";
+    let canvas = document.getElementsByTagName('canvas')[0];
+
+    let context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
 }

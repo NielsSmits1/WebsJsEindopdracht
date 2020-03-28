@@ -46,7 +46,6 @@ export default class InventoryController {
         });
         item.addEventListener('dragstart', () => {
             item.className += ' hold';
-            console.log(this);
             this.currentDraggable = item.firstChild;
             this.oldDraggable = item;
         });
@@ -287,7 +286,6 @@ export default class InventoryController {
     createDeleteDiv() {
         let deleteDiv = document.createElement('div');
         let self = this;
-        console.log(this);
         deleteDiv.className = "delete";
         let crudregion = document.getElementById("crud-region");
 
@@ -302,7 +300,6 @@ export default class InventoryController {
             if (deleteDiv.hasChildNodes()) {
                 return;
             }
-            console.log(this);
             deleteDiv.append(this.currentDraggable);
         });
 
@@ -339,28 +336,6 @@ export default class InventoryController {
 
     addListeners() {
         let self = this;
-        // let btn = document.getElementById('upload-image');
-        // btn.addEventListener('click', () => {
-
-        //     let screen = document.getElementsByClassName('screen');
-        //     let type = screen[0].classList[1];
-        //     let list = this.storage.GetList(type);
-        //     list.products.forEach((product) => {
-        //         if (product.placed_at == screen[0].id) {
-        //             product.imgpath = urlLink.value;
-        //         }
-        //     })
-        //     this.storage.SetList(type, list);
-
-        //     let squares = Array.from(document.querySelectorAll('.empty.' + type));
-        //     squares.forEach((square) => {
-        //         if (square.id == screen[0].id) {
-        //             square.firstChild.style.backgroundImage = loadImage(urlLink.value);
-        //         }
-        //     });
-        //     urlLink.value = "";
-
-        // });
 
         let updatebtn = document.getElementById('update-product');
         updatebtn.addEventListener('click', () => {
@@ -381,20 +356,26 @@ export default class InventoryController {
         let fills = Array.from(document.querySelectorAll('.fill'));
         fills.forEach(function (item) {
             item.addEventListener('click', () => {
-                console.log(item.parentElement);
                 let screen = document.getElementsByClassName('screen');
                 screen[0].id = item.parentElement.id;
                 screen[0].className = "screen" + " " + item.parentElement.classList[1];
                 screen[0].style.display = 'block';
                 let label = document.getElementById('current-specialty');
                 let list = self.storage.GetList(item.parentElement.classList[1]);
-                console.log(list);
                 list.products.forEach(function (listitem) {
                     if (listitem.placed_at == screen[0].id) {
                         if (listitem.specialty != null) {
                             label.innerText = "Huidige specialiteit: " + listitem.specialty;
                         } else {
                             label.innerText = "Huidige specialiteit: geen";
+                        }
+                        if (listitem.imgpath != null) {
+                            let canvas = document.getElementsByTagName('canvas')[0];
+                            let img = new Image();
+                            img.src = listitem.imgpath;
+                            let context = canvas.getContext("2d");
+                            context.drawImage(img, 0, 0, img.width, img.height,
+                                0, 0, canvas.width, canvas.height);
                         }
                     }
                 });
@@ -404,7 +385,7 @@ export default class InventoryController {
         let upload = document.getElementById('myFile');
         upload.addEventListener('change', function (e) {
             var reader = new FileReader();
-            if(e.target.files[0] == null){
+            if (e.target.files[0] == null) {
                 return
             }
             var name = e.target.files[0].name;
@@ -462,6 +443,13 @@ export default class InventoryController {
     HideScreen() {
         let screen = document.getElementsByClassName("screen");
         screen[0].style.display = "none";
+        let canvas = document.getElementsByTagName('canvas')[0];
+
+        let context = canvas.getContext('2d');
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+
     }
 }
 

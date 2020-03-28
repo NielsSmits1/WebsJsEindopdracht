@@ -335,7 +335,6 @@ function createItemStepThree(item = null, type = null) {
                 if (validUserInput) {
                     if (mode == 'create') {
                         let store = storage.GetList('unused');
-                        console.log(store);
                         let last;
                         if (store.products.length == 0) {
                             last = 0;
@@ -429,7 +428,6 @@ function createItemStepThree(item = null, type = null) {
                 if (validUserInput) {
                     if (mode == 'create') {
                         let store = storage.GetList('unused');
-                        console.log(store);
                         let last;
                         if (store.products.length == 0) {
                             last = 0;
@@ -556,7 +554,6 @@ function createItemStepThree(item = null, type = null) {
                 if (validUserInput) {
                     if (mode == 'create') {
                         let store = storage.GetList('unused');
-                        console.log(store);
                         let last;
                         if (store.products.length == 0) {
                             last = 0;
