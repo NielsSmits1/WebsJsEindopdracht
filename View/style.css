@@ -79,11 +79,12 @@ body {
 
 .inputfieldwidth{
     width: 100%;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .screen {
     width: 100%;
+    padding: 2%;
     display: none;
     background-color: white;
     border: black 2px solid;
