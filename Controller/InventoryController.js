@@ -1,26 +1,25 @@
-let urlLink = document.getElementById('new-url');
 let specialty = document.getElementById('specialty')
 import LocalStorageModel from '../Model/StorageConnector.js';
-import {loadImage} from '../Helpers/ImageLoader.js';
+import { loadImage } from '../Helpers/ImageLoader.js';
 export default class InventoryController {
 
-    
+
 
     constructor() {
         this.currentDraggable;
         this.oldDraggable;
         this.storage = new LocalStorageModel();
     }
-    
-    addItemController(itemController){
+
+    addItemController(itemController) {
         this.itemController = itemController;
     }
 
-    GetCurrent(){
+    GetCurrent() {
         return this.currentDraggable;
     }
 
-    init(){
+    init() {
         this.counter = 0;
         this.createStartDivs();
         this.createClothingDiv();
@@ -32,7 +31,7 @@ export default class InventoryController {
         this.createDeleteDiv();
     }
 
-    addEmptyListener(item){
+    addEmptyListener(item) {
         item.addEventListener('dragover', (e) => {
             e.preventDefault();
         });
@@ -99,13 +98,13 @@ export default class InventoryController {
         let dropdown = document.getElementById("clothing-dropdown");
         let tier_dropdown = document.getElementById("tierlantin-dropdown");
         let deco_dropdown = document.getElementById("decoration-dropdown");
-    
+
         unused.products.forEach(product => {
             this.createStartDiv(product, dropdown, tier_dropdown, deco_dropdown);
         });
     }
 
-    createStartDiv_1(product, addFill){
+    createStartDiv_1(product, addFill) {
         let newDiv;
         let newDiv2;
         if (product.type == 'clothing') {
@@ -114,7 +113,7 @@ export default class InventoryController {
             newDiv.className = 'empty ';
             newDiv.className += 'unused';
             newDiv2.className = 'fill';
-            newDiv2.draggable = true;          
+            newDiv2.draggable = true;
             newDiv.id = product.placed_at;
             if (product.imgpath != null) {
                 newDiv2.style.backgroundImage = loadImage(product.imgpath);
@@ -146,7 +145,7 @@ export default class InventoryController {
         }
         newDiv.appendChild(newDiv2);
 
-        if(addFill){
+        if (addFill) {
             newDiv2.addEventListener('click', () => {
                 let screen = document.getElementsByClassName('screen');
                 screen[0].id = newDiv2.parentElement.id;
@@ -154,12 +153,12 @@ export default class InventoryController {
                 screen[0].style.display = 'block';
             });
         }
-        
+
 
         return newDiv;
     }
 
-    createStartDiv(product, d1, d2, d3){
+    createStartDiv(product, d1, d2, d3) {
         if (product.type == 'clothing') {
             let newDiv = document.createElement('div');
             let newDiv2 = document.createElement('div');
@@ -291,7 +290,7 @@ export default class InventoryController {
         console.log(this);
         deleteDiv.className = "delete";
         let crudregion = document.getElementById("crud-region");
-        
+
 
         deleteDiv.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -340,32 +339,32 @@ export default class InventoryController {
 
     addListeners() {
         let self = this;
-        let btn = document.getElementById('upload-image');
-        btn.addEventListener('click', () => {
+        // let btn = document.getElementById('upload-image');
+        // btn.addEventListener('click', () => {
 
-            let screen = document.getElementsByClassName('screen');
-            let type = screen[0].classList[1];
-            let list = this.storage.GetList(type);
-            list.products.forEach((product) => {
-                if (product.placed_at == screen[0].id) {
-                    product.imgpath = urlLink.value;
-                }
-            })
-            this.storage.SetList(type, list);
+        //     let screen = document.getElementsByClassName('screen');
+        //     let type = screen[0].classList[1];
+        //     let list = this.storage.GetList(type);
+        //     list.products.forEach((product) => {
+        //         if (product.placed_at == screen[0].id) {
+        //             product.imgpath = urlLink.value;
+        //         }
+        //     })
+        //     this.storage.SetList(type, list);
 
-            let squares = Array.from(document.querySelectorAll('.empty.' + type));
-            squares.forEach((square) => {
-                if (square.id == screen[0].id) {
-                    square.firstChild.style.backgroundImage = loadImage(urlLink.value);
-                }
-            });
-            urlLink.value = "";
+        //     let squares = Array.from(document.querySelectorAll('.empty.' + type));
+        //     squares.forEach((square) => {
+        //         if (square.id == screen[0].id) {
+        //             square.firstChild.style.backgroundImage = loadImage(urlLink.value);
+        //         }
+        //     });
+        //     urlLink.value = "";
 
-        });
+        // });
 
         let updatebtn = document.getElementById('update-product');
-        updatebtn.addEventListener('click', () =>{
-            screen =  document.getElementsByClassName('screen');
+        updatebtn.addEventListener('click', () => {
+            screen = document.getElementsByClassName('screen');
             let type = screen[0].classList[1];
             let list = this.storage.GetList(type);
             let item;
@@ -376,7 +375,7 @@ export default class InventoryController {
             })
             this.itemController.updateProduct(item, type);
             this.itemController.hideTypeOptions();
-            
+
         });
         let fills = Array.from(document.querySelectorAll('.fill'));
         fills.forEach(function (item) {
@@ -389,16 +388,45 @@ export default class InventoryController {
                 let label = document.getElementById('current-specialty');
                 let list = self.storage.GetList(item.parentElement.classList[1]);
                 console.log(list);
-                list.products.forEach(function (listitem){
-                    if(listitem.placed_at == screen[0].id){
-                        if(listitem.specialty != null){
+                list.products.forEach(function (listitem) {
+                    if (listitem.placed_at == screen[0].id) {
+                        if (listitem.specialty != null) {
                             label.innerText = "Huidige specialiteit: " + listitem.specialty;
-                        }else{
+                        } else {
                             label.innerText = "Huidige specialiteit: geen";
-                        }  
+                        }
                     }
                 });
             });
+        });
+
+        let upload = document.getElementById('myFile');
+        upload.addEventListener('change', function (e) {
+            var reader = new FileReader();
+            var name = e.target.files[0].name;
+
+            reader.addEventListener("load", function () {
+                screen = document.getElementsByClassName('screen');
+                let type = screen[0].classList[1];
+                let list = self.storage.GetList(type);
+                let imgpath;
+                list.products.forEach((product) => {
+                    if (product.placed_at == screen[0].id) {
+                        product.imgpath = this.result;
+                        imgpath = this.result;
+                    }
+                    self.storage.SetList(type, list);
+                });
+                let squares = Array.from(document.querySelectorAll('.empty.' + type));
+                squares.forEach((square) => {
+                    if (square.id == screen[0].id) {
+                        square.firstChild.style.backgroundImage = loadImage(imgpath);
+                    }
+                });
+            });
+
+
+            reader.readAsDataURL(event.target.files[0]);
         });
 
         let empties = Array.from(document.querySelectorAll('.empty'));
@@ -407,7 +435,7 @@ export default class InventoryController {
         });
 
         let specialtybtn = document.getElementById('upload-specialty');
-        specialtybtn.addEventListener('click', () =>{
+        specialtybtn.addEventListener('click', () => {
             let screen = document.getElementsByClassName('screen');
             let type = screen[0].classList[1];
             let list = this.storage.GetList(type);
@@ -423,11 +451,11 @@ export default class InventoryController {
         })
     }
 
-    
-    
-            
 
-    HideScreen(){
+
+
+
+    HideScreen() {
         let screen = document.getElementsByClassName("screen");
         screen[0].style.display = "none";
     }

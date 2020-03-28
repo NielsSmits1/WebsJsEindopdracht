@@ -44,6 +44,7 @@ const itemAmountErrorMessage = document.getElementById('item-amount-error-messag
 
 let currentUpdateId;
 let currentUpdateType;
+let currentUpdateItem;
 let currentItemType = 'clothing';
 let invalidUserInput = false;
 let currentWizardStep = 1;
@@ -55,7 +56,7 @@ export default class ItemController {
         self = this;
 
         this.addListeners();
-        
+
         createitembtn.click();
 
         HideAllErrorMessages();
@@ -84,6 +85,7 @@ export default class ItemController {
 
     updateProduct(product, listtype) {
         currentUpdateId = product.id;
+        currentUpdateItem = product;
         currentUpdateType = listtype;
         //Fill Fields
         name.value = product.name;
@@ -101,7 +103,7 @@ export default class ItemController {
         minStock.style.display = "block";
         if (product.type == 'clothing') {
             color.value = product.color;
-            size.value = product.color;
+            size.value = product.size;
             //Show Fields
 
             color.style.display = "block";
@@ -125,7 +127,7 @@ export default class ItemController {
 
 
     }
-    addListeners(){
+    addListeners() {
         createitembtn.addEventListener('click', function () {
             submitInformationBtn.innerHTML = 'Naar stap 2';
             clothingregion.style.display = "none";
@@ -204,7 +206,7 @@ export default class ItemController {
             currentWizardStep = 1;
         });
 
-        submitInformationBtn.addEventListener('click', function (e) {
+        submitInformationBtn.addEventListener('click', function (e){
             e.preventDefault();
             //stap 1
             if (currentWizardStep == 1) {
@@ -246,8 +248,8 @@ export default class ItemController {
                         import: parseInt(purchasePrice.value),
                         export: parseInt(sellPriceExbtw.value),
                         export_btw: parseInt(sellPriceExbtw.value) * 1.25,
-                        min_stock: 0,
-                        cur_stock: 0,
+                        min_stock: parseInt(minStock.value),
+                        cur_stock: parseInt(curStock.value),
                         color: color.value,
                         size: size.value,
                     }
@@ -263,8 +265,8 @@ export default class ItemController {
                         import: parseInt(purchasePrice.value),
                         export: parseInt(sellPriceExbtw.value),
                         export_btw: parseInt(sellPriceExbtw.value) * 1.25,
-                        min_stock: 0,
-                        cur_stock: 0,
+                        min_stock: parseInt(minStock.value),
+                        cur_stock: parseInt(curStock.value),
                         weight: weight.value
                     }
                 }
@@ -279,8 +281,8 @@ export default class ItemController {
                         import: parseInt(purchasePrice.value),
                         export: parseInt(sellPriceExbtw.value),
                         export_btw: parseInt(sellPriceExbtw.value) * 1.25,
-                        min_stock: 0,
-                        cur_stock: 0,
+                        min_stock: parseInt(minStock.value),
+                        cur_stock: parseInt(curStock.value),
                         length: sizeCM.value,
                         color: color.value,
                         amountinpackage: amountInPackage.value
@@ -288,19 +290,57 @@ export default class ItemController {
                 }
                 store.products[store.products.length] = newItem;
                 localStorage.setItem('unused', JSON.stringify(store));
-                let newDiv = inventoryController.createStartDiv_1(newItem, true);
+                let newDiv = Window.inventoryController.createStartDiv_1(newItem, true);
                 inventoryController.addEmptyListener(newDiv);
-                if(newItem.type == "clothing"){
+                if (newItem.type == "clothing") {
                     document.getElementById("clothing-dropdown").appendChild(newDiv);
                 }
-                if(newItem.type == "tierlantin"){
+                if (newItem.type == "tierlantin") {
                     document.getElementById("tierlantin-dropdown").appendChild(newDiv);
                 }
-                if(newItem.type == "decoration"){
+                if (newItem.type == "decoration") {
                     document.getElementById("decoration-dropdown").appendChild(newDiv);
                 }
                 createitembtn.click();
             }
+        });
+
+        submitUpdateBtn.addEventListener('click', () => {
+
+            ValidateUserForm();
+            if (invalidUserInput) {
+                return;
+            }
+            HideAllErrorMessages();
+            currentUpdateItem.name = name.value
+            currentUpdateItem.description = description.value;
+            currentUpdateItem.import = parseInt(purchasePrice.value);
+            currentUpdateItem.export = parseInt(sellPriceExbtw.value);
+            currentUpdateItem.export_btw = parseInt(sellPriceExbtw.value) * 1.21;
+            currentUpdateItem.cur_stock = parseInt(curStock.value);
+            currentUpdateItem.min_stock = parseInt(minStock.value);
+            //Show standard fields
+            if (currentUpdateItem.type == 'clothing') {
+                currentUpdateItem.color = color.value;
+                currentUpdateItem.size = size.value;
+            }
+            if (currentUpdateItem.type == 'tierlantin') {
+                currentUpdateItem.weight = weight.value;
+            }
+            if (currentUpdateItem.type == 'decoration') {
+                currentUpdateItem.color = color.value;
+                currentUpdateItem.length = sizeCM.value;
+                currentUpdateItem.amountinpackage = amountInPackage.value;
+            }
+
+            let list = this.storage.GetList(currentUpdateType);
+            list.products.forEach(function (item) {
+                if (item.placed_at == currentUpdateItem.placed_at) {
+                    item = currentUpdateItem;
+                }
+            });
+            this.storage.SetList(currentUpdateType, list);
+            createitembtn.click();
         });
     }
 
@@ -355,7 +395,7 @@ function ValidateUserForm() {
         invalidUserInput = true;
     }
 
-    
+
 
 
 
