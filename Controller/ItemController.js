@@ -34,6 +34,7 @@ export default class ItemController {
 
         document.getElementById("create-item-btn").addEventListener('click', initCreationForm)
 
+        document.getElementById("create-item-btn").click();
     }
 }
 
@@ -113,7 +114,7 @@ function createItemStepTwo() {
     //step announcer
     let step2announcement = document.createElement('h1');
     step2announcement.classList.add('smallVerticalMargin');
-    step2announcement.innerHTML = 'Stap 2: general information.';
+    step2announcement.innerHTML = 'Step 2: general information.';
     verticalAlignment.append(step2announcement);
 
     //name
@@ -244,7 +245,7 @@ function createItemStepThree() {
     //step announcer
     let step3announcement = document.createElement('h1');
     step3announcement.classList.add('smallVerticalMargin');
-    step3announcement.innerHTML = 'Stap 3: item specific information.';
+    step3announcement.innerHTML = 'Step 3: item specific information.';
     verticalAlignment.append(step3announcement);
 
     switch (currentItemType) {

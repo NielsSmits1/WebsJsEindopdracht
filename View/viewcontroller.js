@@ -19,45 +19,53 @@ const decorationdd = document.getElementById('decoration-dropdown');
 export default class ViewController {
     constructor() {
         this.InitCanvas();
-        clothingdd.parentElement.style.display = "none";
-        tierlantindd.parentElement.style.display = "none";
-        decorationdd.parentElement.style.display = "none";
+        document.getElementById("clothing-region").classList.add('hide');
+        document.getElementById("decoration-region").classList.add('hide');
+        document.getElementById("tierlantin-region").classList.add('hide');
+        document.getElementById("crud-region").classList.add('hide');
+        document.getElementById("create-item-region").classList.remove('hide');
+        clothingdd.parentElement.classList.add('hide');
+        tierlantindd.parentElement.classList.add('hide');
+        decorationdd.parentElement.classList.add('hide');
 
         clothingbtn.addEventListener('click', function () {
-            clothingregion.style.display = "block";
-            clothingdd.parentElement.style.display = "block";
-            crudregion.style.display = "block";
-            tierlantindd.parentElement.style.display = "none";
-            decorationdd.parentElement.style.display = "none";
-            tierlantinregion.style.display = "none";
-            decorationregion.style.display = "none";
-            createitemregion.style.display = "none";
+            clothingregion.classList.remove('hide');
+            clothingdd.parentElement.classList.remove('hide');
+            crudregion.classList.remove('hide');
+            clothingdd.classList.remove('hide');
+            tierlantindd.parentElement.classList.add('hide');
+            decorationdd.parentElement.classList.add('hide');
+            document.getElementById("create-item-region").classList.add('hide');
+            document.getElementById("decoration-region").classList.add('hide');
+            document.getElementById("tierlantin-region").classList.add('hide');
             let screen = document.getElementsByClassName("screen");
             screen[0].style.display = "none";
         });
 
         tierlantinbtn.addEventListener('click', function () {
-            clothingregion.style.display = "none";
-            tierlantinregion.style.display = "block";
-            tierlantindd.parentElement.style.display = "block";
-            crudregion.style.display = "block";
-            clothingdd.parentElement.style.display = "none";
-            decorationdd.parentElement.style.display = "none";
-            decorationregion.style.display = "none";
-            createitemregion.style.display = "none";
+            clothingregion.classList.add('hide');
+            clothingdd.parentElement.classList.add('hide');
+            crudregion.classList.remove('hide');
+            clothingdd.classList.add('hide');
+            tierlantindd.parentElement.classList.remove('hide');
+            decorationdd.parentElement.classList.add('hide');
+            document.getElementById("create-item-region").classList.add('hide');
+            document.getElementById("decoration-region").classList.add('hide');
+            document.getElementById("tierlantin-region").classList.remove('hide');
             let screen = document.getElementsByClassName("screen");
             screen[0].style.display = "none";
         });
 
         decorationbtn.addEventListener('click', function () {
-            clothingregion.style.display = "none";
-            tierlantinregion.style.display = "none";
-            decorationregion.style.display = "block";
-            decorationdd.parentElement.style.display = "block";
-            crudregion.style.display = "block";
-            clothingdd.parentElement.style.display = "none";
-            tierlantindd.parentElement.style.display = "none";
-            createitemregion.style.display = "none";
+            clothingregion.classList.add('hide');
+            clothingdd.parentElement.classList.add('hide');
+            crudregion.classList.add('hide');
+            clothingdd.classList.add('hide');
+            tierlantindd.parentElement.classList.add('hide');
+            decorationdd.parentElement.classList.remove('hide');
+            document.getElementById("create-item-region").classList.add('hide');
+            document.getElementById("decoration-region").classList.remove('hide');
+            document.getElementById("tierlantin-region").classList.add('hide');
             let screen = document.getElementsByClassName("screen");
             screen[0].style.display = "none";
         });
