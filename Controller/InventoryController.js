@@ -373,8 +373,9 @@ export default class InventoryController {
                     item = product;
                 }
             })
-            this.itemController.updateProduct(item, type);
-            this.itemController.hideTypeOptions();
+            this.itemController.update();
+            this.itemController.hide();
+            this.itemController.step2(item, type);
 
         });
         let fills = Array.from(document.querySelectorAll('.fill'));
