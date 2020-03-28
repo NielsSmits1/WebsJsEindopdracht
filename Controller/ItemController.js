@@ -1,469 +1,563 @@
 import LocalStorageModel from "../Model/StorageConnector.js"
-/*Regions*/
-const clothingregion = document.getElementById("clothing-region");
-const tierlantinregion = document.getElementById("tierlantin-region");
-const decorationregion = document.getElementById("decoration-region");
-const createitemregion = document.getElementById("create-item-region");
-const crudregion = document.getElementById("crud-region");
-/*Buttons*/
-const createitembtn = document.getElementById("create-item-btn");
-const clothingformbtn = document.getElementById("btn-clothing-form");
-const tierlatinformbtn = document.getElementById("btn-tierlatin-form");
-const decorationformbtn = document.getElementById("btn-decoration-form");
 
-/*Form fields*/
-const name = document.getElementById('item-name');
-const description = document.getElementById('item-description');
-const purchasePrice = document.getElementById('item-purchase-price');
-const sellPriceExbtw = document.getElementById('item-sell-price-exbtw');
-const minStock = document.getElementById('item-min-stock');
-const curStock = document.getElementById('item-cur-stock');
-const color = document.getElementById('item-color');
-const size = document.getElementById('item-size');
-const weight = document.getElementById('item-weight');
-const sizeCM = document.getElementById('item-size-CM');
-const amountInPackage = document.getElementById('item-amount-in-package');
-const btnClothingForm = document.getElementById('btn-clothing-form');
-const btnTierlatinForm = document.getElementById('btn-tierlatin-form');
-const btnDecorationForm = document.getElementById('btn-decoration-form');
-const submitInformationBtn = document.getElementById('submit-information-btn');
-const submitUpdateBtn = document.getElementById('submit-update-btn');
+const createItemRegion = document.getElementById("create-item-region");
 
-/*Error messages*/
-const itemNameErrorMessage = document.getElementById('item-name-error-message');
-const itemDescriptionErrorMessage = document.getElementById('item-description-error-message');
-const itemPurchasePriseErrorMessage = document.getElementById('item-purchase-price-error-message');
-const itemSellPriceErrorMessage = document.getElementById('item-sell-price-error-message');
-const itemCurStockErrorMessage = document.getElementById('item-cur-stock-error-message');
-const itemMinStockErrorMessage = document.getElementById('item-min-stock-error-message');
-const itemColorErrorMessage = document.getElementById('item-color-error-message');
-const itemSizeErrorMessage = document.getElementById('item-size-error-message');
-const itemWeightErrorMessage = document.getElementById('item-weight-error-message');
-const itemSizeCMErrorMessage = document.getElementById('item-sizeCM-error-message');
-const itemAmountErrorMessage = document.getElementById('item-amount-error-message');
+let ItemTypes = ["Clothing", "Tierlatin", "Decoration"];
+let currentItemType;
+let totalAmountOfSteps;
+let validUserInput;
 
-let currentUpdateId;
-let currentUpdateType;
-let currentUpdateItem;
-let currentItemType = 'clothing';
-let invalidUserInput = false;
-let currentWizardStep = 1;
+//form field values
+let nameValue;
+let descriptionValue;
+let purchasePriceValue;
+let sellPriceValue;
+let currStockValue;
+let minStockValue;
+
+//clothing specific
+let clothingColorValue;
+let clothingSizeValue;
+
+//tierlatin speficic
+let weightValue;
+
+//decoration specific
+let decorationSize;
+let decorationColor;
+let amountInPackage;
 
 export default class ItemController {
     constructor(inventoryController) {
         this.inventoryController = inventoryController;
         this.storage = new LocalStorageModel();
-        self = this;
 
-        this.addListeners();
+        document.getElementById("create-item-btn").addEventListener('click', initCreationForm)
 
-        createitembtn.click();
-
-        HideAllErrorMessages();
     }
+}
 
-    hideTypeOptions() {
-        clothingformbtn.style.display = "none";
-        tierlatinformbtn.style.display = "none";
-        decorationformbtn.style.display = "none";
-        submitInformationBtn.style.display = "none";
-        submitUpdateBtn.style.display = "block";
-        clothingregion.style.display = "none";
-        tierlantinregion.style.display = "none";
-        decorationregion.style.display = "none";
-        createitemregion.style.display = "block";
-        document.getElementById('crud-region').style.display = "none";
+function initCreationForm() {
+    //hide other regions
+    document.getElementById("clothing-region").classList.add('hide');
+    document.getElementById("decoration-region").classList.add('hide');
+    document.getElementById("tierlantin-region").classList.add('hide');
+    document.getElementById("crud-region").classList.add('hide');
+    document.getElementById("create-item-region").classList.remove('hide');
+    resetForm();
+    for (let i = 1; i <= totalAmountOfSteps; i++) {
+        let targetStep = 'step' + i;
+        removeElementsByClass(targetStep);
     }
+    totalAmountOfSteps = 1;
+    createItemStepOne();
+}
 
-    showTypeOptions() {
-        clothingformbtn.style.display = "block";
-        tierlatinformbtn.style.display = "block";
-        decorationformbtn.style.display = "block";
-        submitInformationBtn.style.display = "block";
-        submitUpdateBtn.style.display = "none";
-    }
+function createItemStepOne() {
+    totalAmountOfSteps += 1;
 
-    updateProduct(product, listtype) {
-        currentUpdateId = product.id;
-        currentUpdateItem = product;
-        currentUpdateType = listtype;
-        //Fill Fields
-        name.value = product.name;
-        description.value = product.description;
-        purchasePrice.value = product.import;
-        sellPriceExbtw.value = product.export;
-        curStock.value = product.cur_stock;
-        minStock.value = product.min_stock;
-        //Show standard fields
-        name.style.display = "block";
-        description.style.display = "block";
-        purchasePrice.style.display = "block";
-        sellPriceExbtw.style.display = "block";
-        curStock.style.display = "block";
-        minStock.style.display = "block";
-        if (product.type == 'clothing') {
-            color.value = product.color;
-            size.value = product.size;
-            //Show Fields
+    //step announcer
+    let step1announcement = document.createElement('h1');
+    step1announcement.classList.add('step1', 'smallMargin');
+    step1announcement.innerHTML = 'Step 1: what would you like to make?';
+    createItemRegion.append(step1announcement);
 
-            color.style.display = "block";
-            size.style.display = "block";
+    //Clothing handler
+    let btnclothingform = document.createElement('button');
+    btnclothingform.classList.add('step1');
+    btnclothingform.innerHTML = 'Clothing';
+    btnclothingform.classList.add('btn', 'btn-info', 'smallMargin');
+    createItemRegion.append(btnclothingform);
 
+    btnclothingform.addEventListener('click', () => {
+        currentItemType = ItemTypes[0];
+        createItemStepTwo();
+    });
+
+    //Tierlatin handler
+    let btntierlatinform = document.createElement('button');
+    btntierlatinform.classList.add('step1');
+    btntierlatinform.innerHTML = 'Tierlatin';
+    btntierlatinform.classList.add('btn', 'btn-info', 'smallMargin');
+    createItemRegion.append(btntierlatinform);
+
+    btntierlatinform.addEventListener('click', () => {
+        currentItemType = ItemTypes[1];
+        createItemStepTwo();
+    });
+
+    //decoration handler
+    let btndecorationform = document.createElement('button');
+    btndecorationform.classList.add('step1');
+    btndecorationform.innerHTML = 'Decoration';
+    btndecorationform.classList.add('btn', 'btn-info', 'smallMargin');
+    createItemRegion.append(btndecorationform);
+
+    btndecorationform.addEventListener('click', () => {
+        currentItemType = ItemTypes[2];
+        createItemStepTwo()
+    });
+
+}
+
+function createItemStepTwo() {
+    totalAmountOfSteps += 1;
+
+    removeElementsByClass('step1');
+
+    //creates required layout
+    let verticalAlignment = document.createElement('div');
+    verticalAlignment.classList.add('row', 'flex-column', 'smallMargin', 'step2');
+    createItemRegion.append(verticalAlignment);
+
+    //step announcer
+    let step2announcement = document.createElement('h1');
+    step2announcement.classList.add('smallVerticalMargin');
+    step2announcement.innerHTML = 'Stap 2: general information.';
+    verticalAlignment.append(step2announcement);
+
+    //name
+    let nameLabel = document.createElement('label');
+    nameLabel.innerHTML = 'Name';
+    nameLabel.classList.add('smallVerticalMargin');
+    nameLabel.setAttribute('id', 'item-name-label');
+    verticalAlignment.append(nameLabel);
+
+    let nameField = document.createElement('input');
+    nameField.classList.add('form-control');
+    nameField.setAttribute('id', 'item-name-field');
+    verticalAlignment.append(nameField);
+
+    let nameErrorMsg = document.createElement('p');
+    nameErrorMsg.setAttribute('id', 'name-error-msg');
+    nameErrorMsg.classList.add('alert-warning');
+    verticalAlignment.append(nameErrorMsg);
+
+    //description
+    let descriptionLabel = document.createElement('label');
+    descriptionLabel.innerHTML = 'Description';
+    descriptionLabel.classList.add('smallVerticalMargin');
+    descriptionLabel.setAttribute('id', 'item-description-label');
+    verticalAlignment.append(descriptionLabel);
+
+    let descriptionField = document.createElement('input');
+    descriptionField.classList.add('form-control');
+    descriptionField.setAttribute('id', 'item-description-field');
+    verticalAlignment.append(descriptionField);
+
+    let descriptionErrorMsg = document.createElement('p');
+    descriptionErrorMsg.setAttribute('id', 'description-error-msg');
+    descriptionErrorMsg.classList.add('alert-warning');
+    verticalAlignment.append(descriptionErrorMsg);
+
+    //purchase price
+    let purchasePriceLabel = document.createElement('label');
+    purchasePriceLabel.innerHTML = 'Purchase price';
+    purchasePriceLabel.classList.add('smallVerticalMargin');
+    purchasePriceLabel.setAttribute('id', 'item-purchasePrice-label');
+    verticalAlignment.append(purchasePriceLabel);
+
+    let purchasePriceField = document.createElement('input');
+    purchasePriceField.classList.add('form-control');
+    purchasePriceField.setAttribute('id', 'item-purchasePrice-field');
+    verticalAlignment.append(purchasePriceField);
+
+    let purchasePriceErrorMsg = document.createElement('p');
+    purchasePriceErrorMsg.setAttribute('id', 'purchasePrice-error-msg');
+    purchasePriceErrorMsg.classList.add('alert-warning');
+    verticalAlignment.append(purchasePriceErrorMsg);
+
+    //sell price excl. btw
+    let sellPriceLabel = document.createElement('label');
+    sellPriceLabel.innerHTML = 'Sell price excl. btw';
+    sellPriceLabel.classList.add('smallVerticalMargin');
+    sellPriceLabel.setAttribute('id', 'item-sellPrice-label');
+    verticalAlignment.append(sellPriceLabel);
+
+    let sellPriceField = document.createElement('input');
+    sellPriceField.classList.add('form-control');
+    sellPriceField.setAttribute('id', 'item-sellPrice-field');
+    verticalAlignment.append(sellPriceField);
+
+    let sellPriceErrorMsg = document.createElement('p');
+    sellPriceErrorMsg.setAttribute('id', 'sellPrice-error-msg');
+    sellPriceErrorMsg.classList.add('alert-warning');
+    verticalAlignment.append(sellPriceErrorMsg);
+
+    //current stock
+    let currStockLabel = document.createElement('label');
+    currStockLabel.innerHTML = 'Current stock';
+    currStockLabel.classList.add('smallVerticalMargin');
+    currStockLabel.setAttribute('id', 'item-curStock-label');
+    verticalAlignment.append(currStockLabel);
+
+    let currStockField = document.createElement('input');
+    currStockField.classList.add('form-control');
+    currStockField.setAttribute('id', 'item-curStock-field');
+    verticalAlignment.append(currStockField);
+
+    let currStockErrorMsg = document.createElement('p');
+    currStockErrorMsg.setAttribute('id', 'currStock-error-msg');
+    currStockErrorMsg.classList.add('alert-warning');
+    verticalAlignment.append(currStockErrorMsg);
+
+    //minimal stock
+    let minStockLabel = document.createElement('label');
+    minStockLabel.innerHTML = 'Minimal stock';
+    minStockLabel.classList.add('smallVerticalMargin');
+    minStockLabel.setAttribute('id', 'item-minStock-label');
+    verticalAlignment.append(minStockLabel);
+
+    let minStockField = document.createElement('input');
+    minStockField.classList.add('form-control');
+    minStockField.setAttribute('id', 'item-minStock-field');
+    verticalAlignment.append(minStockField);
+
+    let minStockErrorMsg = document.createElement('p');
+    minStockErrorMsg.setAttribute('id', 'minStock-error-msg');
+    minStockErrorMsg.classList.add('alert-warning');
+    verticalAlignment.append(minStockErrorMsg);
+
+    //To step 3 handler
+    let toStepThreeBtn = document.createElement('button');
+    toStepThreeBtn.innerHTML = 'To step 3';
+    toStepThreeBtn.classList.add('btn', 'btn-info', 'smallMargin');
+    verticalAlignment.append(toStepThreeBtn);
+
+    toStepThreeBtn.addEventListener('click', () => {
+        validateUserInputStepTwo();
+        if (validUserInput) {
+            createItemStepThree();
         }
-        if (product.type == 'tierlantin') {
-            weight.value = product.weight;
-            //Show field
-            weight.style.display = "block";
-        }
-        if (product.type == 'decoration') {
-            color.value = product.color;
-            sizeCM.value = product.length;
-            amountInPackage.value = product.amountinpackage;
-            //Show fields
-            color.style.display = "block";
-            sizeCM.style.display = "block";
-            amountInPackage.style.display = "block";
-        }
+    });
+}
 
+function createItemStepThree() {
+    totalAmountOfSteps += 1;
+    removeElementsByClass('step2');
 
-    }
-    addListeners() {
-        createitembtn.addEventListener('click', function () {
-            submitInformationBtn.innerHTML = 'Naar stap 2';
-            clothingregion.style.display = "none";
-            tierlantinregion.style.display = "none";
-            decorationregion.style.display = "none";
-            createitemregion.style.display = "block";
-            let screen = document.getElementsByClassName("screen");
-            screen[0].style.display = "none";
-            crudregion.style.display = "none";
-            showStepOneFormFields();
-            disableStepTwoFormfields();
-            clothingformbtn.click();
-            self.showTypeOptions();
-        });
+    //creates required layout
+    let verticalAlignment = document.createElement('div');
+    verticalAlignment.classList.add('row', 'flex-column', 'smallMargin', 'step3');
+    createItemRegion.append(verticalAlignment);
 
-        clothingformbtn.addEventListener('click', function () {
-            name.style.display = "block";
-            purchasePrice.style.display = "block";
-            sellPriceExbtw.style.display = "block";
-            curStock.style.display = "block";
-            minStock.style.display = "block";
-            color.style.display = "block";
-            size.style.display = "block";
-            weight.style.display = "none";
-            sizeCM.style.display = "none";
-            amountInPackage.style.display = "none";
-            disableStepTwoFormfields();
-            setStandardFormInputValues();
-        });
+    //step announcer
+    let step3announcement = document.createElement('h1');
+    step3announcement.classList.add('smallVerticalMargin');
+    step3announcement.innerHTML = 'Stap 3: item specific information.';
+    verticalAlignment.append(step3announcement);
 
-        tierlatinformbtn.addEventListener('click', function () {
-            name.style.display = "block";
-            purchasePrice.style.display = "block";
-            sellPriceExbtw.style.display = "block";
-            curStock.style.display = "block";
-            minStock.style.display = "block";
-            color.style.display = "none";
-            sizeCM.style.display = "none";
-            weight.style.display = "block";
-            sizeCM.style.display = "none";
-            amountInPackage.style.display = "none";
-            disableStepTwoFormfields();
-            setStandardFormInputValues();
-        });
+    switch (currentItemType) {
+        case 'Clothing':
+            //color
+            let clothingColorLabel = document.createElement('label');
+            clothingColorLabel.innerHTML = 'Color';
+            clothingColorLabel.classList.add('smallVerticalMargin');
+            clothingColorLabel.setAttribute('id', 'item-clothing-color-label');
+            verticalAlignment.append(clothingColorLabel);
 
-        decorationformbtn.addEventListener('click', function () {
-            name.style.display = "block";
-            purchasePrice.style.display = "block";
-            sellPriceExbtw.style.display = "block";
-            curStock.style.display = "block";
-            minStock.style.display = "block";
-            color.style.display = "block";
-            size.style.display = "none";
-            weight.style.display = "none";
-            sizeCM.style.display = "block";
-            amountInPackage.style.display = "block";
-            disableStepTwoFormfields();
-            setStandardFormInputValues();
-        });
+            let clothingColorField = document.createElement('input');
+            clothingColorField.classList.add('form-control');
+            clothingColorField.setAttribute('id', 'item-clothing-color-field');
+            verticalAlignment.append(clothingColorField);
 
-        btnClothingForm.addEventListener('click', function (e) {
-            currentItemType = 'clothing';
-            submitInformationBtn.innerHTML = 'Naar stap 2';
-            currentWizardStep = 1;
-        });
+            let clothingColorErrorMsg = document.createElement('p');
+            clothingColorErrorMsg.setAttribute('id', 'clothing-color-error-msg');
+            clothingColorErrorMsg.classList.add('alert-warning');
+            verticalAlignment.append(clothingColorErrorMsg);
 
-        btnTierlatinForm.addEventListener('click', function () {
-            currentItemType = 'tierlantin';
-            submitInformationBtn.innerHTML = 'Naar stap 2';
-            currentWizardStep = 1;
-        });
+            //size
+            let clothingSizeLabel = document.createElement('label');
+            clothingSizeLabel.innerHTML = 'Size';
+            clothingSizeLabel.classList.add('smallVerticalMargin');
+            clothingSizeLabel.setAttribute('id', 'item-size-label');
+            verticalAlignment.append(clothingSizeLabel);
 
-        btnDecorationForm.addEventListener('click', function () {
-            currentItemType = 'decoration';
-            submitInformationBtn.innerHTML = 'Naar stap 2';
-            currentWizardStep = 1;
-        });
+            let clothingSizeField = document.createElement('input');
+            clothingSizeField.classList.add('form-control');
+            clothingSizeField.setAttribute('id', 'item-size-field');
+            verticalAlignment.append(clothingSizeField);
 
-        submitInformationBtn.addEventListener('click', function (e){
-            e.preventDefault();
-            //stap 1
-            if (currentWizardStep == 1) {
-                ValidateUserForm();
-                if (invalidUserInput) {
-                    return;
-                }
-                HideAllErrorMessages();
-                showStepTwoFormfields();
-                disableStepOneFormFields();
-                submitInformationBtn.innerHTML = 'Aanmaken die handel!';
-                currentWizardStep++;
-            }
-            //stap 2
-            else if (currentWizardStep == 2) {
-                ValidateUserForm();
-                if (invalidUserInput) {
-                    return;
-                }
-                HideAllErrorMessages();
-                currentWizardStep = 1;
-                let store = JSON.parse(localStorage.getItem('unused'));
-                let last;
-                if (store.products.length == 0) {
-                    last = 0;
-                } else {
-                    last = parseInt(store.products[store.products.length - 1].placed_at) + 1;
-                }
+            let clothingSizeErrorMsg = document.createElement('p');
+            clothingSizeErrorMsg.setAttribute('id', 'clothing-size-error-msg');
+            clothingSizeErrorMsg.classList.add('alert-warning');
+            verticalAlignment.append(clothingSizeErrorMsg);
 
+            //Create clothing piece
+            let createClothingBtn = document.createElement('button');
+            createClothingBtn.innerHTML = 'Create my clothing item!';
+            createClothingBtn.classList.add('btn', 'btn-info', 'smallMargin');
+            verticalAlignment.append(createClothingBtn);
 
-                let newItem;
-                if (currentItemType == 'clothing') {
-                    newItem = {
-                        id: store.products.length,
-                        placed_at: parseInt(last),
-                        name: name.value,
-                        type: currentItemType,
-                        description: description.value,
-                        import: parseInt(purchasePrice.value),
-                        export: parseInt(sellPriceExbtw.value),
-                        export_btw: parseInt(sellPriceExbtw.value) * 1.25,
-                        min_stock: parseInt(minStock.value),
-                        cur_stock: parseInt(curStock.value),
-                        color: color.value,
-                        size: size.value,
-                    }
-                }
-
-                if (currentItemType == 'tierlantin') {
-                    newItem = {
-                        id: store.products.length,
-                        placed_at: parseInt(last),
-                        name: name.value,
-                        type: currentItemType,
-                        description: description.value,
-                        import: parseInt(purchasePrice.value),
-                        export: parseInt(sellPriceExbtw.value),
-                        export_btw: parseInt(sellPriceExbtw.value) * 1.25,
-                        min_stock: parseInt(minStock.value),
-                        cur_stock: parseInt(curStock.value),
-                        weight: weight.value
-                    }
-                }
-
-                if (currentItemType == 'decoration') {
-                    newItem = {
-                        id: store.products.length,
-                        placed_at: parseInt(last),
-                        name: name.value,
-                        type: currentItemType,
-                        description: description.value,
-                        import: parseInt(purchasePrice.value),
-                        export: parseInt(sellPriceExbtw.value),
-                        export_btw: parseInt(sellPriceExbtw.value) * 1.25,
-                        min_stock: parseInt(minStock.value),
-                        cur_stock: parseInt(curStock.value),
-                        length: sizeCM.value,
-                        color: color.value,
-                        amountinpackage: amountInPackage.value
-                    }
-                }
-                store.products[store.products.length] = newItem;
-                localStorage.setItem('unused', JSON.stringify(store));
-                let newDiv = Window.inventoryController.createStartDiv_1(newItem, true);
-                inventoryController.addEmptyListener(newDiv);
-                if (newItem.type == "clothing") {
-                    document.getElementById("clothing-dropdown").appendChild(newDiv);
-                }
-                if (newItem.type == "tierlantin") {
-                    document.getElementById("tierlantin-dropdown").appendChild(newDiv);
-                }
-                if (newItem.type == "decoration") {
-                    document.getElementById("decoration-dropdown").appendChild(newDiv);
-                }
-                createitembtn.click();
-            }
-        });
-
-        submitUpdateBtn.addEventListener('click', () => {
-
-            ValidateUserForm();
-            if (invalidUserInput) {
-                return;
-            }
-            HideAllErrorMessages();
-            currentUpdateItem.name = name.value
-            currentUpdateItem.description = description.value;
-            currentUpdateItem.import = parseInt(purchasePrice.value);
-            currentUpdateItem.export = parseInt(sellPriceExbtw.value);
-            currentUpdateItem.export_btw = parseInt(sellPriceExbtw.value) * 1.21;
-            currentUpdateItem.cur_stock = parseInt(curStock.value);
-            currentUpdateItem.min_stock = parseInt(minStock.value);
-            //Show standard fields
-            if (currentUpdateItem.type == 'clothing') {
-                currentUpdateItem.color = color.value;
-                currentUpdateItem.size = size.value;
-            }
-            if (currentUpdateItem.type == 'tierlantin') {
-                currentUpdateItem.weight = weight.value;
-            }
-            if (currentUpdateItem.type == 'decoration') {
-                currentUpdateItem.color = color.value;
-                currentUpdateItem.length = sizeCM.value;
-                currentUpdateItem.amountinpackage = amountInPackage.value;
-            }
-
-            let list = this.storage.GetList(currentUpdateType);
-            list.products.forEach(function (item) {
-                if (item.placed_at == currentUpdateItem.placed_at) {
-                    item = currentUpdateItem;
+            createClothingBtn.addEventListener('click', () => {
+                validateUserInputStepThreeTypeClothing();
+                if (validUserInput) {
+                    //CREATE CLOTHING HERE
                 }
             });
-            this.storage.SetList(currentUpdateType, list);
-            createitembtn.click();
-        });
-    }
 
+            break;
+        case 'Tierlatin':
+            //weight
+            let weightLabel = document.createElement('label');
+            weightLabel.innerHTML = 'Weight';
+            weightLabel.classList.add('smallVerticalMargin');
+            weightLabel.setAttribute('id', 'item-weight-label');
+            verticalAlignment.append(weightLabel);
+
+            let weightField = document.createElement('input');
+            weightField.classList.add('form-control');
+            weightField.setAttribute('id', 'item-weight-field');
+            verticalAlignment.append(weightField);
+
+            let weightErrorMsg = document.createElement('p');
+            weightErrorMsg.setAttribute('id', 'weight-error-msg');
+            weightErrorMsg.classList.add('alert-warning');
+            verticalAlignment.append(weightErrorMsg);
+
+            //Create tierlatin piece
+            let createTierlatinBtn = document.createElement('button');
+            createTierlatinBtn.innerHTML = 'Create my tierlatin item!';
+            createTierlatinBtn.classList.add('btn', 'btn-info', 'smallMargin');
+            verticalAlignment.append(createTierlatinBtn);
+
+            createTierlatinBtn.addEventListener('click', () => {
+                validateUserInputStepThreeTypeTierlatin();
+                if (validUserInput) {
+                    //CREATE TIERLATIN ITEM HERE
+                }
+            });
+            break;
+        case 'Decoration':
+            //size
+            let decorationSizeLabel = document.createElement('label');
+            decorationSizeLabel.innerHTML = 'Size in CM';
+            decorationSizeLabel.classList.add('smallVerticalMargin');
+            decorationSizeLabel.setAttribute('id', 'item-decoration-size-label');
+            verticalAlignment.append(decorationSizeLabel);
+
+            let decorationSizeField = document.createElement('input');
+            decorationSizeField.classList.add('form-control');
+            decorationSizeField.setAttribute('id', 'item-decoration-size-field');
+            verticalAlignment.append(decorationSizeField);
+
+            let decorationSizeErrorMsg = document.createElement('p');
+            decorationSizeErrorMsg.setAttribute('id', 'decoration-size-error-msg');
+            decorationSizeErrorMsg.classList.add('alert-warning');
+            verticalAlignment.append(decorationSizeErrorMsg);
+
+            //color
+            let decorationColorLabel = document.createElement('label');
+            decorationColorLabel.innerHTML = 'Color';
+            decorationColorLabel.classList.add('smallVerticalMargin');
+            decorationColorLabel.setAttribute('id', 'item-decoration-color-label');
+            verticalAlignment.append(decorationColorLabel);
+
+            let decorationColorField = document.createElement('input');
+            decorationColorField.classList.add('form-control');
+            decorationColorField.setAttribute('id', 'item-decoration-color-field');
+            verticalAlignment.append(decorationColorField);
+
+            let decorationColorErrorMsg = document.createElement('p');
+            decorationColorErrorMsg.setAttribute('id', 'decoration-color-error-msg');
+            decorationColorErrorMsg.classList.add('alert-warning');
+            verticalAlignment.append(decorationColorErrorMsg);
+
+            //package amount
+            let packageAmountLabel = document.createElement('label');
+            packageAmountLabel.innerHTML = 'Amount in package';
+            packageAmountLabel.classList.add('smallVerticalMargin');
+            packageAmountLabel.setAttribute('id', 'item-package-amount-label');
+            verticalAlignment.append(packageAmountLabel);
+
+            let packageAmountField = document.createElement('input');
+            packageAmountField.classList.add('form-control');
+            packageAmountField.setAttribute('id', 'item-decoration-package-amount-field');
+            verticalAlignment.append(packageAmountField);
+
+            let packageAmountErrorMsg = document.createElement('p');
+            packageAmountErrorMsg.setAttribute('id', 'package-amount-error-msg');
+            packageAmountErrorMsg.classList.add('alert-warning');
+            verticalAlignment.append(packageAmountErrorMsg);
+
+            //Create decoration piece
+            let createDecorationBtn = document.createElement('button');
+            createDecorationBtn.innerHTML = 'Create my decoration item!';
+            createDecorationBtn.classList.add('btn', 'btn-info', 'smallMargin');
+            verticalAlignment.append(createDecorationBtn);
+
+            createDecorationBtn.addEventListener('click', () => {
+                validateUserInputStepThreeTypeDecoration();
+                if (validUserInput) {
+                    //CREATE DECORATION ITEM HERE
+                }
+            });
+            break;
+    }
 }
 
+//user validation
+function validateUserInputStepTwo() {
+    validUserInput = true;
 
-function ValidateUserForm() {
-    HideAllErrorMessages();
-    invalidUserInput = false;
-    if (name.value == '') {
-        itemNameErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (description.value == '') {
-        itemDescriptionErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (purchasePrice.value == '' || isNaN(purchasePrice.value)) {
-        itemPurchasePriseErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (sellPriceExbtw.value == '' || isNaN(sellPriceExbtw.value)) {
-        itemSellPriceErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (curStock.value == '' || isNaN(curStock.value)) {
-        itemCurStockErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (minStock.value == '' || isNaN(minStock.value)) {
-        itemMinStockErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (color.value == '') {
-        itemColorErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (size.value == '') {
-        itemSizeErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (weight.value == '') {
-        itemWeightErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (sizeCM.value == '') {
-        itemSizeCMErrorMessage.style.display = "block";
-        invalidUserInput = true;
-    }
-    if (amountInPackage.value == '') {
-        itemAmountErrorMessage.style.display = "block";
-        invalidUserInput = true;
+    //gather values
+    nameValue = document.getElementById('item-name-field').value;
+    descriptionValue = document.getElementById('item-description-field').value;
+    purchasePriceValue = document.getElementById('item-purchasePrice-field').value;
+    sellPriceValue = document.getElementById('item-sellPrice-field').value;
+    currStockValue = document.getElementById('item-curStock-field').value;
+    minStockValue = document.getElementById('item-minStock-field').value;
+
+    if (nameValue == '') {
+        validUserInput = false;
+        document.getElementById('name-error-msg').classList.remove('hide');
+        document.getElementById('name-error-msg').innerHTML = 'Please fill in the name';
+    } else {
+        document.getElementById('name-error-msg').classList.add('hide');
     }
 
+    if (descriptionValue == '') {
+        validUserInput = false;
+        document.getElementById('description-error-msg').classList.remove('hide');
+        document.getElementById('description-error-msg').innerHTML = 'Please fill in the description';
+    } else {
+        document.getElementById('description-error-msg').classList.add('hide');
+    }
 
+    if (purchasePriceValue == '' || isNaN(purchasePriceValue)) {
+        validUserInput = false;
+        document.getElementById('purchasePrice-error-msg').classList.remove('hide');
+        document.getElementById('purchasePrice-error-msg').innerHTML = 'Please fill in the purchase price (number)';
+    } else {
+        document.getElementById('purchasePrice-error-msg').classList.add('hide');
+    }
 
+    if (sellPriceValue == '' || isNaN(sellPriceValue)) {
+        validUserInput = false;
+        document.getElementById('sellPrice-error-msg').classList.remove('hide');
+        document.getElementById('sellPrice-error-msg').innerHTML = 'Please fill in the sell price (number)';
+    } else {
+        document.getElementById('sellPrice-error-msg').classList.add('hide');
+    }
 
+    if (currStockValue == '' || isNaN(currStockValue)) {
+        validUserInput = false;
+        document.getElementById('currStock-error-msg').classList.remove('hide');
+        document.getElementById('currStock-error-msg').innerHTML = 'Please fill in the current stock (number)';
+    } else {
+        document.getElementById('currStock-error-msg').classList.add('hide');
+    }
 
+    if (minStockValue == '' || isNaN(minStockValue)) {
+        validUserInput = false;
+        document.getElementById('minStock-error-msg').classList.remove('hide');
+        document.getElementById('minStock-error-msg').innerHTML = 'Please fill in the minimum stock (number)';
+    } else {
+        document.getElementById('minStock-error-msg').classList.add('hide');
+    }
 }
 
-function HideAllErrorMessages() {
-    itemNameErrorMessage.style.display = "none";
-    itemDescriptionErrorMessage.style.display = "none";
-    itemPurchasePriseErrorMessage.style.display = "none";
-    itemSellPriceErrorMessage.style.display = "none";
-    itemCurStockErrorMessage.style.display = "none";
-    itemMinStockErrorMessage.style.display = "none";
-    itemColorErrorMessage.style.display = "none";
-    itemSizeErrorMessage.style.display = "none";
-    itemWeightErrorMessage.style.display = "none";
-    itemSizeCMErrorMessage.style.display = "none";
-    itemAmountErrorMessage.style.display = "none";
-    invalidUserInput = false;
+function validateUserInputStepThreeTypeClothing() {
+    validUserInput = true;
+
+    //gather values
+    clothingColorValue = document.getElementById('item-clothing-color-field').value;
+    clothingSizeValue = document.getElementById('item-size-field').value;
+
+    if (clothingColorValue == '') {
+        validUserInput = false;
+        document.getElementById('clothing-color-error-msg').classList.remove('hide');
+        document.getElementById('clothing-color-error-msg').innerHTML = 'Please fill in the color';
+    } else {
+        document.getElementById('clothing-color-error-msg').classList.add('hide');
+    }
+
+    if (clothingSizeValue == '') {
+        validUserInput = false;
+        document.getElementById('clothing-size-error-msg').classList.remove('hide');
+        document.getElementById('clothing-size-error-msg').innerHTML = 'Please fill in the size';
+    } else {
+        document.getElementById('clothing-size-error-msg').classList.add('hide');
+    }
 }
 
-function setStandardFormInputValues() {
-    name.value = 'Item naam';
-    description.value = 'Item beschrijving';
-    purchasePrice.value = 'Item inkoopprijs';
-    sellPriceExbtw.value = 'Item verkoopprijs excl. btw';
-    curStock.value = 'Item huidige stock';
-    minStock.value = 'Item minimale stock';
-    color.value = 'Item kleur';
-    size.value = 'Item maat';
-    weight.value = 'Item gewicht';
-    sizeCM.value = 'Item grootte in cm';
-    amountInPackage.value = 'Item hoeveelheid per pakketje';
+function validateUserInputStepThreeTypeTierlatin() {
+    validUserInput = true;
+
+    //gather values
+    weightValue = document.getElementById('item-weight-field').value;
+
+    if (weightValue == '' || isNaN(weightValue)) {
+        validUserInput = false;
+        document.getElementById('weight-error-msg').classList.remove('hide');
+        document.getElementById('weight-error-msg').innerHTML = 'Please fill in the weight';
+    } else {
+        document.getElementById('weight-error-msg').classList.add('hide');
+    }
 }
 
+function validateUserInputStepThreeTypeDecoration() {
+    validUserInput = true;
 
+    //gather values
+    decorationSize = document.getElementById('item-decoration-size-field').value;
+    decorationColor = document.getElementById('item-decoration-color-field').value;
+    amountInPackage = document.getElementById('item-decoration-package-amount-field').value;
 
+    if (decorationSize == '') {
+        validUserInput = false;
+        document.getElementById('decoration-size-error-msg').classList.remove('hide');
+        document.getElementById('decoration-size-error-msg').innerHTML = 'Please fill in the size';
+    } else {
+        document.getElementById('decoration-size-error-msg').classList.add('hide');
+    }
 
+    if (decorationColor == '') {
+        validUserInput = false;
+        document.getElementById('decoration-color-error-msg').classList.remove('hide');
+        document.getElementById('decoration-color-error-msg').innerHTML = 'Please fill in the color';
+    } else {
+        document.getElementById('decoration-color-error-msg').classList.add('hide');
+    }
 
-function disableStepTwoFormfields() {
-    description.style.display = "none";
+    if (amountInPackage == '' || isNaN(amountInPackage)) {
+        validUserInput = false;
+        document.getElementById('package-amount-error-msg').classList.remove('hide');
+        document.getElementById('package-amount-error-msg').innerHTML = 'Please fill in the package amount';
+    } else {
+        document.getElementById('package-amount-error-msg').classList.add('hide');
+    }
 }
 
-function showStepTwoFormfields() {
-    description.style.display = "block";
+//helper functions
+function removeElementsByClass(className) {
+    let elements = document.getElementsByClassName(className);
+    while (elements.length > 0) {
+        elements[0].parentNode.removeChild(elements[0]);
+    }
 }
 
-function disableStepOneFormFields() {
-    name.style.display = "none";
-    purchasePrice.style.display = "none";
-    sellPriceExbtw.style.display = "none";
-    curStock.style.display = "none";
-    minStock.style.display = "none";
-    color.style.display = "none";
-    size.style.display = "none";
-    weight.style.display = "none";
-    amountInPackage.style.display = "none";
-    sizeCM.style.display = "none";
-}
+function resetForm() {
+    //general
+    nameValue = undefined;
+    descriptionValue = undefined;
+    purchasePriceValue = undefined;
+    sellPriceValue = undefined;
+    currStockValue = undefined;
+    minStockValue = undefined;
 
-function showStepOneFormFields() {
-    name.style.display = "block";
-    purchasePrice.style.display = "block";
-    sellPriceExbtw.style.display = "block";
-    curStock.style.display = "block";
-    minStock.style.display = "block";
-    color.style.display = "block";
-    size.style.display = "block";
-    weight.style.display = "block";
-    amountInPackage.style.display = "block";
-    sizeCM.style.display = "block";
+    //clothing specific
+    clothingColorValue = undefined;
+    clothingSizeValue = undefined;
+
+    //tierlatin specific
+    weightValue = undefined;
+
+    //decoration specific
+    decorationSize = undefined;
+    decorationColor = undefined;
+    amountInPackage = undefined;
+
+    //validation
+    validUserInput = false;
 }

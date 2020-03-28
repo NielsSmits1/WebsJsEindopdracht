@@ -22,6 +22,7 @@ export default class ViewController {
         clothingdd.parentElement.style.display = "none";
         tierlantindd.parentElement.style.display = "none";
         decorationdd.parentElement.style.display = "none";
+
         clothingbtn.addEventListener('click', function () {
             clothingregion.style.display = "block";
             clothingdd.parentElement.style.display = "block";
@@ -77,8 +78,6 @@ export default class ViewController {
             })
         });
 
-
-
         window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
                 let dropdowns = document.getElementsByClassName("dropdown-content");
@@ -90,18 +89,17 @@ export default class ViewController {
                     }
                 }
             }
-
         }
     }
+
     InitCanvas() {
         let isDrawing = false;
-        
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext('2d');
         let width = canvas.width;
         let height = canvas.height;
 
-        ctx.fillCircle = function(x, y) {
+        ctx.fillCircle = function (x, y) {
             this.fillStyle = 'black';
             this.beginPath();
             this.moveTo(x, y);
@@ -109,18 +107,18 @@ export default class ViewController {
             this.fill();
         };
 
-        canvas.onmousemove = function(e) {
+        canvas.onmousemove = function (e) {
             if (!isDrawing) {
                 return;
-             }
+            }
             var x = e.pageX - canvas.getBoundingClientRect().left;
             var y = e.pageY - canvas.getBoundingClientRect().top;
             ctx.fillCircle(x, y);
         };
-        canvas.onmousedown = function(e) {
+        canvas.onmousedown = function (e) {
             isDrawing = true;
         };
-        canvas.onmouseup = function(e) {
+        canvas.onmouseup = function (e) {
             isDrawing = false;
         };
     }
