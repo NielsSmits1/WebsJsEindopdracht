@@ -403,8 +403,8 @@ export default class InventoryController {
                             let context = canvas.getContext("2d");
                             context.clearRect(0, 0, canvas.width, canvas.height);
                             context.beginPath();
-                            context.drawImage(img, 0, 0, img.width, img.height,
-                                0, 0, canvas.width, canvas.height);
+                            setTimeout(context.drawImage(img, 0, 0, img.width, img.height,
+                                0, 0, canvas.width, canvas.height), 500);
                         } else {
                             let canvas = document.getElementsByTagName('canvas')[0];
 
