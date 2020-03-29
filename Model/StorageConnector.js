@@ -19,8 +19,7 @@ export default class LocalStorageModel {
                 min_stock: 2,
                 cur_stock: 3,
                 color: "red",
-                size: "XL",
-                imgpath: "https://source.unsplash.com/random/30x30"
+                size: "XL"
             };
             unused.products[unused.products.length] = jurk;
             localStorage.setItem('unused', JSON.stringify(unused));

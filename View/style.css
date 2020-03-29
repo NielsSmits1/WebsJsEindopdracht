@@ -42,8 +42,8 @@ body {
     width: 25px;
     top: 5px;
     cursor: pointer;
-    background-color: red;
-    background-size: cover;
+    background-color: gray;
+    background-size: 25px 25px;
 }
 
 .blackborder {
@@ -70,10 +70,6 @@ body {
     margin: 10px;
     border: solid 3px black;
     background: white;
-}
-
-.used {
-
 }
 
 .inputfieldwidth {

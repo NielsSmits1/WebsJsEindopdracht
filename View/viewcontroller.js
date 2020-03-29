@@ -98,7 +98,12 @@ export default class ViewController {
 
     InitCanvas() {
         let canvas = document.createElement('canvas');
+        canvas.id = 'damage-canvas';
+        let savebtn = document.createElement('button');
+        savebtn.id = 'save-canvasbtn';
+        savebtn.innerHTML = 'Save damage';
         document.getElementsByClassName('screen')[0].appendChild(canvas).classList.add('blackborder');
+        document.getElementsByClassName('screen')[0].appendChild(savebtn).classList.add('btn', 'btn-primary');
         let ctx = canvas.getContext('2d');
         let pos = {x: 0, y: 0};
 

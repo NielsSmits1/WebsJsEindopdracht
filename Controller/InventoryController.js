@@ -150,6 +150,34 @@ export default class InventoryController {
                 screen[0].id = newDiv2.parentElement.id;
                 screen[0].className = "screen" + " " + newDiv2.parentElement.classList[1];
                 screen[0].style.display = 'block';
+                let label = document.getElementById('current-specialty');
+                let list = this.storage.GetList(newDiv2.parentElement.classList[1]);
+                list.products.forEach(function (listitem) {
+                    if (listitem.placed_at == screen[0].id) {
+                        if (listitem.specialty != null) {
+                            label.innerText = "Current specialty: " + listitem.specialty;
+                        } else {
+                            label.innerText = "Current specialty: none";
+                        }
+                        if (listitem.imgpath != null) {
+                            let canvas = document.getElementsByTagName('canvas')[0];
+                            let img = new Image();
+                            img.src = listitem.imgpath;
+                            let context = canvas.getContext("2d");
+                            context.clearRect(0, 0, canvas.width, canvas.height);
+                            context.beginPath();
+                            context.drawImage(img, 0, 0, img.width, img.height,
+                                0, 0, canvas.width, canvas.height);
+                        } else {
+                            let canvas = document.getElementsByTagName('canvas')[0];
+
+                            let context = canvas.getContext('2d');
+
+                            context.clearRect(0, 0, canvas.width, canvas.height);
+                            context.beginPath();
+                        }
+                    }
+                });
             });
         }
 
@@ -373,8 +401,17 @@ export default class InventoryController {
                             let img = new Image();
                             img.src = listitem.imgpath;
                             let context = canvas.getContext("2d");
+                            context.clearRect(0, 0, canvas.width, canvas.height);
+                            context.beginPath();
                             context.drawImage(img, 0, 0, img.width, img.height,
                                 0, 0, canvas.width, canvas.height);
+                        } else {
+                            let canvas = document.getElementsByTagName('canvas')[0];
+
+                            let context = canvas.getContext('2d');
+
+                            context.clearRect(0, 0, canvas.width, canvas.height);
+                            context.beginPath();
                         }
                     }
                 });
@@ -383,11 +420,11 @@ export default class InventoryController {
 
         let upload = document.getElementById('myFile');
         upload.addEventListener('change', function (e) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             if (e.target.files[0] == null) {
                 return
             }
-            var name = e.target.files[0].name;
+            let name = e.target.files[0].name;
 
             reader.addEventListener("load", function () {
                 screen = document.getElementsByClassName('screen');
@@ -409,8 +446,32 @@ export default class InventoryController {
                 });
             });
 
-
+            self.HideScreen();
             reader.readAsDataURL(event.target.files[0]);
+        });
+
+        let savebtn = document.getElementById('save-canvasbtn');
+        savebtn.addEventListener('click', function () {
+            let canvas = document.getElementById("damage-canvas");
+            let img = canvas.toDataURL("image/png");
+
+            screen = document.getElementsByClassName('screen');
+            let type = screen[0].classList[1];
+            let list = self.storage.GetList(type);
+            let imgpath;
+            list.products.forEach((product) => {
+                if (product.placed_at == screen[0].id) {
+                    product.imgpath = img;
+                }
+                self.storage.SetList(type, list);
+            });
+            let squares = Array.from(document.querySelectorAll('.empty.' + type));
+            squares.forEach((square) => {
+                if (square.id == screen[0].id) {
+                    square.firstChild.style.backgroundImage = loadImage(img);
+                    //square.firstChild.style.backgroundSize = '25px 25px';
+                }
+            });
         });
 
         let empties = Array.from(document.querySelectorAll('.empty'));
