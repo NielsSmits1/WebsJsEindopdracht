@@ -73,6 +73,9 @@ export default class InventoryController {
             }
 
             this.storage.SetList(type, list);
+            if(type == 'unused'){
+                this.oldDraggable.remove();
+            }
             //ADD TO LIST
             let second_list;
             let second_type;
