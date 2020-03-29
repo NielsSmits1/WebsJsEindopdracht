@@ -14,7 +14,6 @@ const crudregion = document.getElementById("crud-region");
 const clothingdd = document.getElementById('clothing-dropdown');
 const tierlantindd = document.getElementById('tierlantin-dropdown');
 const decorationdd = document.getElementById('decoration-dropdown');
-/*Event Listeners*/
 
 export default class ViewController {
     constructor() {
@@ -101,7 +100,7 @@ export default class ViewController {
         let canvas = document.createElement('canvas');
         document.getElementsByClassName('screen')[0].appendChild(canvas).classList.add('blackborder');
         let ctx = canvas.getContext('2d');
-        let pos = { x: 0, y: 0 };
+        let pos = {x: 0, y: 0};
 
         document.addEventListener('mousemove', draw);
         document.addEventListener('mousedown', setPosition);

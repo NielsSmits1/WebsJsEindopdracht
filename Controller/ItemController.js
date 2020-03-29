@@ -466,7 +466,7 @@ function createItemStepThree(item = null, type = null) {
                             document.getElementById("decoration-dropdown").appendChild(newDiv);
                         }
                         document.getElementById("create-item-btn").click();
-                    }else if (mode == 'update') {
+                    } else if (mode == 'update') {
                         item.name = nameValue;
                         item.type = 'tierlantin';
                         item.description = descriptionValue;
@@ -594,7 +594,7 @@ function createItemStepThree(item = null, type = null) {
                             document.getElementById("decoration-dropdown").appendChild(newDiv);
                         }
                         document.getElementById("create-item-btn").click();
-                    }else if (mode == 'update') {
+                    } else if (mode == 'update') {
                         item.name = nameValue;
                         item.type = 'decoration';
                         item.description = descriptionValue;
